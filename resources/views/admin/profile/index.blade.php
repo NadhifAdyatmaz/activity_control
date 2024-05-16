@@ -8,23 +8,30 @@
           <div class="col-md-4">
             <div class="card card-user">
               <div class="image">
-                <img src="../assets/img/damir-bosnjak.jpg" alt="...">
+                <!-- <img src="../assets/img/logo-smk-full.png" alt="..."> -->
               </div>
               <div class="card-body">
+                <form>
                 <div class="author">
-                  <a href="#">
-                    <img class="avatar border-gray" src="../assets/img/mike.jpg" alt="...">
-                    <h5 class="title">Administrator</h5>
+                  <a>
+                    <img class="avatar border-gray" src="../assets/img/default-avatar.png" alt="...">
+                    <h5 class="title">{{ Auth::user()->name }}</h5>
                   </a>
                   <p class="description">
-                    @admin
+                  {{ Auth::user()->username }}
                   </p>
                 </div>
-                <p class="description text-center">
+                <!-- <p class="description text-center">
                   "I like the way you work it <br>
                   No diggity <br>
                   I wanna bag it up"
-                </p>
+                </p> -->
+                <div class="row">
+                    <div class="update ml-auto mr-auto">
+                      <button type="submit" class="btn btn-primary btn-round">Update Photo</button>
+                    </div>
+                  </div>
+                </form>
               </div>
               <!-- <div class="card-footer">
                 <hr>
@@ -127,7 +134,7 @@
                     <div class="col-md-6 pl-1">
                       <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input type="email" class="form-control" placeholder="Email" value="{{ Auth::user()->email }}">
                       </div>
                     </div>
                   </div>
@@ -135,24 +142,24 @@
                     <div class="col-md-4 pr-1">
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" class="form-control" placeholder="Username" value="admin">
+                        <input type="text" class="form-control" placeholder="Username" value="{{ Auth::user()->username }}">
                       </div>
                     </div>
                     <div class="col-md-8 pl-1">
                       <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" placeholder="Name" value="Administrator">
+                        <input type="text" class="form-control" placeholder="Name" value="{{ Auth::user()->name }}">
                       </div>
                     </div>
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" placeholder="Home Address" value="Tanjung Bumi, Bangkalan">
+                        <input type="text" class="form-control" placeholder="Home Address" value="{{ Auth::user()->name }}">
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <!-- <div class="row">
                     <div class="col-md-4 pr-1">
                       <div class="form-group">
@@ -172,7 +179,7 @@
                         <input type="number" class="form-control" placeholder="ZIP Code">
                       </div>
                     </div>
-                  </div> -->
+                  </div>
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group">
@@ -180,7 +187,7 @@
                         <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="row">
                     <div class="update ml-auto mr-auto">
                       <button type="submit" class="btn btn-primary btn-round">Update Profile</button>

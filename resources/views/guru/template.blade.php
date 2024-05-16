@@ -55,7 +55,7 @@ Coded by www.creative-tim.com
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active ">
-            <a href="./dashboard.html">
+            <a href="#">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>

@@ -27,9 +27,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        @include('admin.layouts.topbar')
-      </nav>
+      @include('admin.layouts.topbar')
       <!-- End Navbar -->
 
       <!-- Content -->

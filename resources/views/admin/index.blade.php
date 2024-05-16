@@ -11,7 +11,7 @@
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-globe text-warning"></i>
+                      <i class="nc-icon nc-tile-56 text-warning"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
@@ -37,7 +37,7 @@
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-money-coins text-success"></i>
+                      <i class="nc-icon nc-tile-56 text-primary"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
@@ -63,7 +63,7 @@
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-vector text-danger"></i>
+                      <i class="nc-icon nc-map-big text-danger"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
@@ -89,7 +89,7 @@
                 <div class="row">
                   <div class="col-5 col-md-4">
                     <div class="icon-big text-center icon-warning">
-                      <i class="nc-icon nc-favourite-28 text-primary"></i>
+                      <i class="nc-icon nc-map-big text-primary"></i>
                     </div>
                   </div>
                   <div class="col-7 col-md-8">
@@ -110,7 +110,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        <!-- <div class="row">
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
@@ -128,7 +128,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- <div class="row">
           <div class="col-md-4">
             <div class="card ">
