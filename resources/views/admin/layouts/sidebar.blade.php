@@ -83,26 +83,26 @@
                 </a>
                 <div class="collapse" id="laravelExamples">
                     <ul class="nav">
-                        <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
-                            <a href="#">
+                        <li class="{{ Route::currentRouteName() == 'admin.masterdata.periode' ? 'active' : '' }}">
+                            <a href="{{route('admin.masterdata.periode')}}">
                             <i class="nc-icon nc-simple-add"></i>
                                 <p>{{ __(' Periode ') }}</p>
                             </a>
                         </li>
-                        <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
-                            <a href="#">
+                        <li class="{{ Route::currentRouteName() == 'admin.masterdata.mapel' ? 'active' : '' }}">
+                            <a href="{{route('admin.masterdata.mapel')}}">
                             <i class="nc-icon nc-simple-add"></i>
                                 <p>{{ __(' Mata Pelajaran ') }}</p>
                             </a>
                         </li>
-                        <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
-                            <a href="#">
+                        <li class="{{ Route::currentRouteName() == 'admin.masterdata.jampel' ? 'active' : '' }}">
+                            <a href="{{route('admin.masterdata.jampel')}}">
                             <i class="nc-icon nc-simple-add"></i>
                                 <p>{{ __(' Jam Pelajaran ') }}</p>
                             </a>
                         </li>
-                        <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
-                            <a href="#">
+                        <li class="{{ Route::currentRouteName() == 'admin.masterdata.kelas' ? 'active' : '' }}">
+                            <a href="{{route('admin.masterdata.kelas')}}">
                             <i class="nc-icon nc-simple-add"></i>
                                 <p>{{ __(' Kelas ') }}</p>
                             </a>
