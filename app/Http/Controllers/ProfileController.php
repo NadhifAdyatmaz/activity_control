@@ -25,25 +25,30 @@ class ProfileController extends Controller
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        if ($request->hasFile('photo')) {
-            $photo = time() . '.' . $request->photo->extension();
-            $uploadedImage = $request->photo->move(public_path('images/admin'), $photo);
-            $imagePath = 'images/admin/' . $photo;
-            $request->user()->photo = $imagePath;
-        }
-        
+{
+    // Pastikan ada file yang diunggah
+    if ($request->hasFile('photo')) {
+        $photo = time().'.'.$request->photo->extension();
+        $uploadedImage = $request->photo->move(public_path('images/admin'), $photo);
+        $imagePath = 'images/admin/' . $photo;
+
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-
+        
+        $request->user()->photo = $imagePath;
 
         $request->user()->save();
 
         return Redirect::route('admin.profile')->with('status', 'profile-updated');
     }
+
+    // Tindakan jika tidak ada file yang diunggah
+    return Redirect::route('admin.profile')->with('error', 'No photo uploaded');
+}
+
 
     /**
      * Delete the user's account.
