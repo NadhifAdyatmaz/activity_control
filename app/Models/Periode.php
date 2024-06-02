@@ -10,5 +10,7 @@ class Periode extends Model
     use HasFactory;
     protected $table = 'periodes';
     protected $primaryKey = 'id';
-    protected $fillable = ['id','name','status'];
+    protected $fillable = ['id','name','semester','status'];
+
+    public $timestamps = false;
 }

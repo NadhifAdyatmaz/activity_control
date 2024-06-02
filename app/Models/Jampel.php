@@ -11,4 +11,6 @@ class Jampel extends Model
     protected $table = 'jampels';
     protected $primaryKey = 'id';
     protected $fillable = ['id','jam_ke','pukul'];
+    public $timestamps = false;
+
 }

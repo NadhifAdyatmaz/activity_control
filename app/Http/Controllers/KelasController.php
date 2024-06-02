@@ -30,7 +30,26 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'jumlah_siswa' => 'required',
+            'status' => 'required',
+        ],
+        [
+            'name.required'=>"Nama Harus Diisi",
+            'jumlah_siswa.required'=>"Jumlah Siswa Harus Diisi",
+            'status.required'=>"Status Harus Diisi",
+        ]);
+
+        $kelas = new Kelas;
+
+        $kelas->name = $request->input('name');
+        $kelas->jumlah_siswa = $request->input('jumlah_siswa');
+        $kelas->status = $request->input('status');
+
+        $kelas->save();
+
+        return redirect('admin/master-kelas')->with('success', 'Data Tersimpan');
     }
 
     /**

@@ -107,12 +107,6 @@
                                 <p>{{ __(' Kelas ') }}</p>
                             </a>
                         </li>
-                        <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
-                            <a href="#">
-                            <i class="nc-icon nc-simple-add"></i>
-                                <p>{{ __(' Guru ') }}</p>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </li>

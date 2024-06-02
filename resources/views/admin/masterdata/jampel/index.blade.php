@@ -162,15 +162,23 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row">
+                    <div class="row mb-0">
                         <div class="col-sm-8">
                             <h2><b>Master -</b> Jampel</h2>
                         </div>
-                        <div class="col-sm-4">
+                    </div>
+                    <div class="row mb-0">
+                        <div class="col-sm-12">
                             <div class="search-box">
                                 <i class="fa fa-search"></i>
                                 <input type="text" class="form-control" placeholder="Search&hellip;">
                             </div>
+                        </div>
+                    </div>
+                    <div class="row mb-0">
+                        <div class="col-sm-8">
+                            <a href="#add-jampel" class="btn btn-primary" data-toggle="modal"><i
+                                    class="bi bi-plus"></i><span>Add</span></a>
                         </div>
                     </div>
                 </div>
@@ -179,8 +187,8 @@
                         <table class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Jam ke <i class="fa fa-sort"></i></th>
-                                    <th>Pukul <i class="fa fa-sort"></i></th>
+                                    <th>Jam ke</th>
+                                    <th>Pukul</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -190,25 +198,27 @@
                                         <th>{{ $item->jam_ke }}</th>
                                         <td>{{ $item->pukul }}</td>
                                         <td>
-                                            <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE417;</i></a>
+                                            <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                        class="material-icons">&#xE417;</i></a> -->
                                             <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
                                                     class="material-icons">&#xE254;</i></a>
                                             <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
                                                     class="material-icons">&#xE872;</i></a>
+
+                                            @include('admin.masterdata.jampel.create')
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="clearfix">
-                            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                            <div class="hint-text">Showing <b>10</b> out of <b>25</b> entries</div>
                             <ul class="pagination">
                                 <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a>
                                 </li>
-                                <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
                                 <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                <li class="page-item"><a href="#" class="page-link">3</a></li>
                                 <li class="page-item"><a href="#" class="page-link">4</a></li>
                                 <li class="page-item"><a href="#" class="page-link">5</a></li>
                                 <li class="page-item"><a href="#" class="page-link"><i

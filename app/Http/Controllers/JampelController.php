@@ -30,7 +30,23 @@ class JampelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'jam_ke' => 'required',
+            'pukul' => 'required',
+        ],
+        [
+            'jam_ke.required'=>"Jam Ke Harus Diisi",
+            'pukul.required'=>"pukul Harus Diisi",
+        ]);
+
+        $jampel = new Jampel;
+
+        $jampel->jam_ke = $request->input('jam_ke');
+        $jampel->pukul = $request->input('pukul');
+
+        $jampel->save();
+
+        return redirect('admin/master-jampel')->with('success', 'Data Tersimpan');
     }
 
     /**

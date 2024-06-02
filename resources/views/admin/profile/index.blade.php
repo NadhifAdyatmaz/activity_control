@@ -7,9 +7,12 @@
   <div class="row">
     <div class="col-md-12">
       <div class="card card-user">
-        <div class="image">
-          <!-- <img src="../assets/img/logo-smk-full.png" alt="..."> -->
+        <div class="card-header" style="margin-bottom: 20px;">
+          <h5 class="title">{{ __('Edit Profil') }}</h5>
         </div>
+        <!-- <div class="image">
+          <img src="../assets/img/logo-smk-full.png" alt="...">
+        </div> -->
         <div class="card-body">
           <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -38,8 +41,8 @@
               <div class="row mt-3">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label>School (disabled)</label>
-                    <input type="text" class="form-control" disabled placeholder="Company" value="SMKN 1 Tanjung Bumi">
+                    <label>Sekolah (disabled)</label>
+                    <input type="text" class="form-control" disabled placeholder="Sekolah" value="SMKN 1 Tanjung Bumi">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -54,10 +57,10 @@
             )
                       <div>
                       <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
+                        {{ __('Email anda belum terverifikasi') }}
                         <button form="send-verification"
                         class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {{ __('Click here to re-send the verification email.') }}
+                        {{ __('Klik disini untuk mengirim ulang verifikasi email') }}
                         </button>
                       </p>
                       @if (session('status') === 'verification-link-sent')
@@ -121,7 +124,7 @@
       </div>
     </div>
 
-    <form class="col-md-12 mt-6 space-y-6" action="{{ route('password.update') }}" method="POST">
+    <!-- <form class="col-md-12 mt-6 space-y-6" action="{{ route('password.update') }}" method="POST">
       @csrf
       @method('PUT')
       <div class="card">
@@ -188,7 +191,7 @@
           </div>
         </div>
       </div>
-    </form>
+    </form> -->
 
   </div>
 </div>
@@ -204,7 +207,7 @@
         </button>
       </div>
       <div class="modal-body">
-        {{ __('Your profile has been updated successfully.') }}
+        {{ __('Profil berhasil diupdate') }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -224,7 +227,7 @@
         </button>
       </div>
       <div class="modal-body">
-        {{ __('There was an error updating your profile. Please try again.') }}
+        {{ __('Profil gagal diupdate. Silahkan coba lagi.') }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

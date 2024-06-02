@@ -25,15 +25,15 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
 
@@ -54,15 +54,23 @@ Route::middleware(['auth','role:admin'])->group(function(){
 
     // master periode
     Route::get('/admin/master-periode', [PeriodeController::class, 'index'])->name('admin.masterdata.periode');
+    Route::post('/admin/master-periode/add', [PeriodeController::class, 'store'])->name('admin.masterdata.periode.add');
+    Route::post('/admin/master-periode/edit', [PeriodeController::class, 'update'])->name('admin.masterdata.periode.edit');
     
     // master mapel
     Route::get('/admin/master-mapel', [MapelController::class, 'index'])->name('admin.masterdata.mapel');
+    Route::post('/admin/master-mapel/add', [MapelController::class, 'store'])->name('admin.masterdata.mapel.add');
+
     
     // master jampel
     Route::get('/admin/master-jampel', [JampelController::class, 'index'])->name('admin.masterdata.jampel');
+    Route::post('/admin/master-jampel/add', [JampelController::class, 'store'])->name('admin.masterdata.jampel.add');
+
     
     // master kelas
     Route::get('/admin/master-kelas', [KelasController::class, 'index'])->name('admin.masterdata.kelas');
+    Route::post('/admin/master-kelas/add', [KelasController::class, 'store'])->name('admin.masterdata.kelas.add');
+
 
 });
 // End Group Admin Middleware

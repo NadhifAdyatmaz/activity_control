@@ -30,7 +30,26 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'semester' => 'required',
+            'status' => 'required',
+        ],
+        [
+            'name.required'=>"Nama Harus Diisi",
+            'semester.required'=>"Semester Harus Diisi",
+            'status.required'=>"Status Harus Diisi",
+        ]);
+
+        $periode = new Periode;
+
+        $periode->name = $request->input('name');
+        $periode->semester = $request->input('semester');
+        $periode->status = $request->input('status');
+
+        $periode->save();
+
+        return redirect('admin/master-periode')->with('success', 'Data Tersimpan');
     }
 
     /**
@@ -54,7 +73,10 @@ class PeriodeController extends Controller
      */
     public function update(Request $request, Periode $periode)
     {
-        //
+        if($request->ajax()){
+            $periode->find($request->pk)->update(['name'=>$request->value]);
+            return response()->json(['success'=>true]);
+        }
     }
 
     /**

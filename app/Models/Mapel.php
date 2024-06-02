@@ -11,4 +11,6 @@ class Mapel extends Model
     protected $table = 'mapels';
     protected $primaryKey = 'id';
     protected $fillable = ['id','name','status'];
+    public $timestamps = false;
+
 }

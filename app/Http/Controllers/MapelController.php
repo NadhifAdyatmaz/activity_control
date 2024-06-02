@@ -30,7 +30,23 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'status' => 'required',
+        ],
+        [
+            'name.required'=>"Nama Harus Diisi",
+            'status.required'=>"Status Harus Diisi",
+        ]);
+
+        $mapel = new Mapel;
+
+        $mapel->name = $request->input('name');
+        $mapel->status = $request->input('status');
+
+        $mapel->save();
+
+        return redirect('admin/master-mapel')->with('success', 'Data Tersimpan');
     }
 
     /**
