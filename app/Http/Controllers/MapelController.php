@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Mapel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
 
 class MapelController extends Controller
 {
@@ -78,6 +80,8 @@ class MapelController extends Controller
      */
     public function destroy(Mapel $mapel)
     {
-        //
+        $mapel->delete();
+
+        return Redirect::route('admin.masterdata.mapel')->with('success', 'Data Terhapus');
     }
 }

@@ -1,6 +1,6 @@
-@foreach ($periodes as $item)
+@foreach ($mapels as $item)
     <!-- Delete Modal HTML -->
-    <div id="delete-per{{ $item->id }}" class="modal fade">
+    <div id="delete-mapel{{ $item->id }}" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,7 +13,7 @@
                 </div>
                 <div class="modal-footer">
                     <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                    <form action="{{ route('admin.masterdata.periode.delete',$item->id) }}" method="post" id="delete-per{{ $item->id }}">
+                    <form action="{{ route('admin.masterdata.mapel.delete',$item->id) }}" method="post" id="delete-mapel{{ $item->id }}">
                         @csrf
                         @method('DELETE')
                         <input type="submit" class="btn btn-danger" value="Delete">

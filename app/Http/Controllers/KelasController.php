@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
 
 class KelasController extends Controller
 {
@@ -81,6 +83,8 @@ class KelasController extends Controller
      */
     public function destroy(Kelas $kelas)
     {
-        //
+        $kelas->delete();
+
+        return Redirect::route('admin.masterdata.kelas')->with('success', 'Data Terhapus');
     }
 }

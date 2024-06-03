@@ -56,20 +56,24 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/master-periode', [PeriodeController::class, 'index'])->name('admin.masterdata.periode');
     Route::post('/admin/master-periode/add', [PeriodeController::class, 'store'])->name('admin.masterdata.periode.add');
     Route::post('/admin/master-periode/edit', [PeriodeController::class, 'update'])->name('admin.masterdata.periode.edit');
+    Route::delete('/admin/master-periode/{periode}', [PeriodeController::class, 'destroy'])->name('admin.masterdata.periode.delete');
     
     // master mapel
     Route::get('/admin/master-mapel', [MapelController::class, 'index'])->name('admin.masterdata.mapel');
     Route::post('/admin/master-mapel/add', [MapelController::class, 'store'])->name('admin.masterdata.mapel.add');
+    Route::delete('/admin/master-mapel/{mapel}', [MapelController::class, 'destroy'])->name('admin.masterdata.mapel.delete');
 
     
     // master jampel
     Route::get('/admin/master-jampel', [JampelController::class, 'index'])->name('admin.masterdata.jampel');
     Route::post('/admin/master-jampel/add', [JampelController::class, 'store'])->name('admin.masterdata.jampel.add');
+    Route::delete('/admin/master-jampel/{jampel}', [JampelController::class, 'destroy'])->name('admin.masterdata.jampel.delete');
 
     
     // master kelas
     Route::get('/admin/master-kelas', [KelasController::class, 'index'])->name('admin.masterdata.kelas');
     Route::post('/admin/master-kelas/add', [KelasController::class, 'store'])->name('admin.masterdata.kelas.add');
+    Route::delete('/admin/master-kelas/{kelas}', [KelasController::class, 'destroy'])->name('admin.masterdata.kelas.delete');
 
 
 });

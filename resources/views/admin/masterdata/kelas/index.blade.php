@@ -204,12 +204,14 @@
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
                                                     class="material-icons">&#xE417;</i></a> -->
-                                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE254;</i></a>
-                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                            <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE254;</i></a> -->
+                                            <a href="#" class="delete" title="Delete" data-toggle="modal"
+                                                data-target="#delete-kelas{{ $item->id }}"><i
                                                     class="material-icons">&#xE872;</i></a>
 
                                             @include('admin.masterdata.kelas.create')
+                                            @include('admin.masterdata.kelas.delete')
                                             
                                         </td>
                                     </tr>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Jampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
 
 class JampelController extends Controller
 {
@@ -78,6 +80,8 @@ class JampelController extends Controller
      */
     public function destroy(Jampel $jampel)
     {
-        //
+        $jampel->delete();
+
+        return Redirect::route('admin.masterdata.jampel')->with('success', 'Data Terhapus');
     }
 }

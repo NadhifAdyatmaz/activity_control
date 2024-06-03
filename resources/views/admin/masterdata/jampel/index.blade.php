@@ -199,13 +199,15 @@
                                         <td>{{ $item->pukul }}</td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                        class="material-icons">&#xE417;</i></a> -->
-                                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE254;</i></a>
-                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                            class="material-icons">&#xE417;</i></a> -->
+                                            <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE254;</i></a> -->
+                                            <a href="#" class="delete" title="Delete" data-toggle="modal"
+                                                data-target="#delete-jampel{{ $item->id }}"><i
                                                     class="material-icons">&#xE872;</i></a>
 
                                             @include('admin.masterdata.jampel.create')
+                                            @include('admin.masterdata.jampel.delete')
                                         </td>
                                     </tr>
                                 @endforeach

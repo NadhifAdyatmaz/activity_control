@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/css/jquery-editable.css" rel="stylesheet"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/js/jquery-editable-poshytip.min.js"></script> -->
 
 <style>
     body {
@@ -199,8 +201,8 @@
                                 @foreach ($periodes as $key => $item)
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td contenteditable='true' id="col{{ $key }}" onmousedown="panggil()">{{ $item->name }}</td>
-                                        <!-- <td><a href="" class="editable" data-type="text" data-name="name" data-pk="{{ $item->id}}"></a>{{ $item->name }}</td> -->
+                                        <!-- <td contenteditable='true' id="col{{ $key }}" onmousedown="panggil()">{{ $item->name }}</td> -->
+                                        <td><a class="editable" data-type="text" data-name="name" data-pk="{{ $item->id }}" data-title="Enter Name">{{ $item->name }}</a></td>
                                         <td style="text-transform: capitalize;">{{ $item->semester }}</td>
                                         <td>{{ $item->status }}</td>
                                         <td>
@@ -210,7 +212,7 @@
                                                 data-target="#edit-per{{ $item->id }}"><i
                                                     class=" material-icons">&#xE254;</i></a>
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
-                                                data-target="#delete-per"><i class=" material-icons">&#xE872;</i></a>
+                                                data-target="#delete-per{{ $item->id }}"><i class=" material-icons">&#xE872;</i></a>
 
                                             @include('admin.masterdata.periode.create')
                                             @include('admin.masterdata.periode.edit')
@@ -252,11 +254,11 @@
 </div>
 
 <script>
-    $.fn.editable.default.mode = "inline";
+    $.fn.editable.defaults.mode = "inline";
 
     $.ajaxSetup({
         headers:{
-            'X-CSRF-TOKEN': '({ csrf_token() })'
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
     });
 

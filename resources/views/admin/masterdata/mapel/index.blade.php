@@ -201,14 +201,15 @@
                                         <td>{{ $item->status }}</td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE417;</i></a> -->
-                                            <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE254;</i></a>
-                                            <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE872;</i></a>
+                                                        class="material-icons">&#xE417;</i></a> -->
+                                            <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                    class="material-icons">&#xE254;</i></a> -->
+                                            <a href="#" class="delete" title="Delete" data-toggle="modal"
+                                                data-target="#delete-mapel{{ $item->id }}"><i class="material-icons">&#xE872;</i></a>
 
                                             @include('admin.masterdata.mapel.create')
-                                            
+                                            @include('admin.masterdata.mapel.delete')
+
                                         </td>
                                     </tr>
                                 @endforeach

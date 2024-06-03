@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Periode;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
 
 class PeriodeController extends Controller
 {
@@ -14,7 +16,7 @@ class PeriodeController extends Controller
     {
         $periodes = Periode::all();
         return view('admin.masterdata.periode.index', compact('periodes'));
-        
+
     }
 
     /**
@@ -30,16 +32,18 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'semester' => 'required',
-            'status' => 'required',
-        ],
-        [
-            'name.required'=>"Nama Harus Diisi",
-            'semester.required'=>"Semester Harus Diisi",
-            'status.required'=>"Status Harus Diisi",
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'semester' => 'required',
+                'status' => 'required',
+            ],
+            [
+                'name.required' => "Nama Harus Diisi",
+                'semester.required' => "Semester Harus Diisi",
+                'status.required' => "Status Harus Diisi",
+            ]
+        );
 
         $periode = new Periode;
 
@@ -73,9 +77,9 @@ class PeriodeController extends Controller
      */
     public function update(Request $request, Periode $periode)
     {
-        if($request->ajax()){
-            $periode->find($request->pk)->update(['name'=>$request->value]);
-            return response()->json(['success'=>true]);
+        if ($request->ajax()) {
+            $periode->find($request->pk)->update(['name' => $request->value]);
+            return response()->json(['success' => true]);
         }
     }
 
@@ -84,6 +88,9 @@ class PeriodeController extends Controller
      */
     public function destroy(Periode $periode)
     {
-        //
+        $periode->delete();
+
+        return Redirect::route('admin.masterdata.periode')->with('success', 'Data Terhapus');
+
     }
 }
