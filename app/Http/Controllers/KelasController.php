@@ -75,7 +75,13 @@ class KelasController extends Controller
      */
     public function update(Request $request, Kelas $kelas)
     {
-        //
+        if ($request->ajax()) {
+            $field = $request->name; 
+            $value = $request->value;
+
+            $kelas->find($request->pk)->update([$field => $value]);
+            return response()->json(['success' => true]);
+        }
     }
 
     /**

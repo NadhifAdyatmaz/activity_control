@@ -78,7 +78,10 @@ class PeriodeController extends Controller
     public function update(Request $request, Periode $periode)
     {
         if ($request->ajax()) {
-            $periode->find($request->pk)->update(['name' => $request->value]);
+            $field = $request->name; 
+            $value = $request->value;
+
+            $periode->find($request->pk)->update([$field => $value]);
             return response()->json(['success' => true]);
         }
     }

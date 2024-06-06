@@ -18,15 +18,15 @@ class AdminController extends Controller
 
     }
 
-    public function AdminJadwal(){
+    // public function AdminJadwal(){
 
-        return view('admin.jadwal.index');
+    //     return view('admin.jadwal.index');
 
-    }
+    // }
 
-    public function AdminJurnal(){
+    // public function AdminJurnal(){
 
-        return view('admin.jurnal.index');
+    //     return view('admin.jurnal.index');
 
-    }
+    // }
 }

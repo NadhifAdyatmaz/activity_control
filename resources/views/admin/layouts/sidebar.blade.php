@@ -47,31 +47,6 @@
           </li>
           <div class="logo">
           </div>
-          <!-- <br> -->
-          <!-- <a class="text-light" class="simple-text logo-mini">
-              <div class="typography-line">
-                <h6>Master Data</h6>
-              </div>
-          </a>
-
-          <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }} ">
-            <a href="#">
-              <i class="nc-icon nc-simple-add"></i>
-              <p>Guru</p>
-            </a>
-          </li>
-          <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }} ">
-            <a href="#">
-              <i class="nc-icon nc-simple-add"></i>
-              <p>Kelas</p>
-            </a>
-          </li>
-          <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }} ">
-            <a href="#">
-              <i class="nc-icon nc-simple-add"></i>
-              <p>Pelajaran</p>
-            </a>
-          </li> -->
 
           <li class="{{ Route::currentRouteName() == 'admin.info' || Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
                 <a data-toggle="collapse" aria-expanded="false" href="#laravelExamples">
@@ -105,6 +80,12 @@
                             <a href="{{route('admin.masterdata.kelas')}}">
                             <i class="nc-icon nc-simple-add"></i>
                                 <p>{{ __(' Kelas ') }}</p>
+                            </a>
+                        </li>
+                        <li class="{{ Route::currentRouteName() == 'admin.masterdata.guru' ? 'active' : '' }}">
+                            <a href="{{route('admin.masterdata.guru')}}">
+                            <i class="nc-icon nc-simple-add"></i>
+                                <p>{{ __(' Guru ') }}</p>
                             </a>
                         </li>
                     </ul>

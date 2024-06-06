@@ -195,8 +195,12 @@
                             <tbody>
                                 @foreach ($jampels as $key => $item)
                                     <tr>
-                                        <th>{{ $item->jam_ke }}</th>
-                                        <td>{{ $item->pukul }}</td>
+                                        <!-- <th>{{ $item->jam_ke }}</th>
+                                        <td>{{ $item->pukul }}</td> -->
+                                        <th><a class="editable" data-name="jam_ke" data-type="text" data-pk="{{ $item->id }}"
+                                                data-title="Enter Name">{{ $item->jam_ke }}</a></th>
+                                                <td><a class="editable" data-name="pukul" data-type="text" data-pk="{{ $item->id }}"
+                                                data-title="Enter Name">{{ $item->pukul }}</a></td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
                                                             class="material-icons">&#xE417;</i></a> -->
@@ -233,4 +237,29 @@
         </div>
     </div>
 </div>
+<script>
+    $.fn.editable.defaults.mode = "inline";
+
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+
+    $('.editable[data-name="jam_ke"]').editable({
+        url:"{{ route('admin.masterdata.jampel.edit') }}",
+        type:'text',
+        pk:1,
+        name:'jam_ke',
+        title:'Enter name'
+    });
+
+    $('.editable[data-name="pukul"]').editable({
+        url:"{{ route('admin.masterdata.jampel.edit') }}",
+        type:'text',
+        pk:1,
+        name:'pukul',
+        title:'Enter name'
+    });
+</script>
 @endsection

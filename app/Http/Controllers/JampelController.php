@@ -72,7 +72,13 @@ class JampelController extends Controller
      */
     public function update(Request $request, Jampel $jampel)
     {
-        //
+        if ($request->ajax()) {
+            $field = $request->name; 
+            $value = $request->value;
+
+            $jampel->find($request->pk)->update([$field => $value]);
+            return response()->json(['success' => true]);
+        }
     }
 
     /**

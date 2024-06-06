@@ -198,9 +198,18 @@
                                 @foreach ($kelas as $key => $item)
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $item->name }}</td>
+                                        <!-- <td>{{ $item->name }}</td>
                                         <td>{{ $item->jumlah_siswa }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <td>{{ $item->status }}</td> -->
+                                        <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $item->id }}"
+                                                data-title="Enter Name">{{ $item->name }}</a></td>
+                                        <td><a class="editable" data-name="jumlah_siswa" data-type="text" data-pk="{{ $item->id }}"
+                                                data-title="Enter Name">{{ $item->jumlah_siswa }}</a></td>
+
+                                        <td><a class="editable" data-name="status" data-type="select"
+                                                data-pk="{{ $item->id }}" data-title="Select status"
+                                                data-source='[{"value": "1", "text": "active"},{"value": "2", "text": "inactive"}]'>{{ $item->status }}</a></td>
+                                        
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
                                                     class="material-icons">&#xE417;</i></a> -->
@@ -238,4 +247,42 @@
         </div>
     </div>
 </div>
+
+<script>
+    $.fn.editable.defaults.mode = "inline";
+
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+
+    $('.editable[data-name="name"]').editable({
+        url:"{{ route('admin.masterdata.kelas.edit') }}",
+        type:'text',
+        pk:1,
+        name:'name',
+        title:'Enter name'
+    });
+    
+    $('.editable[data-name="jumlah_siswa"]').editable({
+        url:"{{ route('admin.masterdata.kelas.edit') }}",
+        type:'text',
+        pk:1,
+        name:'jumlah_siswa',
+        title:'Enter name'
+    });
+
+    $('.editable[data-name="status"]').editable({
+        url:"{{ route('admin.masterdata.kelas.edit') }}",
+        type:'select',
+        pk:1,
+        name:'status',
+        title:'Select status',
+        source: [
+            {value: '1', text: 'active'},
+            {value: '2', text: 'inactive'}
+        ]
+    });
+</script>
 @endsection

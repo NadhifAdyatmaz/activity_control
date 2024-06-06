@@ -163,7 +163,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-            <div class="card-header">
+                <div class="card-header">
                     <div class="row mb-0">
                         <div class="col-sm-8">
                             <h2><b>Master -</b> Periode</h2>
@@ -202,17 +202,27 @@
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
                                         <!-- <td contenteditable='true' id="col{{ $key }}" onmousedown="panggil()">{{ $item->name }}</td> -->
-                                        <td><a class="editable" data-type="text" data-name="name" data-pk="{{ $item->id }}" data-title="Enter Name">{{ $item->name }}</a></td>
-                                        <td style="text-transform: capitalize;">{{ $item->semester }}</td>
-                                        <td>{{ $item->status }}</td>
+                                        <!-- <td><a class="editable" data-type="text" data-name="name" data-pk="{{ $item->id }}" data-title="Enter Name">{{ $item->name }}</a></td>
+                                            <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
+                                        <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $item->id }}"
+                                                data-title="Enter Name">{{ $item->name }}</a></td>
+                                        <td style="text-transform: capitalize;"><a class="editable" data-name="semester" data-type="select"
+                                                data-pk="{{ $item->id }}" data-title="Select Semester"
+                                                data-source='[{"value": "1", "text": "ganjil"},{"value": "2", "text": "genap"}]'>{{ $item->semester }}</a>
+                                        </td>
+
+                                        <td><a class="editable" data-name="status" data-type="select"
+                                                data-pk="{{ $item->id }}" data-title="Select status"
+                                                data-source='[{"value": "1", "text": "active"},{"value": "2", "text": "inactive"}]'>{{ $item->status }}</a></td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="modal"
-                                                data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
+                                                    data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
                                             <a href="#" class="edit" title="Edit" data-toggle="modal"
                                                 data-target="#edit-per{{ $item->id }}"><i
                                                     class=" material-icons">&#xE254;</i></a>
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
-                                                data-target="#delete-per{{ $item->id }}"><i class=" material-icons">&#xE872;</i></a>
+                                                data-target="#delete-per{{ $item->id }}"><i
+                                                    class=" material-icons">&#xE872;</i></a>
 
                                             @include('admin.masterdata.periode.create')
                                             @include('admin.masterdata.periode.edit')
@@ -262,12 +272,37 @@
         }
     });
 
-    $('.editable').editable({
+    $('.editable[data-name="name"]').editable({
         url:"{{ route('admin.masterdata.periode.edit') }}",
         type:'text',
         pk:1,
         name:'name',
-        tittle:'Enter name'
+        title:'Enter name'
+    });
+
+    $('.editable[data-name="semester"]').editable({
+        url:"{{ route('admin.masterdata.periode.edit') }}",
+        type:'select',
+        pk:1,
+        name:'semester',
+        title:'Select Semester',
+        source: [
+            {value: '1', text: 'ganjil'},
+            {value: '2', text: 'genap'}
+        ]
+    });
+
+    $('.editable[data-name="status"]').editable({
+        url:"{{ route('admin.masterdata.periode.edit') }}",
+        type:'select',
+        pk:1,
+        name:'status',
+        title:'Select status',
+        source: [
+            {value: '1', text: 'active'},
+            {value: '2', text: 'inactive'}
+        ]
     });
 </script>
+
 @endsection

@@ -21,11 +21,12 @@
               <img id="avatar-img" class="avatar border-gray"
                 src="{{ Auth::user()->photo ? asset(Auth::user()->photo) : asset('assets/img/default-avatar.png') }}"
                 alt="...">
-
+                
               <label for="avatar-input" class="btn btn-link position-absolute top-0 start-0 p-0">
                 <i class="fa fa-edit" style="font-size: 1rem;"></i>
               </label>
               <input type="file" id="avatar-input" name="photo" style="display: none;">
+              <small class="text-muted">maks. 2 MB</small>
               <!-- <h5 class="title">{{ Auth::user()->name }}</h5> -->
               <!-- <p class="description">{{ Auth::user()->username }}</p> -->
               <!-- </div>

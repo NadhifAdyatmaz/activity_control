@@ -72,7 +72,13 @@ class MapelController extends Controller
      */
     public function update(Request $request, Mapel $mapel)
     {
-        //
+        if ($request->ajax()) {
+            $field = $request->name; 
+            $value = $request->value;
+
+            $mapel->find($request->pk)->update([$field => $value]);
+            return response()->json(['success' => true]);
+        }
     }
 
     /**

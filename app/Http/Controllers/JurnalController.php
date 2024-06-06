@@ -12,7 +12,8 @@ class JurnalController extends Controller
      */
     public function index()
     {
-        //
+        $jurnals = Jurnal::all();
+        return view('admin.jurnal.index', compact('jurnals'));
     }
 
     /**
