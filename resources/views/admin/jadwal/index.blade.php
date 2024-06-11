@@ -61,6 +61,59 @@
         left: 10px;
     }
 
+    .table-filter .filter-group {
+        float: left;
+        margin-left: 15px;
+    }
+
+    .table-filter input,
+    .table-filter select {
+        height: 34px;
+        border-radius: 3px;
+        border-color: #ddd;
+        box-shadow: none;
+        width: auto;
+        min-width: 100px;
+        /* Optional, ensures minimum size */
+    }
+
+    .table-filter {
+        padding: 5px 0 15px;
+        border-bottom: 1px solid #e9e9e9;
+        margin-bottom: 5px;
+    }
+
+    .table-filter .btn {
+        height: 34px;
+    }
+
+    .table-filter label {
+        font-weight: normal;
+        margin-left: 10px;
+    }
+
+    .table-filter select,
+    .table-filter input {
+        display: inline-block;
+        margin-left: 5px;
+    }
+
+    .filter-group select.form-control {
+        width: auto;
+        min-width: 110px;
+        /* Optional, ensures minimum size */
+    }
+
+    .filter-icon {
+        float: right;
+        margin-top: 7px;
+    }
+
+    .filter-icon i {
+        font-size: 18px;
+        opacity: 0.7;
+    }
+
     table.table tr th,
     table.table tr td {
         border-color: #e9e9e9;
@@ -142,7 +195,7 @@
 
     .pagination li i {
         font-size: 16px;
-        padding-top: 6px
+        padding-top: 6px;
     }
 
     .hint-text {
@@ -168,42 +221,62 @@
                             </div> --}}
                         </div>
                     </div>
-                    <div class="col-sm-12" style="text-align: center;">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Tahun Ajaran
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <button class="dropdown-item" type="button">2022 - 2023</button>
-                            <button class="dropdown-item" type="button"> 2023 - 2024</button>
-                            <button class="dropdown-item" type="button">2024 - 2025</button>
-                        </div>
-                    </div>
-                    <div class="" col-sm-12" style="text-align: center;"">
-                    <button class=" btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Semester
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <button class="dropdown-item" type="button">Genap</button>
-                            <button class="dropdown-item" type="button">Ganjil</button>
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
+
+                                <div class="filter-group">
+                                    <label>Tahun Ajaran : </label>
+                                    <select class="form-control">
+                                        <option>2023</option>
+                                        <option>2024</option>
+                                        <option>2025</option>
+                                        <option>2026</option>
+                                        <option>2027</option>
+                                        <option>2028</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>Semester : </label>
+                                    <select class="form-control">
+                                        <option>Ganjil</option>
+                                        <option>Genap</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>Guru : </label>
+                                    <select class="form-control">
+                                        <option>Ghafur</option>
+                                        <option>Anas</option>
+                                        <option>Jakfar</option>
+                                        <option>DIo</option>
+                                    </select>
+                                </div>
+                                <div class="filter-group">
+                                    <label>Hari : </label>
+                                    <select class="form-control">
+                                        <option>Senin</option>
+                                        <option>Selasa</option>
+                                        <option>Rabu</option>
+                                        <option>Kamis</option>
+                                        <option>Jumat</option>
+                                        <option>Sabtu</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-0">
+                                <a class="filter-icon" href="#add-jadwal" data-toggle="modal"><i class="fa fa-plus-square"></i> Tambah</a>
+                            </div>
+                            @include('admin.jadwal.create')
+
+                            <div class="col-sm-1">
+                                <a class="filter-icon" href="#"><i class="fa fa-file-excel-o"></i> Impor</a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="container">
-                        <div class="row justify-content-end"> <!-- Align the row content to the right -->
-                            <div class="col-sm-1 offset-sm-11" style="text-align: center;">
-                                <!-- Adjust offset and column width -->
-                                <div class="button-action d-flex justify-content-end" style="margin-bottom: 20px">
-                                    <button type="button" class="btn btn-success mr-14" data-toggle="modal"
-                                        data-target="#import">
-                                        IMPORT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover table-bordered">
                             <thead>
@@ -219,68 +292,56 @@
                             <tbody>
                                 <tr>
                                     <td>
-                                        <div class="dropdown">
-                                            <div class="dropdown-toggle" id="classDropdown1" data-toggle="dropdown"
-                                                aria-haspopup="false" aria-expanded="true">
-                                                Senin
-                                            </div>
-                                            <div class="dropdown-menu" aria-labelledby="classDropdown1">
-                                                <button class="dropdown-item" type="button">Senin</button>
-                                                <button class="dropdown-item" type="button">Selasa</button>
-                                                <button class="dropdown-item" type="button">Rabu</button>
-                                            </div>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Senin</option>
+                                                <option>Selasa</option>
+                                                <option>Rabu</option>
+                                                <option>Kamis</option>
+                                                <option>Jumat</option>
+                                                <option>Sabtu</option>
+                                            </select>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <div class="dropdown-toggle" id="classDropdown1" data-toggle="dropdown"
-                                                aria-haspopup="false" aria-expanded="true">
-                                                1
-                                            </div>
-                                            <div class="dropdown-menu" aria-labelledby="classDropdown1">
-                                                <button class="dropdown-item" type="button">1</button>
-                                                <button class="dropdown-item" type="button">2</button>
-                                                <button class="dropdown-item" type="button">3</button>
-                                            </div>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <div class="dropdown-toggle" id="classDropdown1" data-toggle="dropdown"
-                                                aria-haspopup="false" aria-expanded="true">
-                                                Anas Aminulloh T.H
-                                            </div>
-                                            <div class="dropdown-menu" aria-labelledby="classDropdown1">
-                                                <button class="dropdown-item" type="button">Class A</button>
-                                                <button class="dropdown-item" type="button">Class B</button>
-                                                <button class="dropdown-item" type="button">Class C</button>
-                                            </div>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Ghafur</option>
+                                                <option>Anas</option>
+                                                <option>Jakfar</option>
+                                                <option>DIo</option>
+                                            </select>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <div class="dropdown-toggle" id="classDropdown1" data-toggle="dropdown"
-                                                aria-haspopup="false" aria-expanded="true">
-                                                Desain Grafis
-                                            </div>
-                                            <div class="dropdown-menu" aria-labelledby="classDropdown1">
-                                                <button class="dropdown-item" type="button">Class A</button>
-                                                <button class="dropdown-item" type="button">Class B</button>
-                                                <button class="dropdown-item" type="button">Class C</button>
-                                            </div>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Struktur Data</option>
+                                                <option>Basis Data</option>
+                                                <option>UI/UX</option>
+                                            </select>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="dropdown">
-                                            <div class="dropdown-toggle" id="classDropdown1" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                X RPL 1
-                                            </div>
-                                            <div class="dropdown-menu" aria-labelledby="classDropdown1">
-                                                <button class="dropdown-item" type="button">Class A</button>
-                                                <button class="dropdown-item" type="button">Class B</button>
-                                                <button class="dropdown-item" type="button">Class C</button>
-                                            </div>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>X RPL 1</option>
+                                                <option>X RPL 2</option>
+                                                <option>X DKV 1</option>
+                                                <option>X DKV 2</option>
+                                            </select>
                                         </div>
                                     </td>
 
@@ -293,6 +354,327 @@
                                                 class="material-icons">&#xE872;</i></a>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Senin</option>
+                                                <option>Selasa</option>
+                                                <option>Rabu</option>
+                                                <option>Kamis</option>
+                                                <option>Jumat</option>
+                                                <option>Sabtu</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Ghafur</option>
+                                                <option>Anas</option>
+                                                <option>Jakfar</option>
+                                                <option>DIo</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Struktur Data</option>
+                                                <option>Basis Data</option>
+                                                <option>UI/UX</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>X RPL 1</option>
+                                                <option>X RPL 2</option>
+                                                <option>X DKV 1</option>
+                                                <option>X DKV 2</option>
+                                            </select>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE417;</i></a>
+                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a> -->
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Senin</option>
+                                                <option>Selasa</option>
+                                                <option>Rabu</option>
+                                                <option>Kamis</option>
+                                                <option>Jumat</option>
+                                                <option>Sabtu</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Ghafur</option>
+                                                <option>Anas</option>
+                                                <option>Jakfar</option>
+                                                <option>DIo</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Struktur Data</option>
+                                                <option>Basis Data</option>
+                                                <option>UI/UX</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>X RPL 1</option>
+                                                <option>X RPL 2</option>
+                                                <option>X DKV 1</option>
+                                                <option>X DKV 2</option>
+                                            </select>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE417;</i></a>
+                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a> -->
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Senin</option>
+                                                <option>Selasa</option>
+                                                <option>Rabu</option>
+                                                <option>Kamis</option>
+                                                <option>Jumat</option>
+                                                <option>Sabtu</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Ghafur</option>
+                                                <option>Anas</option>
+                                                <option>Jakfar</option>
+                                                <option>DIo</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Struktur Data</option>
+                                                <option>Basis Data</option>
+                                                <option>UI/UX</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>X RPL 1</option>
+                                                <option>X RPL 2</option>
+                                                <option>X DKV 1</option>
+                                                <option>X DKV 2</option>
+                                            </select>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE417;</i></a>
+                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a> -->
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Senin</option>
+                                                <option>Selasa</option>
+                                                <option>Rabu</option>
+                                                <option>Kamis</option>
+                                                <option>Jumat</option>
+                                                <option>Sabtu</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Ghafur</option>
+                                                <option>Anas</option>
+                                                <option>Jakfar</option>
+                                                <option>DIo</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Struktur Data</option>
+                                                <option>Basis Data</option>
+                                                <option>UI/UX</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>X RPL 1</option>
+                                                <option>X RPL 2</option>
+                                                <option>X DKV 1</option>
+                                                <option>X DKV 2</option>
+                                            </select>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE417;</i></a>
+                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a> -->
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Senin</option>
+                                                <option>Selasa</option>
+                                                <option>Rabu</option>
+                                                <option>Kamis</option>
+                                                <option>Jumat</option>
+                                                <option>Sabtu</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                                <option>4</option>
+                                                <option>5</option>
+                                                <option>6</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Ghafur</option>
+                                                <option>Anas</option>
+                                                <option>Jakfar</option>
+                                                <option>DIo</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>Struktur Data</option>
+                                                <option>Basis Data</option>
+                                                <option>UI/UX</option>
+                                            </select>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="filter-group">
+                                            <select class="form-control">
+                                                <option>X RPL 1</option>
+                                                <option>X RPL 2</option>
+                                                <option>X DKV 1</option>
+                                                <option>X DKV 2</option>
+                                            </select>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE417;</i></a>
+                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE254;</i></a> -->
+                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
+                                                class="material-icons">&#xE872;</i></a>
+                                    </td>
+                                </tr>
+
                             </tbody>
                         </table>
                         {{-- <td>Status : Aktif</td> --}}
@@ -305,15 +687,18 @@
                                 <button class="dropdown-item" type="button">Tidak Aktif</button>
                             </div>
                         </div> --}}
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-Success dropdown-toggle" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                Aktif
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Tidak Aktif</a>
+                        <div class="d-flex align-items-center">
+                            <span class="mr-2">Status:</span>
+                            <div class="filter-group">
+                                <select class="form-control">
+                                    <option>Aktif</option>
+                                    <option>Tidak Atif</option>
+                                </select>
                             </div>
                         </div>
+                        <!-- <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary">Save</button>
+                        </div> -->
                     </div>
                 </div>
             </div>

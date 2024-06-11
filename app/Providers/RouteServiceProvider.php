@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -36,5 +38,18 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
         });
+    }
+
+    public static function home()
+    {
+        $user = Auth::user();
+        if ($user) {
+            if ($user->role === 'admin') {
+                return '/admin/dashboard';
+            } elseif ($user->role === 'guru') {
+                return '/guru/dashboard';
+            }
+        }
+        return self::HOME;
     }
 }

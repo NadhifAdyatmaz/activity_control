@@ -152,12 +152,12 @@ $(document).ready(function(){
                     <tr>
                         <th>No</th>
                         <th>Tanggal</th>
-                        <th>Guru <i class="fa fa-sort"></i></th>
-                        <th>Periode <i class="fa fa-sort"></i></th>
-                        <th>Kelas <i class="fa fa-sort"></i></th>
-                        <th>Pelajaran <i class="fa fa-sort"></i></th>
-                        <th>Jam ke <i class="fa fa-sort"></i></th>
-                        <th>Status <i class="fa fa-sort"></i></th>
+                        <th>Guru</th>
+                        <th>Periode</th>
+                        <th>Kelas</th>
+                        <th>Pelajaran</th>
+                        <th>Jam ke</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
