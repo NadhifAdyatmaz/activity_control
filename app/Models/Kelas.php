@@ -13,4 +13,8 @@ class Kelas extends Model
     protected $fillable = ['id','name','jumlah_siswa','status'];
     public $timestamps = false;
 
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class,'id','kelas_id');
+    }
 }

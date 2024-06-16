@@ -12,6 +12,11 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class,'id','user_id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

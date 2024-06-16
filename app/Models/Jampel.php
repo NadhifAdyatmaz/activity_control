@@ -12,5 +12,9 @@ class Jampel extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['id','jam_ke','pukul'];
     public $timestamps = false;
-
+    
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class,'id','jampel_id');
+    }
 }

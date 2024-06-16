@@ -13,4 +13,9 @@ class Periode extends Model
     protected $fillable = ['id','name','semester','status'];
 
     public $timestamps = false;
+
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class,'id','periode_id');
+    }
 }

@@ -51,6 +51,10 @@ Route::middleware(['auth','verified','role:admin'])->group(function(){
     
     // jadwal
     Route::get('/admin/jadwal', [JadwalController::class, 'index'])->name('admin.jadwal');
+    Route::post('/admin/jadwal/add', [JadwalController::class, 'store'])->name('admin.jadwal.add');
+    Route::post('/admin/jadwal/insert', [JadwalController::class, 'insert'])->name('admin.jadwal.insert');
+    Route::post('/admin/jadwal/edit', [JadwalController::class, 'update'])->name('admin.jadwal.update');
+    Route::delete('/admin/jadwal/{jadwal}', [JadwalController::class, 'destroy'])->name('admin.jadwal.delete');
     
     // jurnal
     Route::get('/admin/jurnal', [JurnalController::class, 'index'])->name('admin.jurnal');
