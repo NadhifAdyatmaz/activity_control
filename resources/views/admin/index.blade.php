@@ -11,25 +11,25 @@
           <div class="row">
             <div class="col-5 col-md-4">
               <div class="icon-big text-center icon-warning">
-                <i class="nc-icon nc-tile-56 text-warning"></i>
+                <i class="nc-icon nc-circle-10 text-warning"></i>
               </div>
             </div>
             <div class="col-7 col-md-8">
               <div class="numbers">
-                <p class="card-category">Total Jadwal</p>
-                <p class="card-title">15
+                <p class="card-category">Total Guru</p>
+                <p class="card-title">{{ $guru_count }}
                 <p>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-footer ">
+        <!-- <div class="card-footer ">
           <hr>
           <div class="stats">
             <i class="fa fa-refresh"></i>
             Update Now
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -43,20 +43,20 @@
             </div>
             <div class="col-7 col-md-8">
               <div class="numbers">
-                <p class="card-category">Belum Input</p>
-                <p class="card-title">10
+                <p class="card-category">Total Jadwal</p>
+                <p class="card-title">{{ $jadwal_count }}
                 <p>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-footer ">
+        <!-- <div class="card-footer ">
           <hr>
           <div class="stats">
             <i class="fa fa-refresh"></i>
             Update Now
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -71,19 +71,19 @@
             <div class="col-7 col-md-8">
               <div class="numbers">
                 <p class="card-category">Total Jurnal</p>
-                <p class="card-title">2
+                <p class="card-title">{{ $jurnal_count }}
                 <p>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-footer ">
+        <!-- <div class="card-footer ">
           <hr>
           <div class="stats">
             <i class="fa fa-refresh"></i>
             Update Now
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="col-lg-3 col-md-6 col-sm-6">
@@ -92,25 +92,25 @@
           <div class="row">
             <div class="col-5 col-md-4">
               <div class="icon-big text-center icon-warning">
-                <i class="nc-icon nc-map-big text-primary"></i>
+                <i class="nc-icon nc-tap-01 text-primary"></i>
               </div>
             </div>
             <div class="col-7 col-md-8">
               <div class="numbers">
                 <p class="card-category">Approval</p>
-                <p class="card-title">3
+                <p class="card-title">{{ $approval }}
                 <p>
               </div>
             </div>
           </div>
         </div>
-        <div class="card-footer ">
+        <!-- <div class="card-footer ">
           <hr>
           <div class="stats">
             <i class="fa fa-refresh"></i>
             Update now
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

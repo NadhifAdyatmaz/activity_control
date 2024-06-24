@@ -169,14 +169,14 @@
                             <h2><b>Master -</b> Periode</h2>
                         </div>
                     </div>
-                    <div class="row mb-0">
+                    <!-- <div class="row mb-0">
                         <div class="col-sm-12">
                             <div class="search-box">
                                 <i class="fa fa-search"></i>
-                                <input type="text" class="form-control" placeholder="Search&hellip;">
+                                <input type="text" name="search" id="search" class="form-control" placeholder="Search&hellip;">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-0">
                         <div class="col-sm-8">
                             <a href="#add-per" class="btn btn-primary" data-toggle="modal"><i
@@ -186,7 +186,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered">
+                        <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -200,10 +200,10 @@
                                 <!-- <form action=""> -->
                                 @foreach ($periodes as $key => $item)
                                     <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
+                                        <td scope="row">{{ $key + 1 }}</td>
                                         <!-- <td contenteditable='true' id="col{{ $key }}" onmousedown="panggil()">{{ $item->name }}</td> -->
                                         <!-- <td><a class="editable" data-type="text" data-name="name" data-pk="{{ $item->id }}" data-title="Enter Name">{{ $item->name }}</a></td>
-                                                <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
+                                                    <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
                                         <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->name }}</a></td>
                                         <td style="text-transform: capitalize;"><a class="editable" data-name="semester"
@@ -217,10 +217,10 @@
                                         </td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="modal"
-                                                        data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
+                                                            data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
                                             <!-- <a href="#" class="edit" title="Edit" data-toggle="modal"
-                                                    data-target="#edit-per{{ $item->id }}"><i
-                                                        class=" material-icons">&#xE254;</i></a> -->
+                                                        data-target="#edit-per{{ $item->id }}"><i
+                                                            class=" material-icons">&#xE254;</i></a> -->
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
                                                 data-target="#delete-per{{ $item->id }}"><i
                                                     class=" material-icons">&#xE872;</i></a>
@@ -242,27 +242,15 @@
                                     }
                                 </script> -->
                             </tbody>
+
                         </table>
-                        <div class="clearfix">
-                            <div class="hint-text">Showing <b>10</b> out of <b>25</b> entries</div>
-                            <ul class="pagination">
-                                <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a>
-                                </li>
-                                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                <li class="page-item"><a href="#" class="page-link"><i
-                                            class="fa fa-angle-double-right"></i></a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
     $.fn.editable.defaults.mode = "inline";

@@ -167,14 +167,14 @@
                             <h2><b>Master -</b> Jampel</h2>
                         </div>
                     </div>
-                    <div class="row mb-0">
+                    <!-- <div class="row mb-0">
                         <div class="col-sm-12">
                             <div class="search-box">
                                 <i class="fa fa-search"></i>
                                 <input type="text" class="form-control" placeholder="Search&hellip;">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-0">
                         <div class="col-sm-8">
                             <a href="#add-jampel" class="btn btn-primary" data-toggle="modal"><i
@@ -184,7 +184,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered">
+                        <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Jam ke</th>
@@ -197,8 +197,8 @@
                                     <tr>
                                         <!-- <th>{{ $item->jam_ke }}</th>
                                         <td>{{ $item->pukul }}</td> -->
-                                        <th><a class="editable" data-name="jam_ke" data-type="text" data-pk="{{ $item->id }}"
-                                                data-title="Enter Name">{{ $item->jam_ke }}</a></th>
+                                        <td><a class="editable" data-name="jam_ke" data-type="text" data-pk="{{ $item->id }}"
+                                                data-title="Enter Name">{{ $item->jam_ke }}</a></td>
                                                 <td><a class="editable" data-name="pukul" data-type="text" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->pukul }}</a></td>
                                         <td>
@@ -217,7 +217,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="clearfix">
+                        <!-- <div class="clearfix">
                             <div class="hint-text">Showing <b>10</b> out of <b>25</b> entries</div>
                             <ul class="pagination">
                                 <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a>
@@ -230,7 +230,7 @@
                                 <li class="page-item"><a href="#" class="page-link"><i
                                             class="fa fa-angle-double-right"></i></a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

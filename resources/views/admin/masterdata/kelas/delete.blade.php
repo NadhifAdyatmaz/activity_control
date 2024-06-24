@@ -12,11 +12,11 @@
                     <p class="text-warning"><small>Tindakan ini tidak dapat diurungkan</small></p>
                 </div>
                 <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
                     <form action="{{ route('admin.masterdata.kelas.delete',$item->id) }}" method="post" id="delete-kelas{{ $item->id }}">
                         @csrf
                         @method('DELETE')
-                        <input type="submit" class="btn btn-danger" value="Delete">
+                        <input type="submit" class="btn btn-danger" value="Hapus">
                 </div>
                 </form>
             </div>

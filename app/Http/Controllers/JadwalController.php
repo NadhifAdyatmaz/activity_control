@@ -20,16 +20,23 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $jadwals = Jadwal::all();
-        // $jadwals = Jadwal::with('periodes','jampels', 'users', 'mapels', 'kelas')->get()->all();
         $periodes = Periode::where('status', 'active')->get();
+        $selectperiode = $periodes->first();
+        $id = null;
+        foreach ($periodes as $p) {
+            $id = $p->id;
+        }
+        $jadwals = Jadwal::where('periode_id', $id)->get();
+        // $jadwals = Jadwal::with('periodes','jampels', 'users', 'mapels', 'kelas')->get()->all();
         $jampels = Jampel::all();
         $mapels = Mapel::where('status', 'active')->get();
         $kelas = Kelas::where('status', 'active')->get();
         $users = User::where('role', 'guru')->get();
 
+        $filter_per = $periodes->sortBy('id')->pluck('id')->unique();
 
-        return view('admin.jadwal.index', compact('jadwals', 'periodes', 'jampels', 'mapels', 'kelas', 'users'));
+
+        return view('admin.jadwal.index', compact('jadwals', 'periodes', 'selectperiode', 'jampels', 'mapels', 'kelas', 'users', 'filter_per'));
     }
 
     /**
@@ -43,46 +50,25 @@ class JadwalController extends Controller
     function insert(Request $request)
     {
         if ($request->ajax()) {
-            $rules = array(
-                'hari.*' => 'required',
-                'periode_id.*' => 'required',
-                'kelas_id.*' => 'required',
-                'jampel_id.*' => 'required',
-                'mapel_id.*' => 'required',
-                'user_id.*' => 'required',
-            );
-            $error = Validator::make($request->all(), $rules);
-            if ($error->fails()) {
-                return response()->json([
-                    'error' => $error->errors()->all()
-                ]);
-            }
+            $data = [
+                'hari' => $request->hari ?? null,
+                'periode_id' => $request->periode_id ?? null,
+                'kelas_id' => $request->kelas_id ?? null,
+                'jampel_id' => $request->jampel_id ?? null,
+                'mapel_id' => $request->mapel_id ?? null,
+                'user_id' => $request->user_id ?? null
+            ];
 
-            $hari = $request->hari;
-            $periode = $request->periode_id;
-            $kelas = $request->kelas_id;
-            $jampel = $request->jampel_id;
-            $mapel = $request->mapel_id;
-            $user = $request->user_id;
-            for ($count = 0; $count < count($hari); $count++) {
-                $data = array(
-                    'hari' => $hari[$count],
-                    'periode_id' => $periode[$count],
-                    'kelas_id' => $kelas[$count],
-                    'jampel_id' => $jampel[$count],
-                    'mapel_id' => $mapel[$count],
-                    'user_id' => $user[$count]
-                );
-                $insert_data[] = $data;
-            }
-            // \Log::info('Data yang akan disimpan:', $insert_data);
+            // Insert data ke database
+            Jadwal::create($data);
 
-            Jadwal::insert($insert_data);
             return response()->json([
                 'success' => 'Data Tersimpan.'
             ]);
         }
     }
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -146,6 +132,27 @@ class JadwalController extends Controller
     public function update(Request $request, Jadwal $jadwal)
     {
         if ($request->ajax()) {
+            // Collect all field values from request
+            $fields = [
+                'hari' => $request->hari ?? null,
+                'periode_id' => $request->periode_id ?? null,
+                'kelas_id' => $request->kelas_id ?? null,
+                'jampel_id' => $request->jampel_id ?? null,
+                'mapel_id' => $request->mapel_id ?? null,
+                'user_id' => $request->user_id ?? null
+            ];
+
+            // Combine all field values into a single string for validation
+            $combinedValues = implode('', $fields);
+
+            // Check if a row with the same combined values exists in the database
+            $existingRow = Jadwal::whereRaw("CONCAT(hari, periode_id, kelas_id, jampel_id, mapel_id, user_id) = ?", [$combinedValues])->first();
+
+            if ($existingRow) {
+                return response()->json(['error' => 'Data sudah ada dalam database.']);
+            }
+
+            // Update data in the database
             $field = $request->name;
             $value = $request->value;
 
@@ -153,6 +160,8 @@ class JadwalController extends Controller
             return response()->json(['success' => true]);
         }
     }
+
+
 
     /**
      * Remove the specified resource from storage.

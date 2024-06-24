@@ -29,8 +29,9 @@
                                 <p class="text-muted">{{ $guru->username }} <span>| </span><span><a href="#" class="text-pink">{{ $guru->email }}</a></span></p>
                                 <!-- <p class="jabatan bg-yellow-300">{{ $guru->jabatan }}</p> -->
                                 <div class="mt-4 apointment">
-                                    <button class="btn btn-primary text-uppercase">Detail</button>
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#detail-guru{{ $guru->id }}">Detail</button>
                                 </div>
+                                @include('admin.masterdata.guru.detailguru')
                             </div>
                         </div>
                         @endforeach

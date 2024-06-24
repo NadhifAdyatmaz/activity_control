@@ -61,9 +61,11 @@ Route::middleware(['auth','verified','role:admin'])->group(function(){
 
     // master guru
     Route::get('admin/master-guru', [MasterGuruController::class, 'index'])->name('admin.masterdata.guru');
+    Route::get('admin/master-guru/{guru}', [MasterGuruController::class, 'destroy'])->name('admin.masterdata.guru.delete');
 
     // master periode
     Route::get('/admin/master-periode', [PeriodeController::class, 'index'])->name('admin.masterdata.periode');
+    // Route::get('/admin/master-periode', [PeriodeController::class, 'search'])->name('admin.masterdata.search');
     Route::post('/admin/master-periode/add', [PeriodeController::class, 'store'])->name('admin.masterdata.periode.add');
     Route::post('/admin/master-periode/edit', [PeriodeController::class, 'update'])->name('admin.masterdata.periode.edit');
     Route::delete('/admin/master-periode/{periode}', [PeriodeController::class, 'destroy'])->name('admin.masterdata.periode.delete');

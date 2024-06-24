@@ -1,5 +1,5 @@
 @foreach ($periodes as $item)
-    <!-- Add Periode -->
+    <!-- Edit Periode -->
     <div id="edit-per{{ $item->id }}" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">

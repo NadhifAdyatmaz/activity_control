@@ -167,14 +167,14 @@
                             <h2><b>Master -</b> Kelas</h2>
                         </div>
                     </div>
-                    <div class="row mb-0">
+                    <!-- <div class="row mb-0">
                         <div class="col-sm-12">
                             <div class="search-box">
                                 <i class="fa fa-search"></i>
                                 <input type="text" class="form-control" placeholder="Search&hellip;">
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="row mb-0">
                         <div class="col-sm-8">
                             <a href="#add-kelas" class="btn btn-primary" data-toggle="modal"><i
@@ -184,7 +184,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-hover table-bordered">
+                        <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -197,7 +197,7 @@
                             <tbody>
                                 @foreach ($kelas as $key => $item)
                                     <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
+                                        <td scope="row">{{ $key + 1 }}</td>
                                         <!-- <td>{{ $item->name }}</td>
                                         <td>{{ $item->jumlah_siswa }}</td>
                                         <td>{{ $item->status }}</td> -->
@@ -227,7 +227,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="clearfix">
+                        <!-- <div class="clearfix">
                             <div class="hint-text">Showing <b>10</b> out of <b>25</b> entries</div>
                             <ul class="pagination">
                                 <li class="page-item disabled"><a href="#"><i class="fa fa-angle-double-left"></i></a>
@@ -240,7 +240,7 @@
                                 <li class="page-item"><a href="#" class="page-link"><i
                                             class="fa fa-angle-double-right"></i></a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
