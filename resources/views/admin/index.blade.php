@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-5 col-md-4">
               <div class="icon-big text-center icon-warning">
-                <i class="nc-icon nc-circle-10 text-warning"></i>
+                <i class="nc-icon nc-single-02 text-warning"></i>
               </div>
             </div>
             <div class="col-7 col-md-8">

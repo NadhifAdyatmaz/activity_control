@@ -39,7 +39,7 @@
                 <li class="nav-item btn-rotate dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <i class="nc-icon nc-single-02"></i>
+                        <i class="nc-icon nc-circle-10"></i>
                         <p>
                             <span class="d-lg d-md-block">{{ Auth::user()->name }}</span>
                         </p>

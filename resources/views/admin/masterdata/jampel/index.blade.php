@@ -178,7 +178,7 @@
                     <div class="row mb-0">
                         <div class="col-sm-8">
                             <a href="#add-jampel" class="btn btn-primary" data-toggle="modal"><i
-                                    class="bi bi-plus"></i><span>Add</span></a>
+                                    class="bi bi-plus"></i><span>Tambah Data</span></a>
                         </div>
                     </div>
                 </div>
