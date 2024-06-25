@@ -227,15 +227,10 @@
 
                                 <div class="filter-group">
                                     <label>Tahun Ajaran : </label>
-                                    <select class="form-control">
-                                        <option>Semua</option>
-                                        <option>2023</option>
-                                        <option>2024</option>
-                                        <option>2025</option>
-                                        <option>2026</option>
-                                        <option>2027</option>
-                                        <option>2028</option>
-                                    </select>
+                                    <input type="text" class="form-control"
+                                        value="{{ $selectperiode->name ?? "-"}} {{ $selectperiode->semester ?? "tidak ada"}}"
+                                        readonly>
+
                                 </div>
                                 <div class="filter-group">
                                     <label>Pertemuan : </label>
@@ -251,23 +246,10 @@
                                 <div class="filter-group">
                                     <label>Guru : </label>
                                     <select class="form-control">
-                                        <option>Semua</option>
-                                        <option>Ghafur</option>
-                                        <option>Anas</option>
-                                        <option>Jakfar</option>
-                                        <option>DIo</option>
-                                    </select>
-                                </div>
-                                <div class="filter-group">
-                                    <label>Hari : </label>
-                                    <select class="form-control">
-                                        <option>Semua</option>
-                                        <option>Senin</option>
-                                        <option>Selasa</option>
-                                        <option>Rabu</option>
-                                        <option>Kamis</option>
-                                        <option>Jumat</option>
-                                        <option>Sabtu</option>
+                                        <option value="">Semua</option>
+                                        @foreach ($users as $guru)
+                                            <option value="{{ $guru->id }}">{{ $guru->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -279,94 +261,56 @@
                         <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Pertemuan</th>
-                                    <th>Hari</th>
-                                    <th>Jamke</th>
-                                    <th>Guru</th>
-                                    <th>Mapel</th>
-                                    <th>Kelas</th>
+                                <th>Pertemuan</th>
+                                    <th>Tanggal_Jurnal</th>
+                                    <th>Materi</th>
+                                    <th>Sakit</th>
+                                    <th>Izin </th>
+                                    <th>Alpha </th>
+                                    <th>Foto </th>
+                                    <th>Catatan</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($jurnals as $jurnal )
                                 <tr>
-                                    <td>
-                                        <div class="filter-group">
-                                            <select class="form-control">
-                                                <option>Pertemuan 1</option>
-                                                <option>Pertemuan 2</option>
-                                                <option>Pertemuan 3</option>
-                                                <option>Pertemuan 4</option>
-                                                <option>Pertemuan 5</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="filter-group">
-                                            <select class="form-control">
-                                                <option>Senin</option>
-                                                <option>Selasa</option>
-                                                <option>Rabu</option>
-                                                <option>Kamis</option>
-                                                <option>Jumat</option>
-                                                <option>Sabtu</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="filter-group">
-                                            <select class="form-control">
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                                <option>6</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="filter-group">
-                                            <select class="form-control">
-                                                <option>Ghafur</option>
-                                                <option>Anas</option>
-                                                <option>Jakfar</option>
-                                                <option>DIo</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="filter-group">
-                                            <select class="form-control">
-                                                <option>Struktur Data</option>
-                                                <option>Basis Data</option>
-                                                <option>UI/UX</option>
-                                            </select>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="filter-group">
-                                            <select class="form-control">
-                                                <option>X RPL 1</option>
-                                                <option>X RPL 2</option>
-                                                <option>X DKV 1</option>
-                                                <option>X DKV 2</option>
-                                            </select>
-                                        </div>
-                                    </td>
+                                
+                                <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $jurnal->id}}"
+                                    data-title="Enter Name">{{ $jurnal->name }}</a></td>
+                                <td><a class="editable" data-name="tanggal_jurnal" data-type="text" data-pk="{{ $jurnal->tanggal_jurnal}}"
+                                    data-title="Enter Name">{{ $jurnal->tanggal_jurnal }}</a></td>
+                                <td><a class="editable" data-name="materi" data-type="text" data-pk="{{ $jurnal->id}}"
+                                    data-title="Enter Name">{{ $jurnal->materi }}</a></td>
+                                <td><a class="editable" data-name="sakit" data-type="text" data-pk="{{ $jurnal->id}}"
+                                    data-title="Enter Name">{{ $jurnal->sakit }}</a></td>
+                                <td><a class="editable" data-name="izin" data-type="text" data-pk="{{ $jurnal->id}}"
+                                    data-title="Enter Name">{{ $jurnal->izin }}</a></td>
+                                <td><a class="editable" data-name="alpha" data-type="text" data-pk="{{ $jurnal->id}}"
+                                    data-title="Enter Name">{{ $jurnal->alpha }}</a></td>
 
+                                    {{-- <td>
+                                        @if ($jurnal->foto)
+                                            <img src="{{ asset($jurnal->foto) }}" alt="Foto Jurnal" style="max-width: 100px;">
+                                        @else
+                                            <span>Tidak ada foto</span>
+                                        @endif
+                                    </td> --}}
                                     <td>
-                                        <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE417;</i></a>
-                                        <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE254;</i></a> 
-                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i
-                                                class="material-icons">&#xE872;</i></a> -->
-                                        <input type="submit" name="approv" id="approv" class="btn btn-primary"
-                                            value="Approv" />
+                                            <div style="position: relative; display: inline-block;">
+                                                <img src="{{ asset($jurnal->foto) ?? '../assets/img/default-avatar.png' }}" alt="Gambar Jurnal" style="max-width: 100px; max-height: 100px;">
+                                                
+                                            </div>
+                                        
+                                    </td>
+                                    <td><a class="editable" data-name="catatan" data-type="text" data-pk="{{ $jurnal->id}}"
+                                        data-title="Enter Name">{{ $jurnal->catatan ?? "-"}}</a></td>
+                                        <td>
+                                        <input type="button" name="detail" id="detail" class="btn btn-primary"
+                                            value="Detail" />
                                     </td>
                                 </tr>
-
+                                @endforeach
                             </tbody>
                         </table>
                         {{-- <td>Status : Aktif</td> --}}

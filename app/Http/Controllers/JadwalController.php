@@ -25,7 +25,7 @@ class JadwalController extends Controller
         $id = null;
         foreach ($periodes as $p) {
             $id = $p->id;
-        }
+        } 
         $jadwals = Jadwal::where('periode_id', $id)->get();
         // $jadwals = Jadwal::with('periodes','jampels', 'users', 'mapels', 'kelas')->get()->all();
         $jampels = Jampel::all();

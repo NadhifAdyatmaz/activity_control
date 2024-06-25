@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\GuruJadwalController;
+use App\Http\Controllers\GuruJurnalController;
+use App\Http\Controllers\GuruprofileController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JampelController;
 use App\Http\Controllers\JurnalController;
@@ -97,5 +100,17 @@ Route::middleware(['auth','verified','role:admin'])->group(function(){
 Route::middleware(['auth','role:guru'])->group(function(){
     Route::get('/guru/dashboard', [GuruController::class, 'GuruDashboard'])->name('guru.dashboard');
     
+    Route::get('/guru/profile', [GuruprofileController::class, 'GuruProfil'])->name('guru.profile');
+    Route::get('/guru/jadwal', [GuruJadwalController::class, 'GuruJadwal'])->name('guru.jadwal');
+    Route::get('/guru/jurnal', [GuruJurnalController::class, 'Gurujurnal'])->name('guru.jurnal');
+    Route::patch('/guru/jurnal', [GuruJurnalController::class, 'update'])->name('guru.jurnal.edit');
+    Route::patch('/guru/jurnal/tambah', [GuruJurnalController::class, 'store'])->name('guru.jurnal.tambah');
+      // Rute untuk menampilkan form edit profil
+    //Route::get('/guru/profile/edit', [GuruController::class, 'edit'])->name('guru.profile.edit');
+      // Rute untuk memperbarui profil pengguna yang sedang login
+    Route::patch('/guru/profile', [GuruprofileController::class, 'update'])->name('guru.profile.update');
+    Route::patch('/guru/isijurnal', [GuruController::class, 'isijurnal'])->name('guru.isijurnal');
+    // Route::patch('/', [GuruPeriodeController::class, 'periodes'])->name('/');
+    Route::put('guru/jurnal/{jurnal}', [GuruJurnalController::class, 'update'])->name('guru.jurnal.update');
 });
 // End Group Guru Middleware

@@ -1,4 +1,7 @@
 @extends('guru/template')
+
+@section('title', 'Dashboard')
+
 @section('content')
 <div class="content">
         <div class="row">
@@ -13,8 +16,8 @@
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Capacity</p>
-                      <p class="card-title">150GB<p>
+                      <p class="card-category">User</p>
+                      <p class="card-title">150<p>
                     </div>
                   </div>
                 </div>
@@ -39,8 +42,8 @@
                   </div>
                   <div class="col-7 col-md-8">
                     <div class="numbers">
-                      <p class="card-category">Revenue</p>
-                      <p class="card-title">$ 1,345<p>
+                      <p class="card-category">Belum Input</p>
+                      <p class="card-title">10<p>
                     </div>
                   </div>
                 </div>
@@ -107,7 +110,7 @@
             </div>
           </div>
         </div>
-        <div class="row">
+        {{-- <div class="row">
           <div class="col-md-12">
             <div class="card ">
               <div class="card-header ">
@@ -172,5 +175,5 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
       @endsection
