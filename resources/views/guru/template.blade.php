@@ -18,6 +18,14 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/css/jquery-editable.css"
+    rel="stylesheet" />
+
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <script>$.fn.poshytip = { defaults: null }</script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/js/jquery-editable-poshytip.min.js"></script>
 
   <!-- Custom CSS for animation -->
   <style>
@@ -59,13 +67,15 @@
 <body class="">
   <div class="wrapper">
     <div class="sidebar" data-color="navy" data-active-color="danger">
-    @include('guru.layouts.sidebar')
-      
+      @foreach ($infos as $info)
+      @include('guru.layouts.sidebar')
+    @endforeach
+
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-    @include('guru.layouts.topbar')
-      
+      @include('guru.layouts.topbar')
+
       <!-- End Navbar -->
 
       <!-- Content -->
@@ -106,7 +116,7 @@
     $(document).ready(function () {
       demo.initChartsPages();
     });
-  </script> --}}
+  </script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var canvas = document.getElementById('myCanvas');
@@ -117,7 +127,7 @@
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       }
     });
-  </script>
+  </script> --}}
 
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>

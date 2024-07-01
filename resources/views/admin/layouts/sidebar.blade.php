@@ -1,15 +1,16 @@
 <div class="logo">
   <a href="#" class="simple-text logo-mini">
+    
     <div class="logo-image-small">
-      <img src="../assets/img/logo-smk.png">
+      <img src="{{ $info->logo ? asset($info->logo) : asset('assets/img/default-avatar.png') }}">
     </div>
     <!-- <p>CT</p> -->
   </a>
   <a class="simple-text-lg text-white logo-normal">
-    SMKN 1 Tanjung Bumi
+    {{$info->sekolah}}
     <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
+      <img src="../assets/img/logo-big.png">
+    </div> -->
   </a>
 </div>
 <!-- MENU -->
@@ -40,7 +41,7 @@
       </a>
     </li>
     <li class="{{ Route::currentRouteName() == 'admin.info' ? 'active' : '' }} ">
-      <a href="#">
+      <a href="{{route('admin.info')}}">
         <i class="nc-icon nc-alert-circle-i"></i>
         <p>Info</p>
       </a>
@@ -49,7 +50,7 @@
     </div>
 
     <li
-      class="{{ Route::currentRouteName() == 'admin.info' || Route::currentRouteName() == 'admin.info' ? 'active' : '' }}">
+      class="{{ Route::currentRouteName() == 'admin.master' || Route::currentRouteName() == 'admin.master' ? 'active' : '' }}">
       <a data-toggle="collapse" aria-expanded="false" href="#laravelExamples">
         <i class="nc-icon nc-bullet-list-67"></i>
         <p>

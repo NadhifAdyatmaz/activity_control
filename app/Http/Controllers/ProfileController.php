@@ -28,8 +28,8 @@ class ProfileController extends Controller
     {
         if ($request->hasFile('photo')) {
             $photo = time() . '.' . $request->photo->extension();
-            $uploadedImage = $request->photo->move(public_path('images/admin'), $photo);
-            $imagePath = 'images/admin/' . $photo;
+            $uploadedImage = $request->photo->move(public_path('images/admin/fotoprofil'), $photo);
+            $imagePath = 'images/admin/fotoprofil/' . $photo;
             $request->user()->fill($request->validated());
             $request->user()->photo = $imagePath;
             $request->user()->save();

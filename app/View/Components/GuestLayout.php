@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Information;
 use Illuminate\View\Component;
 use Illuminate\View\View;
 
@@ -12,6 +13,8 @@ class GuestLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.guest');
+        $infos = Information::all();
+
+        return view('layouts.guest',compact('infos'));
     }
 }

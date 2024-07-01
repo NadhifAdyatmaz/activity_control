@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Jadwal;
 use App\Models\Jurnal;
 use Illuminate\Http\Request;
@@ -20,12 +21,13 @@ class MasterGuruController extends Controller
                 $query->where('user_id', $guru->id);
             })->count();
         }
-        return view('admin.masterdata.guru.index', compact('gurus'));
+        $infos = Information::all();
+        return view('admin.masterdata.guru.index', compact('gurus','infos'));
         
     }
-
-    public function destroy(User $user)
+    public function destroy($id)
     {
+        $user = User::findOrFail($id);
         $user->delete();
 
         return Redirect::route('admin.masterdata.guru')->with('success', 'Data Terhapus');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
   <meta charset="utf-8" />
@@ -22,11 +22,11 @@
   <link href="../assets/demo/demo.css" rel="stylesheet" />
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" /> -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-
+  
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/css/jquery-editable.css"
-    rel="stylesheet" />
+  rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <script>$.fn.poshytip = { defaults: null }</script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jquery-editable/js/jquery-editable-poshytip.min.js"></script>
@@ -36,7 +36,11 @@
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="navy" data-active-color="danger">
+@foreach ($infos as $info )
+
       @include('admin.layouts.sidebar')
+@endforeach
+
     </div>
     <div class="main-panel">
       <!-- Navbar -->
@@ -82,17 +86,11 @@
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
 
   <script>
-  $(document).ready(function() {
-    $('#myDataTable').DataTable();
-  });
-</script>
-
-  <script>
     $(document).ready(function () {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
+      $('#myDataTable').DataTable();
     });
   </script>
+
 </body>
 
 </html>

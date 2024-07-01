@@ -261,80 +261,58 @@
                         <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
-                                <th>Pertemuan</th>
-                                    <th>Tanggal_Jurnal</th>
+                                    <th>Jadwal</th>
+                                    <th>Tanggal</th>
+                                    <th>Pertemuan</th>
                                     <th>Materi</th>
                                     <th>Sakit</th>
                                     <th>Izin </th>
                                     <th>Alpha </th>
                                     <th>Foto </th>
                                     <th>Catatan</th>
-                                    <th>Actions</th>
+                                    <th>Status</th>
+                                    <th>TTD</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($jurnals as $jurnal )
-                                <tr>
-                                
-                                <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $jurnal->id}}"
-                                    data-title="Enter Name">{{ $jurnal->name }}</a></td>
-                                <td><a class="editable" data-name="tanggal_jurnal" data-type="text" data-pk="{{ $jurnal->tanggal_jurnal}}"
-                                    data-title="Enter Name">{{ $jurnal->tanggal_jurnal }}</a></td>
-                                <td><a class="editable" data-name="materi" data-type="text" data-pk="{{ $jurnal->id}}"
-                                    data-title="Enter Name">{{ $jurnal->materi }}</a></td>
-                                <td><a class="editable" data-name="sakit" data-type="text" data-pk="{{ $jurnal->id}}"
-                                    data-title="Enter Name">{{ $jurnal->sakit }}</a></td>
-                                <td><a class="editable" data-name="izin" data-type="text" data-pk="{{ $jurnal->id}}"
-                                    data-title="Enter Name">{{ $jurnal->izin }}</a></td>
-                                <td><a class="editable" data-name="alpha" data-type="text" data-pk="{{ $jurnal->id}}"
-                                    data-title="Enter Name">{{ $jurnal->alpha }}</a></td>
-
-                                    {{-- <td>
-                                        @if ($jurnal->foto)
-                                            <img src="{{ asset($jurnal->foto) }}" alt="Foto Jurnal" style="max-width: 100px;">
-                                        @else
-                                            <span>Tidak ada foto</span>
-                                        @endif
-                                    </td> --}}
+                                @foreach ($jurnals as $key => $item)
+                                    <tr>
                                     <td>
-                                            <div style="position: relative; display: inline-block;">
-                                                <img src="{{ asset($jurnal->foto) ?? '../assets/img/default-avatar.png' }}" alt="Gambar Jurnal" style="max-width: 100px; max-height: 100px;">
-                                                
-                                            </div>
-                                        
+                                        {{ $item->jadwal->hari}}-{{ $item->jadwal->jampels->jam_ke}}-{{ $item->jadwal->kelas->name}}-{{ $item->jadwal->mapels->name}}
+                                        </td>
+                                        <td>{{ $item->tanggal_jurnal ?? "tidak ada data"}}</td>
+                                        <td>{{ $item->name ?? "tidak ada data"}}</td>
+                                        <td>{{ $item->materi ?? "tidak ada data"}}</td>
+                                        <td style="text-align: center;">{{ $item->sakit ?? "tidak ada data"}}</td>
+                                        <td style="text-align: center;">{{ $item->izin ?? "tidak ada data"}}</td>
+                                        <td style="text-align: center;">{{ $item->alpha ?? "tidak ada data"}}</td>
+                                        <td style="text-align: center;"><img class="border-gray" width="100" height="50"
+                                                        src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
+                                                        alt="..."></td>
+                                        <td>{{ $item->catatan ?? "tidak ada data"}}</td>
+                                        <td>@if ($item->is_validation == null && $item->is_validation->isNotEmpty())
+                                        tidak ada data
+                                        @elseif ($item->is_validation == "invalid")
+                                        Tidak Tuntas
+                                        @else
+                                        Tuntas
+                                        @endif
                                     </td>
-                                    <td><a class="editable" data-name="catatan" data-type="text" data-pk="{{ $jurnal->id}}"
-                                        data-title="Enter Name">{{ $jurnal->catatan ?? "-"}}</a></td>
+                                    <td>
+                                    <img class="border-gray" width="100" height="50"
+                                                        src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"
+                                                        alt="...">
+                                    </td>
                                         <td>
                                         <input type="button" name="detail" id="detail" class="btn btn-primary"
-                                            value="Detail" />
-                                    </td>
-                                </tr>
+                                        value="Detail" />
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- <td>Status : Aktif</td> --}}
-                        {{-- <div class="dropdown" style="margin-left: 10px;">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Aktif
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                                <button class="dropdown-item" type="button">Tidak Aktif</button>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span class="mr-2">Status:</span>
-                            <div class="filter-group">
-                                <select class="form-control">
-                                    <option>Aktif</option>
-                                    <option>Tidak Atif</option>
-                                </select>
-                            </div>
-                        </div> --}}
-                        <!-- <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary">Save</button>
-                        </div> -->
+                        
                     </div>
                 </div>
             </div>

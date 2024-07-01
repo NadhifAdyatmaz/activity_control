@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Jadwal;
 use App\Models\Jampel;
 use App\Models\Kelas;
@@ -33,10 +34,10 @@ class JadwalController extends Controller
         $kelas = Kelas::where('status', 'active')->get();
         $users = User::where('role', 'guru')->get();
 
-        $filter_per = $periodes->sortBy('id')->pluck('id')->unique();
+        $infos = Information::all();
 
 
-        return view('admin.jadwal.index', compact('jadwals', 'periodes', 'selectperiode', 'jampels', 'mapels', 'kelas', 'users', 'filter_per'));
+        return view('admin.jadwal.index', compact('jadwals', 'periodes', 'selectperiode', 'jampels', 'mapels', 'kelas', 'users', 'infos'));
     }
 
     /**

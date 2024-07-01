@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Jurnal;
 use App\Models\Periode;
 use App\Models\User;
@@ -18,8 +19,9 @@ class JurnalController extends Controller
         $periodes = Periode::where('status', 'active')->get();
         $selectperiode = $periodes->first();
         $users = User::where('role', 'guru')->get();
+        $infos = Information::all();
 
-        return view('admin.jurnal.index', compact('jurnals','periodes','selectperiode','users'));
+        return view('admin.jurnal.index', compact('jurnals','periodes','selectperiode','users','infos'));
     }
 
     /**

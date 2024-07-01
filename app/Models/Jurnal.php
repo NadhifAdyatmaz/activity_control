@@ -20,6 +20,7 @@ class Jurnal extends Model
         'izin',
         'alpha',
         'foto',
+        'ttd',
         'catatan',
         'is_validation',
         'updated_at',

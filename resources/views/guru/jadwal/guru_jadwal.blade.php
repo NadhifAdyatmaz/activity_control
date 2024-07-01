@@ -217,6 +217,7 @@
         transform: rotate(45deg);
     }
 </style>
+
 @section('content')
 <div class="content">
     <div class="row">
@@ -258,46 +259,116 @@
                                     </select>
                                 </div>
                             </div>
-                <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="myDataTable" class="table table-striped table-hover table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Tahun Ajaran</th>
-                                            <th>Hari</th>
-                                            <th>Jam Ke</th>
-                                            <th>Mapel</th>
-                                            <th>Kelas</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($jadwals as $key => $item)
-                                            <tr>
-                                                <td>{{ $item->periodes->name ?? "-"}} {{ $item->periodes->semester ?? "tidak ada data"}}</td>
-                                                <!-- Nama user -->
-                                                <td>{{ $item->hari ?? "tidak ada data"}}</td>
-                                                <td>{{ $item->jampels->jam_ke ?? "tidak ada data"}}</td> <!-- Nama kelas -->
-                                                <td>{{ $item->mapels->name ?? "tidak ada data"}}</td> <!-- Nama mapel -->
-                                                <td>{{ $item->kelas->name ?? "tidak ada data"}}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-
-
-                                </table>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form action="{{ route('guru.jadwal.add') }}" method="post">
+                            @csrf
+                            <table id="myDataTable" class="table table-striped table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tahun Ajaran</th>
+                                        <th>Hari</th>
+                                        <th>Jam Ke</th>
+                                        <th>Mapel</th>
+                                        <th>Kelas</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($jadwals as $key => $item)
+                                        <tr>
+                                            <td>{{ $item->periodes->name ?? "-"}}
+                                                {{ $item->periodes->semester ?? "tidak ada data"}}
+                                            </td>
+                                            <td>{{ $item->hari ?? "tidak ada data"}}</td>
+                                            <td>{{ $item->jampels->jam_ke ?? "tidak ada data"}}</td>
+                                            <td>{{ $item->mapels->name ?? "tidak ada data"}}</td>
+                                            <td>{{ $item->kelas->name ?? "tidak ada data"}}</td>
+                                            <td>
+                                                <input type="hidden" name="is_validation" id="is_validation"
+                                                    value="invalid" />
+                                                <input type="hidden" name="jadwal_id" id="jadwal_id"
+                                                    value="{{ $item->id}}" />
+                                                <button type="button" class="btn btn-primary submit-jurnal"
+                                                    data-jadwal-id="{{ $item->id }}">Input</button>
+                                                <!-- <input type="submit" name="input" id="input" class="btn btn-primary"
+                                                                    value="Input" /> -->
+                                            </td>
 
-                <!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-});
-</script> -->
-                @endsection
+    $(document).ready(function () {
+        $('.submit-jurnal').click(function () {
+            var jadwalId = $(this).data('jadwal-id');
+            var row = $(this).closest('tr');
+
+            var data = {
+                jadwal_id: jadwalId,
+                is_validation: row.find('input[name="is_validation"]').val(),
+                // Tambahkan data lain yang ingin dikirim
+                // name: row.find('input[name="name"]').val(),
+                // materi: row.find('input[name="materi"]').val(),
+                // ...
+                _token: '{{ csrf_token() }}' // tambahkan CSRF token
+            };
+
+            $.ajax({
+                url: '{{ route("guru.jadwal.insert") }}',
+                method: 'POST',
+                data: data,
+                success: function (response) {
+                    if (response.success) {
+                        $.notify({
+                            icon: 'nc-icon nc-check-2',
+                            message: 'Data berhasil ditambah.'
+                        }, {
+                            type: 'success',
+                            timer: 3000
+                        });
+
+                        // Redirect to guru.jurnal page
+                        setTimeout(function () {
+                            window.location.href = '{{ route("guru.jurnal") }}';
+                        }, 1500);
+                    } else {
+                        $.notify({
+                            icon: 'nc-icon nc-bell-55',
+                            message: 'Gagal menambahkan data.'
+                        }, {
+                            type: 'danger',
+                            timer: 3000
+                        });
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    $.notify({
+                        icon: 'nc-icon nc-bell-55',
+                        message: 'Data jurnal sudah ada.'
+                    }, {
+                        type: 'danger',
+                        timer: 3000
+                    });
+                }
+            });
+
+        });
+    });
+
+</script>
+
+@endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,8 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::all();
-        return view('admin.masterdata.kelas.index', compact('kelas'));
+        $infos = Information::all();
+        return view('admin.masterdata.kelas.index', compact('kelas','infos'));
         
     }
 

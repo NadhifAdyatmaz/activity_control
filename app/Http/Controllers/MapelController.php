@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,8 @@ class MapelController extends Controller
     public function index()
     {
         $mapels = Mapel::all();
-        return view('admin.masterdata.mapel.index', compact('mapels'));
+        $infos = Information::all();
+        return view('admin.masterdata.mapel.index', compact('mapels','infos'));
         
     }
 

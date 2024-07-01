@@ -205,12 +205,6 @@
     }
 </style>
 
-<script>
-    $(document).ready(function () {
-        $('[data-toggle="tooltip"]').tooltip();
-    });
-</script>
-
 @section('admin')
 <div class="content">
     <div class="row">
@@ -261,18 +255,6 @@
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div class="col-sm-0">
-                                <a class="filter-icon" href="#add-jadwal" data-toggle="modal"><i
-                                        class="fa fa-plus-square"></i> Tambah</a>
-                            </div>
-                            <div class="col-sm-0">
-                                <a class="filter-icon addjadwal" href="#"><i class="fa fa-plus-square"></i> Tambah</a>
-                            </div>
-
-                            <div class="col-sm-1">
-                                <a class="filter-icon" href="#"><i class="fa fa-file-excel-o"></i> Impor</a>
-
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -407,6 +389,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
 
 <script>
     $(document).ready(function () {

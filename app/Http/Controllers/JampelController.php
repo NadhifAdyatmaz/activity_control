@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Jampel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,8 @@ class JampelController extends Controller
     public function index()
     {
         $jampels = Jampel::all();
-        return view('admin.masterdata.jampel.index', compact('jampels'));
+        $infos = Information::all();
+        return view('admin.masterdata.jampel.index', compact('jampels','infos'));
         
     }
 

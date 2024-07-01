@@ -3,6 +3,7 @@
 use App\Http\Controllers\GuruJadwalController;
 use App\Http\Controllers\GuruJurnalController;
 use App\Http\Controllers\GuruprofileController;
+use App\Http\Controllers\InformationController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JampelController;
 use App\Http\Controllers\JurnalController;
@@ -28,7 +29,7 @@ use App\Http\Controllers\GuruController;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+  return view('auth.login');
 });
 
 // Route::get('/dashboard', function () {
@@ -41,76 +42,90 @@ Route::get('/', function () {
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
-Route::middleware(['auth','verified','role:admin'])->group(function(){
-    Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
-    
-    // profile
-    Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
-    // Route::get('/admin/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/admin/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/admin/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
-    // jadwal
-    Route::get('/admin/jadwal', [JadwalController::class, 'index'])->name('admin.jadwal');
-    Route::post('/admin/jadwal/add', [JadwalController::class, 'store'])->name('admin.jadwal.add');
-    Route::post('/admin/jadwal/insert', [JadwalController::class, 'insert'])->name('admin.jadwal.insert');
-    Route::post('/admin/jadwal/edit', [JadwalController::class, 'update'])->name('admin.jadwal.update');
-    Route::delete('/admin/jadwal/{jadwal}', [JadwalController::class, 'destroy'])->name('admin.jadwal.delete');
-    
-    // jurnal
-    Route::get('/admin/jurnal', [JurnalController::class, 'index'])->name('admin.jurnal');
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
+  Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
 
-    // master guru
-    Route::get('admin/master-guru', [MasterGuruController::class, 'index'])->name('admin.masterdata.guru');
-    Route::get('admin/master-guru/{guru}', [MasterGuruController::class, 'destroy'])->name('admin.masterdata.guru.delete');
+  // profile
+  Route::get('/admin/profile', [AdminController::class, 'AdminProfile'])->name('admin.profile');
+  // Route::get('/admin/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+  Route::patch('/admin/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+  Route::delete('/admin/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // master periode
-    Route::get('/admin/master-periode', [PeriodeController::class, 'index'])->name('admin.masterdata.periode');
-    // Route::get('/admin/master-periode', [PeriodeController::class, 'search'])->name('admin.masterdata.search');
-    Route::post('/admin/master-periode/add', [PeriodeController::class, 'store'])->name('admin.masterdata.periode.add');
-    Route::post('/admin/master-periode/edit', [PeriodeController::class, 'update'])->name('admin.masterdata.periode.edit');
-    Route::delete('/admin/master-periode/{periode}', [PeriodeController::class, 'destroy'])->name('admin.masterdata.periode.delete');
-    
-    // master mapel
-    Route::get('/admin/master-mapel', [MapelController::class, 'index'])->name('admin.masterdata.mapel');
-    Route::post('/admin/master-mapel/add', [MapelController::class, 'store'])->name('admin.masterdata.mapel.add');
-    Route::post('/admin/master-mapel/edit', [MapelController::class, 'update'])->name('admin.masterdata.mapel.edit');
-    Route::delete('/admin/master-mapel/{mapel}', [MapelController::class, 'destroy'])->name('admin.masterdata.mapel.delete');
+  // jadwal
+  Route::get('/admin/jadwal', [JadwalController::class, 'index'])->name('admin.jadwal');
+  Route::post('/admin/jadwal/add', [JadwalController::class, 'store'])->name('admin.jadwal.add');
+  Route::post('/admin/jadwal/insert', [JadwalController::class, 'insert'])->name('admin.jadwal.insert');
+  Route::post('/admin/jadwal/edit', [JadwalController::class, 'update'])->name('admin.jadwal.update');
+  Route::delete('/admin/jadwal/{jadwal}', [JadwalController::class, 'destroy'])->name('admin.jadwal.delete');
 
-    
-    // master jampel
-    Route::get('/admin/master-jampel', [JampelController::class, 'index'])->name('admin.masterdata.jampel');
-    Route::post('/admin/master-jampel/add', [JampelController::class, 'store'])->name('admin.masterdata.jampel.add');
-    Route::post('/admin/master-jampel/edit', [JampelController::class, 'update'])->name('admin.masterdata.jampel.edit');
-    Route::delete('/admin/master-jampel/{jampel}', [JampelController::class, 'destroy'])->name('admin.masterdata.jampel.delete');
+  // jurnal
+  Route::get('/admin/jurnal', [JurnalController::class, 'index'])->name('admin.jurnal');
 
-    
-    // master kelas
-    Route::get('/admin/master-kelas', [KelasController::class, 'index'])->name('admin.masterdata.kelas');
-    Route::post('/admin/master-kelas/add', [KelasController::class, 'store'])->name('admin.masterdata.kelas.add');
-    Route::post('/admin/master-kelas/edit', [KelasController::class, 'update'])->name('admin.masterdata.kelas.edit');
-    Route::delete('/admin/master-kelas/{kelas}', [KelasController::class, 'destroy'])->name('admin.masterdata.kelas.delete');
+  // Info
+  Route::get('/admin/info', [InformationController::class, 'index'])->name('admin.info');
+  Route::post('/admin/info/add', [InformationController::class, 'store'])->name('admin.info.add');
+  Route::post('/admin/info/update', [InformationController::class, 'update'])->name('admin.info.update');
+  Route::post('/admin/info/edit/{info}', [InformationController::class, 'edit'])->name('admin.info.edit');
+
+  // master guru
+  Route::get('admin/master-guru', [MasterGuruController::class, 'index'])->name('admin.masterdata.guru');
+  Route::delete('admin/master-guru/{guru}', [MasterGuruController::class, 'destroy'])->name('admin.masterdata.guru.delete');
+
+  // master periode
+  Route::get('/admin/master-periode', [PeriodeController::class, 'index'])->name('admin.masterdata.periode');
+  // Route::get('/admin/master-periode', [PeriodeController::class, 'search'])->name('admin.masterdata.search');
+  Route::post('/admin/master-periode/add', [PeriodeController::class, 'store'])->name('admin.masterdata.periode.add');
+  Route::post('/admin/master-periode/edit', [PeriodeController::class, 'update'])->name('admin.masterdata.periode.edit');
+  Route::delete('/admin/master-periode/{periode}', [PeriodeController::class, 'destroy'])->name('admin.masterdata.periode.delete');
+
+  // master mapel
+  Route::get('/admin/master-mapel', [MapelController::class, 'index'])->name('admin.masterdata.mapel');
+  Route::post('/admin/master-mapel/add', [MapelController::class, 'store'])->name('admin.masterdata.mapel.add');
+  Route::post('/admin/master-mapel/edit', [MapelController::class, 'update'])->name('admin.masterdata.mapel.edit');
+  Route::delete('/admin/master-mapel/{mapel}', [MapelController::class, 'destroy'])->name('admin.masterdata.mapel.delete');
+
+
+  // master jampel
+  Route::get('/admin/master-jampel', [JampelController::class, 'index'])->name('admin.masterdata.jampel');
+  Route::post('/admin/master-jampel/add', [JampelController::class, 'store'])->name('admin.masterdata.jampel.add');
+  Route::post('/admin/master-jampel/edit', [JampelController::class, 'update'])->name('admin.masterdata.jampel.edit');
+  Route::delete('/admin/master-jampel/{jampel}', [JampelController::class, 'destroy'])->name('admin.masterdata.jampel.delete');
+
+
+  // master kelas
+  Route::get('/admin/master-kelas', [KelasController::class, 'index'])->name('admin.masterdata.kelas');
+  Route::post('/admin/master-kelas/add', [KelasController::class, 'store'])->name('admin.masterdata.kelas.add');
+  Route::post('/admin/master-kelas/edit', [KelasController::class, 'update'])->name('admin.masterdata.kelas.edit');
+  Route::delete('/admin/master-kelas/{kelas}', [KelasController::class, 'destroy'])->name('admin.masterdata.kelas.delete');
 
 
 });
 // End Group Admin Middleware
 
-Route::middleware(['auth','role:guru'])->group(function(){
-    Route::get('/guru/dashboard', [GuruController::class, 'GuruDashboard'])->name('guru.dashboard');
-    
-    Route::get('/guru/profile', [GuruprofileController::class, 'GuruProfil'])->name('guru.profile');
-    Route::get('/guru/jadwal', [GuruJadwalController::class, 'GuruJadwal'])->name('guru.jadwal');
-    Route::get('/guru/jurnal', [GuruJurnalController::class, 'Gurujurnal'])->name('guru.jurnal');
-    Route::patch('/guru/jurnal', [GuruJurnalController::class, 'update'])->name('guru.jurnal.edit');
-    Route::patch('/guru/jurnal/tambah', [GuruJurnalController::class, 'store'])->name('guru.jurnal.tambah');
-      // Rute untuk menampilkan form edit profil
-    //Route::get('/guru/profile/edit', [GuruController::class, 'edit'])->name('guru.profile.edit');
-      // Rute untuk memperbarui profil pengguna yang sedang login
-    Route::patch('/guru/profile', [GuruprofileController::class, 'update'])->name('guru.profile.update');
-    Route::patch('/guru/isijurnal', [GuruController::class, 'isijurnal'])->name('guru.isijurnal');
-    // Route::patch('/', [GuruPeriodeController::class, 'periodes'])->name('/');
-    Route::put('guru/jurnal/{jurnal}', [GuruJurnalController::class, 'update'])->name('guru.jurnal.update');
+Route::middleware(['auth', 'verified', 'role:guru'])->group(function () {
+  Route::get('/guru/dashboard', [GuruController::class, 'GuruDashboard'])->name('guru.dashboard');
+
+  Route::get('/guru/profile', [GuruprofileController::class, 'GuruProfil'])->name('guru.profile');
+  // Rute untuk memperbarui profil pengguna yang sedang login
+  Route::patch('/guru/profile', [GuruprofileController::class, 'update'])->name('guru.profile.update');
+  // Rute untuk menampilkan form edit profil
+  //Route::get('/guru/profile/edit', [GuruController::class, 'edit'])->name('guru.profile.edit');
+
+  Route::get('/guru/jadwal', [GuruJadwalController::class, 'GuruJadwal'])->name('guru.jadwal');
+  Route::post('/guru/jadwal/add', [GuruJadwalController::class, 'store'])->name('guru.jadwal.add');
+  Route::post('/guru/jadwal/insert', [GuruJadwalController::class, 'insert'])->name('guru.jadwal.insert');
+
+  Route::get('/guru/jurnal', [GuruJurnalController::class, 'Gurujurnal'])->name('guru.jurnal');
+  // Route::post('/guru/jurnal', [GuruJurnalController::class, 'update'])->name('guru.jurnal.edit');
+  // Route::post('/guru/jurnal/insert', [GuruJurnalController::class, 'insert'])->name('guru.jurnal.insert');
+  Route::post('guru/jurnal/update', [GuruJurnalController::class, 'update'])->name('guru.jurnal.update');
+  Route::post('guru/jurnal/{jurnal}', [GuruJurnalController::class, 'edit'])->name('guru.jurnal.edit');
+  // Route::post('guru/jurnal/{ttd}', [GuruJurnalController::class, 'sendTtd'])->name('guru.jurnal.ttd');
+  Route::post('guru/jurnal/{id}/ttd', [GuruJurnalController::class, 'sendTtd'])->name('guru.jurnal.ttd');
+  Route::delete('guru/jurnal/{jurnal}', [GuruJurnalController::class, 'destroy'])->name('guru.jurnal.delete');
+
+
 });
 // End Group Guru Middleware

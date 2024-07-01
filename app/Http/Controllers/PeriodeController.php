@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Information;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,8 @@ class PeriodeController extends Controller
     public function index()
     {
         $periodes = Periode::all();
-        return view('admin.masterdata.periode.index', compact('periodes'));
+        $infos = Information::all();
+        return view('admin.masterdata.periode.index', compact('periodes','infos'));
 
     }
 

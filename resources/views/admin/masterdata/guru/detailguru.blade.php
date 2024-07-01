@@ -182,7 +182,11 @@
                         </div>
                     </div>
                 </div>
+                <form action="{{ route('admin.masterdata.guru.delete',$guru->id) }}" method="post" id="delete-guru{{ $guru->id }}">
+                        @csrf
+                        @method('DELETE')
                 <input type="submit" name="delete" id="delete" class="btn btn-danger" value="Hapus Akun" />
+                </form>
             </div>
         </div>
     </div>
