@@ -3,12 +3,12 @@
     <div id="ttd{{ $item->id }}" class="modal fade">
         <div class="modal-dialog">
             <div class="modal-content">
-                <form action="{{ route('guru.jurnal.ttd', $item->id) }}" method="post" enctype="multipart/form-data">
-                    <div class="modal-header">
-                        <h4 class="modal-title">TTD</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    </div>
-                    <div class="modal-body">
+                <div class="modal-header">
+                    <h4 class="modal-title">TTD</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                        <form action="{{ route('guru.jurnal.ttd', $item->id) }}" method="post" enctype="multipart/form-data">
                         @if ($item->ttd != null)
                         <img class="border-gray mb-2" width="200" height="100"
                                                         src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"

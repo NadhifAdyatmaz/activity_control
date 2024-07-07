@@ -158,6 +158,14 @@
 
 @section('admin')
 <div class="content">
+    @if ($errors->has('data') && $errors->first('data') == 'Data sudah ada')
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Gagal : Data sudah ada.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -197,7 +205,7 @@
                                     <tr>
                                         <!-- <th>{{ $item->jam_ke }}</th>
                                         <td>{{ $item->pukul }}</td> -->
-                                        <td><a class="editable" data-name="jam_ke" data-type="text" data-pk="{{ $item->id }}"
+                                        <td><a class="editable" data-name="jam_ke" data-type="number" min="1" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->jam_ke }}</a></td>
                                                 <td><a class="editable" data-name="pukul" data-type="text" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->pukul }}</a></td>
@@ -248,7 +256,8 @@
 
     $('.editable[data-name="jam_ke"]').editable({
         url:"{{ route('admin.masterdata.jampel.edit') }}",
-        type:'text',
+        type:'number',
+        min: '1',
         pk:1,
         name:'jam_ke',
         title:'Enter name'

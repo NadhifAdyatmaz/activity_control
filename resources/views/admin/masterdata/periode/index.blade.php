@@ -160,6 +160,14 @@
 
 @section('admin')
 <div class="content">
+    @if ($errors->has('data') && $errors->first('data') == 'Data sudah ada')
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Gagal : Data sudah ada.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -203,7 +211,7 @@
                                         <td scope="row">{{ $key + 1 }}</td>
                                         <!-- <td contenteditable='true' id="col{{ $key }}" onmousedown="panggil()">{{ $item->name }}</td> -->
                                         <!-- <td><a class="editable" data-type="text" data-name="name" data-pk="{{ $item->id }}" data-title="Enter Name">{{ $item->name }}</a></td>
-                                                    <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
+                                                        <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
                                         <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->name }}</a></td>
                                         <td style="text-transform: capitalize;"><a class="editable" data-name="semester"
@@ -217,10 +225,10 @@
                                         </td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="modal"
-                                                            data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
+                                                                data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
                                             <!-- <a href="#" class="edit" title="Edit" data-toggle="modal"
-                                                        data-target="#edit-per{{ $item->id }}"><i
-                                                            class=" material-icons">&#xE254;</i></a> -->
+                                                            data-target="#edit-per{{ $item->id }}"><i
+                                                                class=" material-icons">&#xE254;</i></a> -->
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
                                                 data-target="#delete-per{{ $item->id }}"><i
                                                     class=" material-icons">&#xE872;</i></a>

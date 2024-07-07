@@ -43,6 +43,14 @@ class MapelController extends Controller
             'status.required'=>"Status Harus Diisi",
         ]);
 
+        $existingMapel = Mapel::where('name', $request->input('name'))
+            ->first();
+
+        if ($existingMapel) {
+            return back()->withErrors(['data' => 'Data sudah ada'])
+                ->withInput();
+        }
+
         $mapel = new Mapel;
 
         $mapel->name = $request->input('name');

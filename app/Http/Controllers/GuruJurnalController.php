@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Information;
+use App\Models\Periode;
 use Illuminate\Http\Request;
 use App\Models\Jurnal;
 use Illuminate\Http\RedirectResponse;
@@ -16,12 +17,17 @@ class GuruJurnalController extends Controller
     public function Gurujurnal()
     {
         $user = auth()->user();
-
-        $jurnals = Jurnal::whereHas('jadwal', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
+        $periodes = Periode::where('status', 'active')->get();
+        $selectperiode = $periodes->first();
+        $id = null;
+        foreach ($periodes as $p) {
+            $id = $p->id;
+        }
+        $jurnals = Jurnal::whereHas('jadwal', function ($query) use ($user,$id) {
+            $query->where('user_id', $user->id)->where('periode_id', $id);
         })->get();
         $infos = Information::all();
-        return view('guru.jurnal.guru_jurnal', compact('jurnals', 'infos'));
+        return view('guru.jurnal.guru_jurnal', compact('jurnals', 'infos', 'selectperiode'));
         // return view('guru.guru_jurnal');
     }
 
@@ -53,7 +59,7 @@ class GuruJurnalController extends Controller
     public function edit(Request $request, Jurnal $jurnal)
     {
         $request->validate([
-            'foto' => 'image|mimes:jpeg,png,jpg|max:5120',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         if ($request->hasFile('foto')) {

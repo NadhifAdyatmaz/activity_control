@@ -10,6 +10,7 @@ use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\MasterGuruController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
   // jurnal
   Route::get('/admin/jurnal', [JurnalController::class, 'index'])->name('admin.jurnal');
+  Route::post('/admin/jurnal/{approve}', [JurnalController::class, 'approve'])->name('admin.jurnal.approve');
 
   // Info
   Route::get('/admin/info', [InformationController::class, 'index'])->name('admin.info');
@@ -100,6 +102,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
   Route::post('/admin/master-kelas/edit', [KelasController::class, 'update'])->name('admin.masterdata.kelas.edit');
   Route::delete('/admin/master-kelas/{kelas}', [KelasController::class, 'destroy'])->name('admin.masterdata.kelas.delete');
 
+  Route::get('/admin/jurnal/viewpdf', [PDFController::class, 'viewPdfadm'])->name('admin.jurnal.viewpdf');
+  Route::get('/admin/jurnal/exportpdf', [PDFController::class, 'exportPdfadm'])->name('admin.jurnal.exportpdf');
 
 });
 // End Group Admin Middleware
@@ -120,12 +124,13 @@ Route::middleware(['auth', 'verified', 'role:guru'])->group(function () {
   Route::get('/guru/jurnal', [GuruJurnalController::class, 'Gurujurnal'])->name('guru.jurnal');
   // Route::post('/guru/jurnal', [GuruJurnalController::class, 'update'])->name('guru.jurnal.edit');
   // Route::post('/guru/jurnal/insert', [GuruJurnalController::class, 'insert'])->name('guru.jurnal.insert');
-  Route::post('guru/jurnal/update', [GuruJurnalController::class, 'update'])->name('guru.jurnal.update');
-  Route::post('guru/jurnal/{jurnal}', [GuruJurnalController::class, 'edit'])->name('guru.jurnal.edit');
+  Route::post('/guru/jurnal/update', [GuruJurnalController::class, 'update'])->name('guru.jurnal.update');
+  Route::post('/guru/jurnal/{jurnal}', [GuruJurnalController::class, 'edit'])->name('guru.jurnal.edit');
   // Route::post('guru/jurnal/{ttd}', [GuruJurnalController::class, 'sendTtd'])->name('guru.jurnal.ttd');
-  Route::post('guru/jurnal/{id}/ttd', [GuruJurnalController::class, 'sendTtd'])->name('guru.jurnal.ttd');
-  Route::delete('guru/jurnal/{jurnal}', [GuruJurnalController::class, 'destroy'])->name('guru.jurnal.delete');
+  Route::post('/guru/jurnal/{id}/ttd', [GuruJurnalController::class, 'sendTtd'])->name('guru.jurnal.ttd');
+  Route::delete('/guru/jurnal/{jurnal}', [GuruJurnalController::class, 'destroy'])->name('guru.jurnal.delete');
 
-
+  Route::get('/guru/jurnal/viewpdf', [PDFController::class, 'viewPdfguru'])->name('guru.jurnal.viewpdf');
+  Route::get('/guru/jurnal/exportpdf', [PDFController::class, 'exportPdfguru'])->name('guru.jurnal.exportpdf');
 });
 // End Group Guru Middleware

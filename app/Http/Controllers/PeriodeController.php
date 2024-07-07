@@ -17,7 +17,7 @@ class PeriodeController extends Controller
     {
         $periodes = Periode::all();
         $infos = Information::all();
-        return view('admin.masterdata.periode.index', compact('periodes','infos'));
+        return view('admin.masterdata.periode.index', compact('periodes', 'infos'));
 
     }
 
@@ -34,18 +34,29 @@ class PeriodeController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
+        $validatedData = $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required|unique:periodes,name',
                 'semester' => 'required',
                 'status' => 'required',
             ],
             [
                 'name.required' => "Nama Harus Diisi",
+                'name.unique' => "Nama Sudah Ada",
                 'semester.required' => "Semester Harus Diisi",
                 'status.required' => "Status Harus Diisi",
             ]
         );
+
+        // Custom validation for unique combination of name and semester
+        $existingPeriode = Periode::where('name', $request->input('name'))
+            ->where('semester', $request->input('semester'))
+            ->first();
+
+        if ($existingPeriode) {
+            return back()->withErrors(['data' => 'Data sudah ada'])
+                ->withInput();
+        }
 
         $periode = new Periode;
 
@@ -57,6 +68,8 @@ class PeriodeController extends Controller
 
         return redirect('admin/master-periode')->with('success', 'Data Tersimpan');
     }
+
+
 
     /**
      * Display the specified resource.
@@ -80,7 +93,7 @@ class PeriodeController extends Controller
     public function update(Request $request, Periode $periode)
     {
         if ($request->ajax()) {
-            $field = $request->name; 
+            $field = $request->name;
             $value = $request->value;
 
             $periode->find($request->pk)->update([$field => $value]);

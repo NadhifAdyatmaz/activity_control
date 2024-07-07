@@ -145,7 +145,7 @@
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25">
-                                    <img src="{{ $guru->profile_picture_url ?? '../assets/img/default-avatar.png' }}"
+                                    <img src="{{ $guru->photo ? asset($guru->photo) : asset('assets/img/default-avatar.png') }}"
                                         width="70" class="rounded-circle" alt="User-Profile-Image">
                                 </div>
                                 <h6 class="f-w-600">{{ $guru->name }}</h6>

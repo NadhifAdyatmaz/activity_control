@@ -35,15 +35,25 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:kelas,name',
             'jumlah_siswa' => 'required',
             'status' => 'required',
         ],
         [
             'name.required'=>"Nama Harus Diisi",
+            'name.unique'=>"Nama Sudah Ada",
             'jumlah_siswa.required'=>"Jumlah Siswa Harus Diisi",
             'status.required'=>"Status Harus Diisi",
         ]);
+
+        $existingKelas = Kelas::where('name', $request->input('name'))
+            ->where('jumlah_siswa', $request->input('jumlah_siswa'))
+            ->first();
+
+        if ($existingKelas) {
+            return back()->withErrors(['data' => 'Data sudah ada'])
+                ->withInput();
+        }
 
         $kelas = new Kelas;
 

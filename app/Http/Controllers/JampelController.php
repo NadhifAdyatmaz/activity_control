@@ -6,6 +6,7 @@ use App\Models\Information;
 use App\Models\Jampel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rule;
 
 
 class JampelController extends Controller
@@ -35,13 +36,23 @@ class JampelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jam_ke' => 'required',
+            'jam_ke' => 'required|unique:jampels,jam_ke',
             'pukul' => 'required',
         ],
         [
-            'jam_ke.required'=>"Jam Ke Harus Diisi",
+            'jam_ke.required'=>"Jam Harus Diisi",
+            'jam_ke.unique'=>"Jam Sudah Ada",
             'pukul.required'=>"pukul Harus Diisi",
         ]);
+
+        $existingJampel = Jampel::where('jam_ke', $request->input('jam_ke'))
+            ->where('pukul', $request->input('pukul'))
+            ->first();
+
+        if ($existingJampel) {
+            return back()->withErrors(['data' => 'Data sudah ada'])
+                ->withInput();
+        }
 
         $jampel = new Jampel;
 

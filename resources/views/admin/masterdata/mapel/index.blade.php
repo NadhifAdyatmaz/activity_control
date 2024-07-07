@@ -158,6 +158,14 @@
 
 @section('admin')
 <div class="content">
+@if ($errors->has('data') && $errors->first('data') == 'Data sudah ada')
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Gagal : Data sudah ada.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">

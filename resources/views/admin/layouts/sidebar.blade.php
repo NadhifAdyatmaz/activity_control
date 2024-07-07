@@ -7,7 +7,7 @@
     <!-- <p>CT</p> -->
   </a>
   <a class="simple-text-lg text-white logo-normal">
-    {{$info->sekolah}}
+    {{$info->sekolah ?? "Nama Sekolah"}}
     <!-- <div class="logo-image-big">
       <img src="../assets/img/logo-big.png">
     </div> -->

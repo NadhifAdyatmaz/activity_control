@@ -33,7 +33,7 @@
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
-          <a href="{{ route('admin.masterdata.guru') }}">
+          <!-- <a href="{{ route('admin.masterdata.guru') }}"> -->
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
@@ -48,7 +48,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
         </div>
         <div class="card-footer ">
           <hr>
@@ -62,7 +62,7 @@
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
-          <a href="{{ route('admin.jadwal') }}">
+          <!-- <a href="{{ route('admin.jadwal') }}"> -->
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
@@ -77,7 +77,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
         </div>
         <div class="card-footer ">
           <hr>
@@ -91,7 +91,7 @@
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
-          <a href="{{ route('admin.jurnal') }}">
+          <!-- <a href="{{ route('admin.jurnal') }}"> -->
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
@@ -106,7 +106,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
         </div>
         <div class="card-footer ">
           <hr>
@@ -120,7 +120,7 @@
     <div class="col-lg-3 col-md-6 col-sm-6">
       <div class="card card-stats">
         <div class="card-body ">
-          <a href="{{ route('admin.jurnal') }}">
+          <!-- <a href="{{ route('admin.jurnal') }}"> -->
             <div class="row">
               <div class="col-5 col-md-4">
                 <div class="icon-big text-center icon-warning">
@@ -135,7 +135,7 @@
                 </div>
               </div>
             </div>
-          </a>
+          <!-- </a> -->
         </div>
         <div class="card-footer ">
           <hr>

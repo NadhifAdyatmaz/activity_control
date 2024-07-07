@@ -221,42 +221,22 @@
                             </div> --}}
                         </div>
                     </div>
-                    <div class="table-filter">
-                        <div class="row">
-                            <div class="col-sm-9">
-
-                                <div class="filter-group">
-                                    <label>Tahun Ajaran : </label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $selectperiode->name ?? "-"}} {{ $selectperiode->semester ?? "tidak ada"}}"
-                                        readonly>
-
-                                </div>
-                                <div class="filter-group">
-                                    <label>Pertemuan : </label>
-                                    <select class="form-control">
-                                        <option>Semua</option>
-                                        <option>Pertemuan 1</option>
-                                        <option>Pertemuan 2</option>
-                                        <option>Pertemuan 3</option>
-                                        <option>Pertemuan 4</option>
-                                        <option>Pertemuan 5</option>
-                                    </select>
-                                </div>
-                                <div class="filter-group">
-                                    <label>Guru : </label>
-                                    <select class="form-control">
-                                        <option value="">Semua</option>
-                                        @foreach ($users as $guru)
-                                            <option value="{{ $guru->id }}">{{ $guru->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center">
+                            <label style="margin-right: 10px;">Tahun Ajaran : </label>
+                            <h6 style="text-transform: capitalize;">{{ $selectperiode->name ?? "-" }}</h6>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center">
+                            <label style="margin-right: 10px;">Semester : </label>
+                            <h6 style="text-transform: capitalize;">{{ $selectperiode->semester ?? "-" }}</h6>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                <a href="{{ route('admin.jurnal.viewpdf') }}" class="btn btn-primary" target="_blank">View PDF</a>
+                <a href="{{ route('admin.jurnal.exportpdf') }}" class="btn btn-danger" target="_blank">export PDF</a>
                     <div class="table-responsive">
                         <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
@@ -271,15 +251,15 @@
                                     <th>Foto </th>
                                     <th>Catatan</th>
                                     <th>Status</th>
-                                    <th>TTD</th>
-                                    <th>Aksi</th>
+                                    <th style="text-align: center;">TTD</th>
+                                    <!-- <th>Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($jurnals as $key => $item)
                                     <tr>
-                                    <td>
-                                        {{ $item->jadwal->hari}}-{{ $item->jadwal->jampels->jam_ke}}-{{ $item->jadwal->kelas->name}}-{{ $item->jadwal->mapels->name}}
+                                        <td>
+                                            {{ $item->jadwal->hari}}-{{ $item->jadwal->jampels->jam_ke}}-{{ $item->jadwal->kelas->name}}-{{ $item->jadwal->mapels->name}}
                                         </td>
                                         <td>{{ $item->tanggal_jurnal ?? "tidak ada data"}}</td>
                                         <td>{{ $item->name ?? "tidak ada data"}}</td>
@@ -288,31 +268,34 @@
                                         <td style="text-align: center;">{{ $item->izin ?? "tidak ada data"}}</td>
                                         <td style="text-align: center;">{{ $item->alpha ?? "tidak ada data"}}</td>
                                         <td style="text-align: center;"><img class="border-gray" width="100" height="50"
-                                                        src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
-                                                        alt="..."></td>
+                                                src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
+                                                alt="..."></td>
                                         <td>{{ $item->catatan ?? "tidak ada data"}}</td>
                                         <td>@if ($item->is_validation == null && $item->is_validation->isNotEmpty())
-                                        tidak ada data
+                                            tidak ada data
                                         @elseif ($item->is_validation == "invalid")
-                                        Tidak Tuntas
+                                            <form class="approve-form" data-id="{{ $item->id }}">
+                                                @csrf
+                                                <button type="submit" class="btn btn-primary">Approve</button>
+                                            </form>
                                         @else
-                                        Tuntas
+                                            Tuntas
                                         @endif
-                                    </td>
-                                    <td>
-                                    <img class="border-gray" width="100" height="50"
-                                                        src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"
-                                                        alt="...">
-                                    </td>
-                                        <td>
-                                        <input type="button" name="detail" id="detail" class="btn btn-primary"
-                                        value="Detail" />
                                         </td>
+                                        <td style="text-align: center;">
+                                            <img class="border-gray" width="100" height="50"
+                                                src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"
+                                                alt="...">
+                                        </td>
+                                        <!-- <td>
+                                                <input type="button" name="detail" id="detail" class="btn btn-primary"
+                                                value="Detail" />
+                                                </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        
+
                     </div>
                 </div>
             </div>
@@ -328,4 +311,39 @@ $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();
 });
 </script> -->
+
+<script>
+$(document).ready(function() {
+    $('.approve-form').on('submit', function(e) {
+        e.preventDefault();
+        var form = $(this);
+        var id = form.data('id');
+        $.ajax({
+            type: 'POST',
+            url: "{{ url('/admin/jurnal') }}/" + id,
+            data: form.serialize(),
+            success: function(response) {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Jurnal berhasil divalidasi.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+                form.closest('tr').find('td:eq(9)').text('Tuntas'); // Update the status in the table
+            },
+            error: function(xhr) {
+                var response = xhr.responseJSON;
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response ? response.error : 'Terjadi kesalahan, coba lagi.'
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+            }
+        });
+    });
+});
+</script>
 @endsection

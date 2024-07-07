@@ -2,12 +2,12 @@
   <a href="#" class="simple-text logo-mini">
     
     <div class="logo-image-small">
-      <img src="{{ $info->logo ? asset($info->logo) : asset('assets/img/default-avatar.png') }}">
+      <img src="{{ $info->logo ? asset($info->logo) : asset('assets/img/noimg.png') }}">
     </div>
     <!-- <p>CT</p> -->
   </a>
   <a class="simple-text-lg text-white logo-normal">
-    {{$info->sekolah}}
+    {{$info->sekolah ?? "Nama Sekolah"}}
     <!-- <div class="logo-image-big">
       <img src="../assets/img/logo-big.png">
     </div> -->

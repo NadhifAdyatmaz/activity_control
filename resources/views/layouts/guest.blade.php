@@ -7,7 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @foreach ($infos as $info)
     
-    <link rel="icon" type="image/png" href="{{ $info->logo ? asset($info->logo) : asset('assets/img/default-avatar.png') }}">
+    <link rel="icon" type="image/png" href="{{ $info->logo ? asset($info->logo) : asset('assets/img/noimg.png') }}">
     @endforeach
 
 
@@ -25,8 +25,12 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <a href="/">
-              <img class="border-gray" width="130" height="10" src="{{ $info->logo ? asset($info->logo) : asset('assets/img/default-avatar.png') }}" alt="...">
+    @foreach ($infos as $info)
+
+              <img class="border-gray" width="130" height="10" src="{{ $info->logo ? asset($info->logo) : asset('assets/img/noimg.png') }}" alt="...">
               <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
+    @endforeach
+
             </a>
         </div>
 

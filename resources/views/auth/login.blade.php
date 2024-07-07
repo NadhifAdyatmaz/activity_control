@@ -1,7 +1,19 @@
 <x-guest-layout>
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
-
+    <!-- Error Message -->
+    <div class="mt-4">
+        @if ($errors->any())
+            <div class="mb-4">
+                <div class="font-medium text-red-600">{{ __('Username atau password salah.') }}</div>
+                {{-- <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul> --}}
+            </div>
+        @endif
+    </div>
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
@@ -32,22 +44,23 @@
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
-            <div>
+            <!-- <div>
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
                 @endif
-            </div>
+            </div> -->
 
         </div>
 
         <div class="flex items-center justify-between  mt-4">
             <div class="flex items-center">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {{ __('Belum punya akun?') }}
-                    </a>
+                <a
+                    class="text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    {{ __('Belum punya akun?') }}
+                </a>
                 <a href="{{ route('register') }}"
                     class="underline ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-black focus:outline focus:outline-2 focus:outline-red-500">Register</a>
             </div>

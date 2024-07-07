@@ -158,6 +158,14 @@
 
 @section('admin')
 <div class="content">
+    @if ($errors->has('data') && $errors->first('data') == 'Data sudah ada')
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            Gagal : Data sudah ada.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -199,29 +207,31 @@
                                     <tr>
                                         <td scope="row">{{ $key + 1 }}</td>
                                         <!-- <td>{{ $item->name }}</td>
-                                        <td>{{ $item->jumlah_siswa }}</td>
-                                        <td>{{ $item->status }}</td> -->
+                                            <td>{{ $item->jumlah_siswa }}</td>
+                                            <td>{{ $item->status }}</td> -->
                                         <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->name }}</a></td>
-                                        <td><a class="editable" data-name="jumlah_siswa" data-type="text" data-pk="{{ $item->id }}"
+                                        <td><a class="editable" data-name="jumlah_siswa" data-type="text"
+                                                data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->jumlah_siswa }}</a></td>
 
                                         <td><a class="editable" data-name="status" data-type="select"
                                                 data-pk="{{ $item->id }}" data-title="Select status"
-                                                data-source='[{"value": "1", "text": "active"},{"value": "2", "text": "inactive"}]'>{{ $item->status }}</a></td>
-                                        
+                                                data-source='[{"value": "1", "text": "active"},{"value": "2", "text": "inactive"}]'>{{ $item->status }}</a>
+                                        </td>
+
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE417;</i></a> -->
+                                                        class="material-icons">&#xE417;</i></a> -->
                                             <!-- <a href="#" class="edit" title="Edit" data-toggle="tooltip"><i
-                                                    class="material-icons">&#xE254;</i></a> -->
+                                                        class="material-icons">&#xE254;</i></a> -->
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
                                                 data-target="#delete-kelas{{ $item->id }}"><i
                                                     class="material-icons">&#xE872;</i></a>
 
                                             @include('admin.masterdata.kelas.create')
                                             @include('admin.masterdata.kelas.delete')
-                                            
+
                                         </td>
                                     </tr>
                                 @endforeach
@@ -252,36 +262,36 @@
     $.fn.editable.defaults.mode = "inline";
 
     $.ajaxSetup({
-        headers:{
+        headers: {
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
     });
 
     $('.editable[data-name="name"]').editable({
-        url:"{{ route('admin.masterdata.kelas.edit') }}",
-        type:'text',
-        pk:1,
-        name:'name',
-        title:'Enter name'
+        url: "{{ route('admin.masterdata.kelas.edit') }}",
+        type: 'text',
+        pk: 1,
+        name: 'name',
+        title: 'Enter name'
     });
-    
+
     $('.editable[data-name="jumlah_siswa"]').editable({
-        url:"{{ route('admin.masterdata.kelas.edit') }}",
-        type:'text',
-        pk:1,
-        name:'jumlah_siswa',
-        title:'Enter name'
+        url: "{{ route('admin.masterdata.kelas.edit') }}",
+        type: 'text',
+        pk: 1,
+        name: 'jumlah_siswa',
+        title: 'Enter name'
     });
 
     $('.editable[data-name="status"]').editable({
-        url:"{{ route('admin.masterdata.kelas.edit') }}",
-        type:'select',
-        pk:1,
-        name:'status',
-        title:'Select status',
+        url: "{{ route('admin.masterdata.kelas.edit') }}",
+        type: 'select',
+        pk: 1,
+        name: 'status',
+        title: 'Select status',
         source: [
-            {value: '1', text: 'active'},
-            {value: '2', text: 'inactive'}
+            { value: '1', text: 'active' },
+            { value: '2', text: 'inactive' }
         ]
     });
 </script>

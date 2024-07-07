@@ -41,23 +41,24 @@
               <!-- Profile Update Fields -->
               <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
-                  @foreach ($infos as $item )
-                  <div class="form-group">
-                    <label>Sekolah (disabled)</label>
-                    <input type="text" class="form-control" disabled placeholder="Sekolah" value="{{$item->sekolah}}">
-                  </div>
-                  @endforeach
+                  @foreach ($infos as $item)
+            <div class="form-group">
+            <label>Sekolah (disabled)</label>
+            <input type="text" class="form-control" disabled placeholder="Sekolah"
+              value="{{$item->sekolah ?? "Nama Sekolah"}}">
+            </div>
+          @endforeach
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="email">{{ __('Email address') }}</label>
-                    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full form-control"
-                      :value="old('email', Auth::user()->email)" required autocomplete="username" />
+                    <x-text-input id="email" name="email" type="email" class=" block w-full form-control" disabled
+                      :value="old('email', Auth::user()->email)" required autocomplete="email" />
                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     @if (
-                        Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&
-                        !Auth::user()->hasVerifiedEmail()
-                      )
+              Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&
+              !Auth::user()->hasVerifiedEmail()
+            )
                       <div>
                         <p class="text-sm mt-2 text-gray-800">
                         {{ __('Email anda belum terverifikasi') }}
@@ -67,12 +68,12 @@
                         </button>
                         </p>
                         @if (session('status') === 'verification-link-sent')
-                          <p class="mt-2 font-medium text-sm text-green-600">
-                          {{ __('A new verification link has been sent to your email address.') }}
-                          </p>
-                        @endif
-                                  </div>
-                      @endif
+              <p class="mt-2 font-medium text-sm text-green-600">
+              {{ __('A new verification link has been sent to your email address.') }}
+              </p>
+            @endif
+                      </div>
+          @endif
                   </div>
                 </div>
               </div>
@@ -81,16 +82,25 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="username">{{ __('Username') }}</label>
-                    <x-text-input id="username" name="username" type="text" class="mt-1 block w-full form-control"
-                       :value="old('username', Auth::user()->username)" required />
-                    <x-input-error class="mt-2" :messages="$errors->get('username')" />
+                    @if (Auth::user()->username == null && empty(Auth::user()->username))
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full form-control"
+              :value="old('username', Auth::user()->username)" placeholder="Username" required />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+            <small class="form-text text-muted text-sm">*Username hanya dapat diubah sekali</small>
+            @else
+      <x-text-input disabled id="username" name="username" type="text"
+        class="mt-1 block w-full form-control" :value="old('username', Auth::user()->username)" disabled
+        placeholder="Username" required />
+      <x-input-error class="mt-2" :messages="$errors->get('username')" />
+    @endif
                   </div>
                 </div>
                 <div class="col-md-8">
                   <div class="form-group">
                     <label for="name">{{ __('Name') }}</label>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full form-control"
-                      :value="old('name', Auth::user()->name)" required autofocus autocomplete="name" />
+                      :value="old('name', Auth::user()->name)" placeholder="Nama" required autofocus
+                      autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                   </div>
                 </div>
@@ -101,7 +111,7 @@
                   <div class="form-group">
                     <label for="jabatan">{{ __('Jabatan') }}</label>
                     <x-text-input id="jabatan" name="jabatan" type="text" class="mt-1 block w-full form-control"
-                      :value="old('jabatan', Auth::user()->jabatan)" />
+                      :value="old('jabatan', Auth::user()->jabatan)" placeholder="Jabatan" />
                     <x-input-error class="mt-2" :messages="$errors->get('jabatan')" />
                   </div>
                 </div>
@@ -109,7 +119,7 @@
                   <div class="form-group">
                     <label for="phone">{{ __('Telepon') }}</label>
                     <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full form-control"
-                      :value="old('phone', Auth::user()->phone)" />
+                      :value="old('phone', Auth::user()->phone)" placeholder="Telepon" />
                     <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                   </div>
                 </div>

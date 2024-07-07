@@ -203,6 +203,50 @@
         margin-top: 6px;
         font-size: 95%;
     }
+
+    .filter-group select.form-control {
+        width: auto;
+        min-width: 110px;
+        /* Optional, ensures minimum size */
+    }
+
+    .filter-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-group label {
+        margin-right: 10px;
+    }
+
+    .select-wrapper {
+        position: relative;
+        width: 150px;
+        /* Sesuaikan lebar sesuai kebutuhan Anda */
+    }
+
+    .select-wrapper select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        border: 1px solid #ccc;
+        padding: 5px 25px 5px 10px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .custom-select-arrow {
+        position: absolute;
+        top: calc(50% - 6px);
+        /* Center vertically */
+        right: 10px;
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
+    }
 </style>
 
 @section('admin')
@@ -215,49 +259,21 @@
                         <div class="col-sm-12" style="text-align: center;">
                             <h2><b>Jadwal</b> Mengajar</h2>
                         </div>
-                        <div class="col-sm-4">
-                            {{-- <div class="search-box">
-                                <i class="fa fa-search"></i>
-                                <input type="text" class="form-control" placeholder="Search&hellip;">
-                            </div> --}}
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center">
+                            <label style="margin-right: 10px;">Tahun Ajaran : </label>
+                            <h6 style="text-transform: capitalize;">{{ $selectperiode->name ?? "-" }}</h6>
                         </div>
                     </div>
-                    <div class="table-filter">
-                        <div class="row">
-                            <div class="col-sm-9">
-
-                                <div class="filter-group">
-                                    <label>Tahun Ajaran : </label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $selectperiode->name ?? "-"}} {{ $selectperiode->semester ?? "tidak ada"}}"
-                                        readonly>
-
-                                </div>
-                                <div class="filter-group">
-                                    <label>Guru : </label>
-                                    <select class="form-control">
-                                        <option value="">Semua</option>
-                                        @foreach ($users as $guru)
-                                            <option value="{{ $guru->id }}">{{ $guru->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="filter-group">
-                                    <label>Hari : </label>
-                                    <select class="form-control">
-                                        <option>Semua</option>
-                                        <option value="senin">Senin</option>
-                                        <option value="selasa">Selasa</option>
-                                        <option value="rabu">Rabu</option>
-                                        <option value="kamis">Kamis</option>
-                                        <option value="jumat">Jumat</option>
-                                        <option value="sabtu">Sabtu</option>
-                                    </select>
-                                </div>
-                            </div>
+                    <div class="row">
+                        <div class="col-sm-12 d-flex justify-content-center align-items-center">
+                            <label style="margin-right: 10px;">Semester : </label>
+                            <h6 style="text-transform: capitalize;">{{ $selectperiode->semester ?? "-" }}</h6>
                         </div>
                     </div>
                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <form id="addJadwal" method="post">
@@ -267,10 +283,10 @@
                                     <tr>
                                         <th>Tahun Ajaran</th>
                                         <th>Hari</th>
-                                        <th>Jam Ke</th>
+                                        <th style="text-align: center;">Jam Ke</th>
                                         <th>Guru</th>
-                                        <th>Mapel</th>
                                         <th>Kelas</th>
+                                        <th>Mapel</th>
                                         <th style="text-align: center">
                                             <!-- <a href="#" class="addRow">
                                                 <span class="material-icons">add_box</span>
@@ -283,39 +299,30 @@
                                     @foreach ($jadwals as $key => $item)
                                         <tr>
                                             <td>
-                                                <a class="editable" data-name="jampel_id" data-type="select"
-                                                    data-pk="{{ $item->id }}" data-title="Pilih Jam Ke"
-                                                    data-source='[
-                                                                                                                                    @foreach ($periodes as $periode)
-                                                                                                                                        {"value": "{{ $periode->id }}", "text": "{{ $periode->name }} {{ $periode->semester }}"}{{ !$loop->last ? ',' : '' }}
-
-                                                                                                                                    @endforeach
-                                                                                                                                    ]'>
                                                     {{ $item->periodes->name }} {{ $item->periodes->semester }}
-                                                </a>
                                             </td>
                                             <td>
                                                 <a class="editable" data-name="hari" data-type="select"
                                                     data-pk="{{ $item->id }}" data-title="Pilih Hari"
                                                     data-source='[
-                                                                                                                                        {"value": "senin", "text": "senin"},
-                                                                                                                                        {"value": "selasa", "text": "selasa"},
-                                                                                                                                        {"value": "rabu", "text": "rabu"},
-                                                                                                                                        {"value": "kamis", "text": "kamis"},
-                                                                                                                                        {"value": "jumat", "text": "jumat"},
-                                                                                                                                        {"value": "sabtu", "text": "sabtu"}]'>
+                                                                                                                                                    {"value": "senin", "text": "senin"},
+                                                                                                                                                    {"value": "selasa", "text": "selasa"},
+                                                                                                                                                    {"value": "rabu", "text": "rabu"},
+                                                                                                                                                    {"value": "kamis", "text": "kamis"},
+                                                                                                                                                    {"value": "jumat", "text": "jumat"},
+                                                                                                                                                    {"value": "sabtu", "text": "sabtu"}]'>
                                                     {{ $item->hari ?? "pilih hari"}}
                                                 </a>
                                             </td>
-                                            <td>
+                                            <td style="text-align: center;">
                                                 <a class="editable" data-name="jampel_id" data-type="select"
                                                     data-pk="{{ $item->id }}" data-title="Pilih Jam Ke"
                                                     data-source='[
-                                                                                                                                    @foreach ($jampels as $jampel)
-                                                                                                                                        {"value": "{{ $jampel->id }}", "text": "{{ $jampel->jam_ke }}"}{{ !$loop->last ? ',' : '' }}
+                                                                                                                                                @foreach ($jampels as $jampel)
+                                                                                                                                                    {"value": "{{ $jampel->id }}", "text": "{{ $jampel->jam_ke }}"}{{ !$loop->last ? ',' : '' }}
 
-                                                                                                                                    @endforeach
-                                                                                                                                    ]'>
+                                                                                                                                                @endforeach
+                                                                                                                                                ]'>
                                                     {{ $item->jampels->jam_ke ?? "pilih jam ke"}}
                                                 </a>
                                             </td>
@@ -323,36 +330,36 @@
                                                 <a class="editable" data-name="user_id" data-type="select"
                                                     data-pk="{{ $item->id }}" data-title="Pilih Guru"
                                                     data-source='[
-                                                                                                                                    @foreach ($users as $user)
-                                                                                                                                        {"value": "{{ $user->id }}", "text": "{{ $user->name }}"}{{ !$loop->last ? ',' : '' }}
+                                                                                                                                                @foreach ($users as $user)
+                                                                                                                                                    {"value": "{{ $user->id }}", "text": "{{ $user->name }}"}{{ !$loop->last ? ',' : '' }}
 
-                                                                                                                                    @endforeach
-                                                                                                                                    ]'>
+                                                                                                                                                @endforeach
+                                                                                                                                                ]'>
                                                     {{ $item->users->name ?? "pilih guru"}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="editable" data-name="kelas_id" data-type="select"
+                                                data-pk="{{ $item->id }}" data-title="Pilih Kelas"
+                                                data-source='[
+                                                    @foreach ($kelas as $kelass)
+                                                    {"value": "{{ $kelass->id }}", "text": "{{ $kelass->name }}"}{{ !$loop->last ? ',' : '' }}
+                                                    
+                                                    @endforeach
+                                                    ]'>
+                                                    {{ $item->kelas->name ?? "pilih kelas"}}
                                                 </a>
                                             </td>
                                             <td>
                                                 <a class="editable" data-name="mapel_id" data-type="select"
                                                     data-pk="{{ $item->id }}" data-title="Pilih Mapel"
                                                     data-source='[
-                                                                                                                                    @foreach ($mapels as $mapel)
-                                                                                                                                        {"value": "{{ $mapel->id }}", "text": "{{ $mapel->name }}"}{{ !$loop->last ? ',' : '' }}
+                                                                                                                                                @foreach ($mapels as $mapel)
+                                                                                                                                                    {"value": "{{ $mapel->id }}", "text": "{{ $mapel->name }}"}{{ !$loop->last ? ',' : '' }}
 
-                                                                                                                                    @endforeach
-                                                                                                                                    ]'>
+                                                                                                                                                @endforeach
+                                                                                                                                                ]'>
                                                     {{ $item->mapels->name ?? "pilih mapel"}}
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a class="editable" data-name="kelas_id" data-type="select"
-                                                    data-pk="{{ $item->id }}" data-title="Pilih Kelas"
-                                                    data-source='[
-                                                                                                                                    @foreach ($kelas as $kelass)
-                                                                                                                                        {"value": "{{ $kelass->id }}", "text": "{{ $kelass->name }}"}{{ !$loop->last ? ',' : '' }}
-
-                                                                                                                                    @endforeach
-                                                                                                                                    ]'>
-                                                    {{ $item->kelas->name ?? "pilih kelas"}}
                                                 </a>
                                             </td>
                                             <td style="text-align: center">

@@ -11,7 +11,7 @@
                 <div class="modal-body">					
                     <div class="form-group">
                         <label for="jam_ke">Jam Pelajaran</label>
-                        <input type="text" id="jam_ke" class="form-control @error('jam_ke') is-invalid @enderror" 
+                        <input type="number" min="1" id="jam_ke" class="form-control @error('jam_ke') is-invalid @enderror" 
                             name="jam_ke" value="{{ old('jam_ke') }}">
                             <small class="form-text text-muted text-sm">*contoh: 1</small>
                     </div>

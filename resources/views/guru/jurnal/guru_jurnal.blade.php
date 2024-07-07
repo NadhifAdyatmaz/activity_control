@@ -15,28 +15,34 @@
         background: #f5f5f5;
         font-family: 'Roboto', sans-serif;
     }
+
     .table-responsive {
         margin: 30px 0;
     }
+
     .table-wrapper {
         min-width: 1000px;
         background: #fff;
         padding: 20px;
         box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
     }
+
     .table-title {
         padding-bottom: 10px;
         margin: 0 0 10px;
         min-width: 100%;
     }
+
     .table-title h2 {
         margin: 8px 0 0;
         font-size: 22px;
     }
+
     .search-box {
         position: relative;
         float: right;
     }
+
     .search-box input {
         height: 34px;
         border-radius: 20px;
@@ -44,9 +50,11 @@
         border-color: #ddd;
         box-shadow: none;
     }
+
     .search-box input:focus {
         border-color: #3FBAE4;
     }
+
     .search-box i {
         color: #a0a5b1;
         position: absolute;
@@ -54,44 +62,79 @@
         top: 8px;
         left: 10px;
     }
-    table.table tr th, table.table tr td {
+
+    .table-filter .filter-group {
+        float: left;
+        margin-left: 15px;
+    }
+
+    .table-filter input,
+    .table-filter select {
+        height: 34px;
+        border-radius: 3px;
+        border-color: #ddd;
+        box-shadow: none;
+        width: auto;
+        min-width: 100px;
+        /* Optional, ensures minimum size */
+    }
+
+    .filter-group select.form-control {
+        width: auto;
+        min-width: 110px;
+        /* Optional, ensures minimum size */
+    }
+
+    table.table tr th,
+    table.table tr td {
         border-color: #e9e9e9;
     }
+
     table.table-striped tbody tr:nth-of-type(odd) {
         background-color: #fcfcfc;
     }
+
     table.table-striped.table-hover tbody tr:hover {
         background: #f5f5f5;
     }
+
     table.table th i {
         font-size: 13px;
         margin: 0 5px;
         cursor: pointer;
     }
+
     table.table td:last-child {
         width: 130px;
     }
+
     table.table td a {
         color: #a0a5b1;
         display: inline-block;
         margin: 0 5px;
     }
+
     table.table td a.view {
         color: #03A9F4;
     }
+
     table.table td a.edit {
         color: #FFC107;
     }
+
     table.table td a.delete {
         color: #E34724;
     }
+
     table.table td i {
         font-size: 19px;
     }
+
     .pagination {
         float: right;
         margin: 0 0 5px;
     }
+
     .pagination li a {
         border: none;
         font-size: 95%;
@@ -104,26 +147,76 @@
         text-align: center;
         padding: 0;
     }
+
     .pagination li a:hover {
         color: #666;
     }
+
     .pagination li.active a {
         background: #03A9F4;
     }
+
     .pagination li.active a:hover {
         background: #0397d6;
     }
+
     .pagination li.disabled i {
         color: #ccc;
     }
+
     .pagination li i {
         font-size: 16px;
         padding-top: 6px
     }
+
     .hint-text {
         float: left;
         margin-top: 6px;
         font-size: 95%;
+    }
+
+    .filter-group select.form-control {
+        width: auto;
+        min-width: 110px;
+        /* Optional, ensures minimum size */
+    }
+
+    .filter-group {
+        display: flex;
+        align-items: center;
+    }
+
+    .filter-group label {
+        margin-right: 10px;
+    }
+
+    .select-wrapper {
+        position: relative;
+        width: 150px;
+        /* Sesuaikan lebar sesuai kebutuhan Anda */
+    }
+
+    .select-wrapper select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        border: 1px solid #ccc;
+        padding: 5px 25px 5px 10px;
+        width: 100%;
+        cursor: pointer;
+    }
+
+    .custom-select-arrow {
+        position: absolute;
+        top: calc(50% - 6px);
+        /* Center vertically */
+        right: 10px;
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 3px;
+        transform: rotate(45deg);
     }
 </style>
 
@@ -134,7 +227,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-sm-8">
+                        <div class="col-sm-12" style="text-align: center;">
                             <h2><b>Jurnal</b> Mengajar</h2>
                         </div>
                         <!-- <div class="col-sm-4">
@@ -144,8 +237,42 @@
                             </div>
                         </div> -->
                     </div>
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="filter-group">
+                                    <label>Nama : </label>
+                                    <h6 style="text-transform: capitalize;">{{ Auth::user()->name ?? "-"}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="filter-group">
+                                    <label>Jabatan : </label>
+                                    <h6 style="text-transform: capitalize;">{{ Auth::user()->jabatan ?? "-"}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="filter-group">
+                                    <label>Tahun Ajaran / Semester : </label>
+                                    <h6 style="text-transform: capitalize;">{{ $selectperiode->name ?? "-"}} /
+                                        {{ $selectperiode->semester ?? "-"}}
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
+                    <a href="{{ route('guru.jurnal.viewpdf') }}" class="btn btn-primary" target="_blank">View PDF</a>
+                    <a href="{{ route('guru.jurnal.exportpdf') }}" class="btn btn-danger" target="_blank">export PDF</a>
                     <div class="table-responsive">
                         <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
@@ -161,29 +288,52 @@
                                     <th>Catatan</th>
                                     <th>Status</th>
                                     <th>TTD</th>
-                                    <th>Actions</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($jurnals as $key => $item)
                                     <tr>
                                         <td>
-                                        {{ $item->jadwal->hari}}-{{ $item->jadwal->jampels->jam_ke}}-{{ $item->jadwal->kelas->name}}-{{ $item->jadwal->mapels->name}}
+                                            {{ $item->jadwal->hari}}-{{ $item->jadwal->jampels->jam_ke}}-{{ $item->jadwal->kelas->name}}-{{ $item->jadwal->mapels->name}}
                                         </td>
-                                        <td>{{ $item->tanggal_jurnal ?? "DD/MM/YYYY"}}</td>
+                                        <td>{{ date('d-m-Y', strtotime($item->tanggal_jurnal)) ?? "DD/MM/YYYY"}}</td>
                                         <td>{{ $item->name ?? "Pertemuan"}}</td>
-                                        <td><a class="editable" data-name="materi" data-type="text"
+                                        <td>@if ($item->is_validation == "invalid")
+                                            <a class="editable" data-name="materi" data-type="text"
                                                 data-pk="{{ $item->id }}"
-                                                data-title="input materi">{{ $item->materi ?? "input"}}</a></td>
-                                        <td style="text-align: center;"><a class="editable" data-name="sakit"
-                                                data-type="number" min="0" data-pk="{{ $item->id }}"
-                                                data-title="input sakit">{{ $item->sakit ?? "input"}}</a></td>
-                                        <td style="text-align: center;"><a class="editable" data-name="izin"
-                                                data-type="number" min="0" data-pk="{{ $item->id }}"
-                                                data-title="input izin">{{ $item->izin ?? "input"}}</a></td>
-                                        <td style="text-align: center;"><a class="editable" data-name="alpha"
-                                                data-type="number" min="0" data-pk="{{ $item->id }}"
-                                                data-title="input alpha">{{ $item->alpha ?? "input"}}</a></td>
+                                                data-title="input materi">{{ $item->materi ?? "klik 1x"}}</a>
+                                        @else
+                                            {{ $item->materi ?? "input"}}
+                                        @endif
+                                        </td>
+                                        <td style="text-align: center;">
+                                            @if ($item->is_validation == "invalid")
+                                                <a class="editable" data-name="sakit" data-type="number" min="0"
+                                                    data-pk="{{ $item->id }}"
+                                                    data-title="input sakit">{{ $item->sakit ?? "klik 1x"}}</a>
+                                            @else
+                                                {{ $item->sakit ?? "input"}}
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center;">
+                                            @if ($item->is_validation == "invalid")
+                                                <a class="editable" data-name="izin" data-type="number" min="0"
+                                                    data-pk="{{ $item->id }}"
+                                                    data-title="input izin">{{ $item->izin ?? "klik 1x"}}</a>
+                                            @else
+                                                {{ $item->izin ?? "input"}}
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center;">
+                                            @if ($item->is_validation == "invalid")
+                                                <a class="editable" data-name="alpha" data-type="number" min="0"
+                                                    data-pk="{{ $item->id }}"
+                                                    data-title="input alpha">{{ $item->alpha ?? "klik 1x"}}</a>
+                                            @else
+                                                {{ $item->alpha ?? "input"}}
+                                            @endif
+                                        </td>
 
                                         {{-- <td>
                                             @if ($item->foto)
@@ -193,25 +343,38 @@
                                             @endif
                                         </td> --}}
                                         <td style="text-align: center;">
-                                            @if ($item->foto)
-                                                <a href="#" class="foto" title="foto" data-toggle="modal"
-                                                    data-target="#foto{{$item->id}}">
+                                            @if ($item->is_validation == "invalid")
+                                                @if ($item->foto)
+                                                    <a href="#" class="foto" title="foto" data-toggle="modal"
+                                                        data-target="#foto{{$item->id}}">
+                                                        <img class="border-gray" width="100" height="50"
+                                                            src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
+                                                            alt="...">
+                                                    </a>
+                                                @else
+                                                    <a href="#" class="foto" title="foto" data-toggle="modal"
+                                                        data-target="#foto{{$item->id}}"><i
+                                                            class=" material-icons">add_a_photo</i></a>
+
+                                                @endif                                          
+                                            @else
                                                     <img class="border-gray" width="100" height="50"
                                                         src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
                                                         alt="...">
-                                                </a>
-                                            @else
-                                                <a href="#" class="foto" title="foto" data-toggle="modal"
-                                                    data-target="#foto{{$item->id}}"><i
-                                                        class=" material-icons">add_a_photo</i></a>
+                                            @endif
 
-                                            @endif                                      
                                         </td>
-                                        <td><a class="editable" data-name="catatan" data-type="textarea" rows="2"
-                                                data-pk="{{ $item->id }}"
-                                                data-title="input catatan">{{ $item->catatan ?? "input"}}</a>
+                                        <td>
+                                            @if ($item->is_validation == "invalid")
+                                                <a class="editable" data-name="catatan" data-type="textarea" rows="2"
+                                                    data-pk="{{ $item->id }}"
+                                                    data-title="input catatan">{{ $item->catatan ?? "klik 1x"}}</a>
+                                            @else
+                                                {{ $item->catatan ?? "input"}}
+                                            @endif
+
                                         </td>
-                                        <td>@if ($item->is_validation == null && $item->is_validation->isNotEmpty())
+                                        <td>@if ($item->is_validation == null && empty($item->is_validation))
                                             tidak ada data
                                         @elseif ($item->is_validation == "invalid")
                                             Tidak Tuntas
@@ -220,23 +383,30 @@
                                         @endif
                                         </td>
                                         <td style="text-align: center;">
-                                            @if ($item->ttd)
-                                            <a href="#" class="ttd" title="ttd" data-toggle="modal"
-                                                    data-target="#ttd{{$item->id}}">
-                                                <img class="border-gray" width="100" height="50"
-                                                        src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"
-                                                        alt="...">
-                                                </a>
+                                            @if ($item->is_validation == "invalid")
+                                                @if ($item->ttd)
+                                                    <a href="#" class="ttd" title="ttd" data-toggle="modal"
+                                                        data-target="#ttd{{$item->id}}">
+                                                        <img class="border-gray" width="100" height="50"
+                                                            src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"
+                                                            alt="...">
+                                                    </a>
 
+                                                @else
+                                                    <a href="#" class="ttd" title="ttd" data-toggle="modal"
+                                                        data-target="#ttd{{$item->id}}"><i class=" material-icons">&#xE254;</i></a>
+
+                                                @endif
                                             @else
-                                                <a href="#" class="ttd" title="ttd" data-toggle="modal"
-                                                    data-target="#ttd{{$item->id}}"><i class=" material-icons">&#xE254;</i></a>
-
+                                                <img class="border-gray" width="100" height="50"
+                                                    src="{{ $item->ttd ? asset($item->ttd) : asset('assets/img/noimg.png') }}"
+                                                    alt="...">
                                             @endif
+
                                         </td>
-                                        <td>
-                                            <a href="#" class="view" title="View" data-toggle="modal"
-                                                data-target="#view-jur"><i class=" material-icons">&#xE417;</i></a>
+                                        <td style="text-align: center;">
+                                            <!-- <a href="#" class="view" title="View" data-toggle="modal"
+                                                                    data-target="#view-jur"><i class=" material-icons">&#xE417;</i></a> -->
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
                                                 data-target="#delete-jur{{ $item->id }}"><i
                                                     class=" material-icons">&#xE872;</i></a>

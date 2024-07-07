@@ -44,7 +44,7 @@
                   @foreach ($infos as $item )
                   <div class="form-group">
                     <label>Sekolah (disabled)</label>
-                    <input type="text" class="form-control" disabled placeholder="Sekolah" value="{{$item->sekolah}}">
+                    <input type="text" class="form-control" disabled placeholder="Sekolah" value="{{$item->sekolah ?? "Nama Sekolah"}}">
                   </div>
                   @endforeach
                 </div>
@@ -52,7 +52,7 @@
                   <div class="form-group">
                     <label for="email">{{ __('Email address') }}</label>
                     <x-text-input id="email" name="email" type="email" class="mt-1 block w-full form-control"
-                      :value="old('email', Auth::user()->email)" required autocomplete="username" />
+                      :value="old('email', Auth::user()->email)" placeholder="Email" required autocomplete="username" />
                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     @if (
                         Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&
@@ -82,7 +82,7 @@
                   <div class="form-group">
                     <label for="username">{{ __('Username') }}</label>
                     <x-text-input id="username" name="username" type="text" class="mt-1 block w-full form-control"
-                       :value="old('username', Auth::user()->username)" required />
+                       :value="old('username', Auth::user()->username)" placeholder="Username" required />
                     <x-input-error class="mt-2" :messages="$errors->get('username')" />
                   </div>
                 </div>
@@ -90,7 +90,7 @@
                   <div class="form-group">
                     <label for="name">{{ __('Name') }}</label>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full form-control"
-                      :value="old('name', Auth::user()->name)" required autofocus autocomplete="name" />
+                      :value="old('name', Auth::user()->name)" placeholder="Nama" required autofocus autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                   </div>
                 </div>
@@ -101,7 +101,7 @@
                   <div class="form-group">
                     <label for="jabatan">{{ __('Jabatan') }}</label>
                     <x-text-input id="jabatan" name="jabatan" type="text" class="mt-1 block w-full form-control"
-                      :value="old('jabatan', Auth::user()->jabatan)" />
+                      :value="old('jabatan', Auth::user()->jabatan)" placeholder="Jabatan" />
                     <x-input-error class="mt-2" :messages="$errors->get('jabatan')" />
                   </div>
                 </div>
@@ -109,7 +109,7 @@
                   <div class="form-group">
                     <label for="phone">{{ __('Telepon') }}</label>
                     <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full form-control"
-                      :value="old('phone', Auth::user()->phone)" />
+                      :value="old('phone', Auth::user()->phone)" placeholder="Telepon" />
                     <x-input-error class="mt-2" :messages="$errors->get('phone')" />
                   </div>
                 </div>

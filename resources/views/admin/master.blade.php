@@ -3,8 +3,12 @@
 
 <head>
   <meta charset="utf-8" />
-  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/logo-smk.png">
-  <link rel="icon" type="image/png" href="../assets/img/logo-smk.png">
+  @foreach ($infos as $info)
+    
+    <link rel="icon" type="image/png" href="{{ $info->logo ? asset($info->logo) : asset('assets/img/noimg.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ $info->logo ? asset($info->logo) : asset('assets/img/noimg.png') }}">
+    <!-- <link rel="icon" type="image/png" href="../assets/img/logo-smk.png"> -->
+    @endforeach
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
     Admin - @yield('title')
@@ -58,7 +62,7 @@
                 ©
                 <script>
                   document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Nadhif Adyatmaz
+                </script>, made with <i class="fa fa-heart heart"></i> by Nadhif Adyatmaz - Supported by Politeknik Negeri Malang
               </span>
             </div>
           </div>

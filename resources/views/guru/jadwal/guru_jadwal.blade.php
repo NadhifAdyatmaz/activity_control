@@ -238,25 +238,29 @@
                     <div class="table-filter">
                         <div class="row">
                             <div class="col-sm-9">
-
                                 <div class="filter-group">
-                                    <label>Tahun Ajaran : </label>
-                                    <input type="text" class="form-control"
-                                        value="{{ $selectperiode->name ?? "-"}} {{ $selectperiode->semester ?? "tidak ada"}}"
-                                        readonly>
-
+                                    <label>Nama : </label>
+                                    <h6 style="text-transform: capitalize;">{{ Auth::user()->name ?? "-"}}</h6>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
                                 <div class="filter-group">
-                                    <label>Hari : </label>
-                                    <select class="form-control">
-                                        <option>Semua</option>
-                                        <option value="senin">Senin</option>
-                                        <option value="selasa">Selasa</option>
-                                        <option value="rabu">Rabu</option>
-                                        <option value="kamis">Kamis</option>
-                                        <option value="jumat">Jumat</option>
-                                        <option value="sabtu">Sabtu</option>
-                                    </select>
+                                    <label>Jabatan : </label>
+                                    <h6 style="text-transform: capitalize;">{{ Auth::user()->jabatan ?? "-"}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-filter">
+                        <div class="row">
+                            <div class="col-sm-9">
+                                <div class="filter-group">
+                                    <label>Tahun Ajaran / Semester : </label>
+                                    <h6 style="text-transform: capitalize;">{{ $selectperiode->name ?? "-"}} / {{ $selectperiode->semester ?? "-"}}</h6>
                                 </div>
                             </div>
                         </div>
@@ -271,9 +275,9 @@
                                     <tr>
                                         <th>Tahun Ajaran</th>
                                         <th>Hari</th>
-                                        <th>Jam Ke</th>
-                                        <th>Mapel</th>
+                                        <th style="text-align: center;">Jam Ke</th>
                                         <th>Kelas</th>
+                                        <th>Mapel</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -284,9 +288,9 @@
                                                 {{ $item->periodes->semester ?? "tidak ada data"}}
                                             </td>
                                             <td>{{ $item->hari ?? "tidak ada data"}}</td>
-                                            <td>{{ $item->jampels->jam_ke ?? "tidak ada data"}}</td>
-                                            <td>{{ $item->mapels->name ?? "tidak ada data"}}</td>
+                                            <td style="text-align: center;">{{ $item->jampels->jam_ke ?? "tidak ada data"}}</td>
                                             <td>{{ $item->kelas->name ?? "tidak ada data"}}</td>
+                                            <td>{{ $item->mapels->name ?? "tidak ada data"}}</td>
                                             <td>
                                                 <input type="hidden" name="is_validation" id="is_validation"
                                                     value="invalid" />
@@ -343,7 +347,7 @@
                         // Redirect to guru.jurnal page
                         setTimeout(function () {
                             window.location.href = '{{ route("guru.jurnal") }}';
-                        }, 1500);
+                        }, 500);
                     } else {
                         $.notify({
                             icon: 'nc-icon nc-bell-55',
