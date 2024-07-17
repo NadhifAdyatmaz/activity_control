@@ -260,7 +260,32 @@
         min: '1',
         pk:1,
         name:'jam_ke',
-        title:'Enter name'
+        title:'Enter name',
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 
     $('.editable[data-name="pukul"]').editable({
@@ -268,7 +293,32 @@
         type:'text',
         pk:1,
         name:'pukul',
-        title:'Enter name'
+        title:'Enter name',
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 </script>
 @endsection

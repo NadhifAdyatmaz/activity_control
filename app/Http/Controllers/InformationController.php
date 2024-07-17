@@ -33,12 +33,14 @@ class InformationController extends Controller
             ]
         );
 
+        $user = auth()->user();
         $info = new Information();
         $info->name = $request->input('name');
         $info->sekolah = $request->input('sekolah');
         $info->email = $request->input('email');
         $info->phone = $request->input('phone');
         $info->pertemuan = $request->input('pertemuan');
+        $info->user_id = $user->id;
 
         if ($request->hasFile('logo')) {
             $logo = time() . '.' . $request->logo->extension();
@@ -77,6 +79,10 @@ class InformationController extends Controller
             $field = $request->name;
             $value = $request->value;
 
+            if (empty($value)) {
+                return response()->json(['success' => false, 'error' => 'Field tidak boleh kosong.']);
+            }
+            
             $info->find($request->pk)->update([$field => $value]);
             return response()->json(['success' => true]);
         }

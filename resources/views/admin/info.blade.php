@@ -102,7 +102,7 @@
               @csrf
               @method('post')
               <div class="author text-center position-relative">
-                <img class="border-gray" width="150" height="150" src="{{ asset('assets/img/default-avatar.png') }}"
+                <img class="border-gray" width="150" height="150" src="{{ asset('assets/img/noimg.png') }}"
                   alt="...">
                 <label for="avatar-input" class="btn btn-link position-absolute top-0 start-0 p-0">
                   <i class="fa fa-edit" style="font-size: 1rem;"></i>

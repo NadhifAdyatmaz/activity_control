@@ -24,7 +24,13 @@ class JurnalController extends Controller
         } 
         $jurnals = Jurnal::whereHas('jadwal', function ($query) use ($id) {
             $query->where('periode_id', $id);
-        })->get();
+        })->whereNotNull('materi')
+        ->whereNotNull('sakit')
+        ->whereNotNull('izin')
+        ->whereNotNull('alpha')
+        ->whereNotNull('foto')
+        ->whereNotNull('is_validation')
+        ->whereNotNull('ttd')->get();
         $users = User::where('role', 'guru')->get();
         $infos = Information::all();
 

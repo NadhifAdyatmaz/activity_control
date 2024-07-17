@@ -260,13 +260,16 @@
                             <div class="col-sm-9">
                                 <div class="filter-group">
                                     <label>Tahun Ajaran / Semester : </label>
-                                    <h6 style="text-transform: capitalize;">{{ $selectperiode->name ?? "-"}} / {{ $selectperiode->semester ?? "-"}}</h6>
+                                    <h6 style="text-transform: capitalize;">{{ $selectperiode->name ?? "-"}} /
+                                        {{ $selectperiode->semester ?? "-"}}</h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
+                <a href="#" title="ViewPdf" data-toggle="modal" data-target="#view-pdf" class="btn btn-danger">Lihat / Unduh
+                        PDF</a>
                     <div class="table-responsive">
                         <form action="{{ route('guru.jadwal.add') }}" method="post">
                             @csrf
@@ -288,7 +291,8 @@
                                                 {{ $item->periodes->semester ?? "tidak ada data"}}
                                             </td>
                                             <td>{{ $item->hari ?? "tidak ada data"}}</td>
-                                            <td style="text-align: center;">{{ $item->jampels->jam_ke ?? "tidak ada data"}}</td>
+                                            <td style="text-align: center;">{{ $item->jampels->jam_ke ?? "tidak ada data"}}
+                                            </td>
                                             <td>{{ $item->kelas->name ?? "tidak ada data"}}</td>
                                             <td>{{ $item->mapels->name ?? "tidak ada data"}}</td>
                                             <td>
@@ -299,7 +303,7 @@
                                                 <button type="button" class="btn btn-primary submit-jurnal"
                                                     data-jadwal-id="{{ $item->id }}">Input</button>
                                                 <!-- <input type="submit" name="input" id="input" class="btn btn-primary"
-                                                                    value="Input" /> -->
+                                                                        value="Input" /> -->
                                             </td>
 
                                         </tr>
@@ -314,6 +318,69 @@
     </div>
 </div>
 
+<div id="view-pdf" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lihat / Unduh PDF</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <form action="{{ route('guru.jadwal.viewpdf') }}" method="get" id="view-pdf-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="day-filter">Filter Hari</label>
+                        <select id="day-filter" name="day-filter" class="form-control">
+                            <option value="all">Semua Hari</option>
+                            <option value="specific">Pilih Hari</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="date-group" style="display: none;">
+                        <label for="date">Pilih Hari</label>
+                        <input type="date" id="date" name="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="class-filter">Filter Kelas</label>
+                        <select id="class-filter" name="class-filter" class="form-control">
+                            <option value="all">Semua Kelas</option>
+                            @foreach($kelas as $class)
+                                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <button type="submit" name="action" value="view" class="btn btn-primary" id="view-pdf-btn">Lihat PDF</button>
+                    <button type="submit" name="action" value="download" class="btn btn-danger">Unduh PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dayFilter = document.getElementById('day-filter');
+        const dateGroup = document.getElementById('date-group');
+        const viewPdfForm = document.getElementById('view-pdf-form');
+        const viewPdfBtn = document.getElementById('view-pdf-btn');
+
+        dayFilter.addEventListener('change', function() {
+            if (this.value === 'specific') {
+                dateGroup.style.display = 'block';
+            } else {
+                dateGroup.style.display = 'none';
+            }
+        });
+
+        viewPdfBtn.addEventListener('click', function() {
+            viewPdfForm.setAttribute('target', '_blank');
+        });
+    });
+</script>
+
+
+
 <script>
     $(document).ready(function () {
         $('.submit-jurnal').click(function () {
@@ -323,11 +390,7 @@
             var data = {
                 jadwal_id: jadwalId,
                 is_validation: row.find('input[name="is_validation"]').val(),
-                // Tambahkan data lain yang ingin dikirim
-                // name: row.find('input[name="name"]').val(),
-                // materi: row.find('input[name="materi"]').val(),
-                // ...
-                _token: '{{ csrf_token() }}' // tambahkan CSRF token
+                _token: '{{ csrf_token() }}'
             };
 
             $.ajax({
@@ -344,14 +407,13 @@
                             timer: 3000
                         });
 
-                        // Redirect to guru.jurnal page
                         setTimeout(function () {
                             window.location.href = '{{ route("guru.jurnal") }}';
                         }, 500);
                     } else {
                         $.notify({
                             icon: 'nc-icon nc-bell-55',
-                            message: 'Gagal menambahkan data.'
+                            message: response.error || 'Gagal menambahkan data.'
                         }, {
                             type: 'danger',
                             timer: 3000
@@ -360,9 +422,10 @@
                 },
                 error: function (xhr, status, error) {
                     console.error(xhr.responseText);
+                    var response = xhr.responseJSON;
                     $.notify({
                         icon: 'nc-icon nc-bell-55',
-                        message: 'Data jurnal sudah ada.'
+                        message: response.error || 'Terjadi kesalahan.'
                     }, {
                         type: 'danger',
                         timer: 3000
@@ -372,7 +435,6 @@
 
         });
     });
-
 </script>
 
 @endsection

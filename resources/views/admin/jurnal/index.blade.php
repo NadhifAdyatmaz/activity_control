@@ -235,14 +235,15 @@
                     </div>
                 </div>
                 <div class="card-body">
-                <a href="{{ route('admin.jurnal.viewpdf') }}" class="btn btn-primary" target="_blank">View PDF</a>
-                <a href="{{ route('admin.jurnal.exportpdf') }}" class="btn btn-danger" target="_blank">export PDF</a>
+                    <a href="#" title="ViewPdf" data-toggle="modal" data-target="#view-pdf"
+                        class="btn btn-danger">Lihat/ Unduh PDF</a>
                     <div class="table-responsive">
                         <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
                                 <tr>
                                     <th>Jadwal</th>
                                     <th>Tanggal</th>
+                                    <th>Guru</th>
                                     <th>Pertemuan</th>
                                     <th>Materi</th>
                                     <th>Sakit</th>
@@ -261,7 +262,8 @@
                                         <td>
                                             {{ $item->jadwal->hari}}-{{ $item->jadwal->jampels->jam_ke}}-{{ $item->jadwal->kelas->name}}-{{ $item->jadwal->mapels->name}}
                                         </td>
-                                        <td>{{ $item->tanggal_jurnal ?? "tidak ada data"}}</td>
+                                        <td>{{ date('d-m-Y', strtotime($item->tanggal_jurnal)) ?? "tidak ada data"}}</td>
+                                        <td>{{ $item->jadwal->users->name}}</td>
                                         <td>{{ $item->name ?? "tidak ada data"}}</td>
                                         <td>{{ $item->materi ?? "tidak ada data"}}</td>
                                         <td style="text-align: center;">{{ $item->sakit ?? "tidak ada data"}}</td>
@@ -288,14 +290,13 @@
                                                 alt="...">
                                         </td>
                                         <!-- <td>
-                                                <input type="button" name="detail" id="detail" class="btn btn-primary"
-                                                value="Detail" />
-                                                </td> -->
+                                                        <input type="button" name="detail" id="detail" class="btn btn-primary"
+                                                        value="Detail" />
+                                                        </td> -->
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -303,47 +304,104 @@
     </div>
 </div>
 
-<!-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();
-});
-</script> -->
+<div id="view-pdf" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lihat PDF</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <form action="{{ route('admin.jurnal.viewpdf') }}" method="get" id="view-pdf-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="filter">Filter Tanggal</label>
+                        <select id="filter" name="filter" class="form-control">
+                            <option value="today">Hari Ini</option>
+                            <option value="this_week">Minggu Ini</option>
+                            <option value="this_month">Bulan Ini</option>
+                            <option value="custom">Pilih Tanggal</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="custom-date-group" style="display: none;">
+                        <label for="start_date">Tanggal Mulai</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control">
+                        <label for="end_date">Tanggal Selesai</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="teacher">Nama Guru</label>
+                        <select id="teacher" name="teacher" class="form-control">
+                            <option value="all">Semua Guru</option>
+                            @foreach ($users as $teacher)
+                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <button type="submit" name="action" value="view" class="btn btn-primary" id="view-pdf-btn">Lihat
+                        PDF</button>
+                    <button type="submit" name="action" value="download" class="btn btn-danger">Unduh PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
-$(document).ready(function() {
-    $('.approve-form').on('submit', function(e) {
-        e.preventDefault();
-        var form = $(this);
-        var id = form.data('id');
-        $.ajax({
-            type: 'POST',
-            url: "{{ url('/admin/jurnal') }}/" + id,
-            data: form.serialize(),
-            success: function(response) {
-                $.notify({
-                    icon: 'nc-icon nc-check-2',
-                    message: 'Jurnal berhasil divalidasi.'
-                }, {
-                    type: 'success',
-                    timer: 3000
-                });
-                form.closest('tr').find('td:eq(9)').text('Tuntas'); // Update the status in the table
-            },
-            error: function(xhr) {
-                var response = xhr.responseJSON;
-                $.notify({
-                    icon: 'nc-icon nc-bell-55',
-                    message: response ? response.error : 'Terjadi kesalahan, coba lagi.'
-                }, {
-                    type: 'danger',
-                    timer: 3000
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        const filter = document.getElementById('filter');
+        const customDateGroup = document.getElementById('custom-date-group');
+        const viewPdfForm = document.getElementById('view-pdf-form');
+        const viewPdfBtn = document.getElementById('view-pdf-btn');
+
+        filter.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customDateGroup.style.display = 'block';
+            } else {
+                customDateGroup.style.display = 'none';
             }
         });
+
+        viewPdfBtn.addEventListener('click', function() {
+            viewPdfForm.setAttribute('target', '_blank');
+        });
     });
-});
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.approve-form').on('submit', function (e) {
+            e.preventDefault();
+            var form = $(this);
+            var id = form.data('id');
+            $.ajax({
+                type: 'POST',
+                url: "{{ url('/admin/jurnal') }}/" + id,
+                data: form.serialize(),
+                success: function (response) {
+                    $.notify({
+                        icon: 'nc-icon nc-check-2',
+                        message: 'Jurnal berhasil divalidasi.'
+                    }, {
+                        type: 'success',
+                        timer: 3000
+                    });
+                    form.closest('tr').find('td:eq(10)').text('Tuntas'); // Update the status in the table
+                },
+                error: function (xhr) {
+                    var response = xhr.responseJSON;
+                    $.notify({
+                        icon: 'nc-icon nc-bell-55',
+                        message: response ? response.error : 'Terjadi kesalahan, coba lagi.'
+                    }, {
+                        type: 'danger',
+                        timer: 3000
+                    });
+                }
+            });
+        });
+    });
 </script>
 @endsection

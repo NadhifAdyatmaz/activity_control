@@ -86,9 +86,19 @@ class JampelController extends Controller
     public function update(Request $request, Jampel $jampel)
     {
         if ($request->ajax()) {
-            $field = $request->name; 
+            $field = $request->name;
             $value = $request->value;
 
+            if (empty($value)) {
+                return response()->json(['success' => false, 'error' => 'Field tidak boleh kosong.']);
+            }
+
+            $exists = $jampel->where($field, $value)->where('id', '!=', $request->pk)->exists();
+
+            if ($exists) {
+                return response()->json(['success' => false, 'error' => 'Nama sudah ada di database.']);
+            }
+            
             $jampel->find($request->pk)->update([$field => $value]);
             return response()->json(['success' => true]);
         }

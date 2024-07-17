@@ -17,8 +17,8 @@ class MapelController extends Controller
     {
         $mapels = Mapel::all();
         $infos = Information::all();
-        return view('admin.masterdata.mapel.index', compact('mapels','infos'));
-        
+        return view('admin.masterdata.mapel.index', compact('mapels', 'infos'));
+
     }
 
     /**
@@ -34,14 +34,16 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'status' => 'required',
-        ],
-        [
-            'name.required'=>"Nama Harus Diisi",
-            'status.required'=>"Status Harus Diisi",
-        ]);
+        $request->validate(
+            [
+                'name' => 'required',
+                'status' => 'required',
+            ],
+            [
+                'name.required' => "Nama Harus Diisi",
+                'status.required' => "Status Harus Diisi",
+            ]
+        );
 
         $existingMapel = Mapel::where('name', $request->input('name'))
             ->first();
@@ -83,9 +85,17 @@ class MapelController extends Controller
     public function update(Request $request, Mapel $mapel)
     {
         if ($request->ajax()) {
-            $field = $request->name; 
+            $field = $request->name;
             $value = $request->value;
 
+            if (empty($value)) {
+                return response()->json(['success' => false, 'error' => 'Field tidak boleh kosong.']);
+            }
+            $exists = $mapel->where($field, $value)->where('id', '!=', $request->pk)->exists();
+
+            if ($exists) {
+                return response()->json(['success' => false, 'error' => 'Nama sudah ada di database.']);
+            }
             $mapel->find($request->pk)->update([$field => $value]);
             return response()->json(['success' => true]);
         }

@@ -275,6 +275,8 @@
                 </div>
 
                 <div class="card-body">
+                <a href="#" title="ViewPdf" data-toggle="modal" data-target="#view-pdf"
+                class="btn btn-danger">Lihat/ Unduh PDF</a>
                     <div class="table-responsive">
                         <form id="addJadwal" method="post">
                             <span id="result"></span>
@@ -291,7 +293,7 @@
                                             <!-- <a href="#" class="addRow">
                                                 <span class="material-icons">add_box</span>
                                             </a> -->
-                                            Action
+                                            Aksi
                                         </th>
                                     </tr>
                                 </thead>
@@ -396,6 +398,78 @@
         </div>
     </div>
 </div>
+
+<div id="view-pdf" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lihat / Unduh PDF</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <form action="{{ route('admin.jadwal.viewpdf') }}" method="get" id="view-pdf-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="day-filter">Filter Hari</label>
+                        <select id="day-filter" name="day-filter" class="form-control">
+                            <option value="all">Semua Hari</option>
+                            <option value="specific">Pilih Hari</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="date-group" style="display: none;">
+                        <label for="date">Pilih Hari</label>
+                        <input type="date" id="date" name="date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="class-filter">Filter Kelas</label>
+                        <select id="class-filter" name="class-filter" class="form-control">
+                            <option value="all">Semua Kelas</option>
+                            @foreach($kelas as $class)
+                                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="guru-filter">Filter Guru</label>
+                        <select id="guru-filter" name="guru-filter" class="form-control">
+                            <option value="all">Semua Guru</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <button type="submit" name="action" value="view" class="btn btn-primary" id="view-pdf-btn">Lihat PDF</button>
+                    <button type="submit" name="action" value="download" class="btn btn-danger">Unduh PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dayFilter = document.getElementById('day-filter');
+        const dateGroup = document.getElementById('date-group');
+        const viewPdfForm = document.getElementById('view-pdf-form');
+        const viewPdfBtn = document.getElementById('view-pdf-btn');
+
+        dayFilter.addEventListener('change', function() {
+            if (this.value === 'specific') {
+                dateGroup.style.display = 'block';
+            } else {
+                dateGroup.style.display = 'none';
+            }
+        });
+
+        viewPdfBtn.addEventListener('click', function() {
+            viewPdfForm.setAttribute('target', '_blank');
+        });
+    });
+</script>
+
 
 <script>
     $(document).ready(function () {
@@ -619,4 +693,5 @@
         }
     });
 </script>
+
 @endsection

@@ -52,7 +52,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="email">{{ __('Email address') }}</label>
-                    <x-text-input id="email" name="email" type="email" class=" block w-full form-control" disabled
+                    <x-text-input id="email" name="email" type="email" class=" block w-full form-control"
                       :value="old('email', Auth::user()->email)" required autocomplete="email" />
                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     @if (
@@ -82,17 +82,9 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="username">{{ __('Username') }}</label>
-                    @if (Auth::user()->username == null && empty(Auth::user()->username))
-            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full form-control"
-              :value="old('username', Auth::user()->username)" placeholder="Username" required />
-            <x-input-error class="mt-2" :messages="$errors->get('username')" />
-            <small class="form-text text-muted text-sm">*Username hanya dapat diubah sekali</small>
-            @else
-      <x-text-input disabled id="username" name="username" type="text"
-        class="mt-1 block w-full form-control" :value="old('username', Auth::user()->username)" disabled
-        placeholder="Username" required />
-      <x-input-error class="mt-2" :messages="$errors->get('username')" />
-    @endif
+                    <x-text-input id="username" name="username" type="text" class="mt-1 block w-full form-control"
+                      :value="old('username', Auth::user()->username)" placeholder="Username" required />
+                    <x-input-error class="mt-2" :messages="$errors->get('username')" />
                   </div>
                 </div>
                 <div class="col-md-8">

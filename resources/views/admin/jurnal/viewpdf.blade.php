@@ -5,52 +5,52 @@
     <meta charset="UTF-8">
     <<style>
         table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
         }
 
         table,
         th,
         td {
-            border: 1px solid #000;
+        border: 1px solid #000;
         }
 
         h2,
         h3 {
-            margin: 10px;
-            padding: 0;
+        margin: 10px;
+        padding: 0;
         }
 
         th,
         td {
-            padding: 8px;
-            text-align: left;
+        padding: 8px;
+        text-align: left;
         }
 
         th {
-            background-color: #f2f2f2;
+        background-color: #f2f2f2;
         }
 
         .card-header {
-            margin-bottom: 5px;
+        margin-bottom: 5px;
         }
 
         .table-filter .filter-group {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
         }
 
         .table-filter .filter-group label {
-            min-width: 200px;
-            /* Adjust this value as needed */
+        min-width: 200px;
+        /* Adjust this value as needed */
         }
 
         .table-filter .filter-group span {
-            display: inline-block;
+        display: inline-block;
         }
-    </style>
+        </style>
 </head>
 
 <body>
@@ -65,24 +65,7 @@
                                 @foreach ($infos as $info)
                                     <h3><b>{{$info->sekolah}}</b></h3>
                                 @endforeach
-                            </div>
-                        </div>
-                        <div class="table-filter">
-                            <div class="row">
-                                <div class="col-sm-9">
-                                    <div class="filter-group">
-                                        <label style="text-transform: capitalize;">Bulan : {{ $currentMonth }}</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="table-filter">
-                            <div class="row">
-                                <div class="col-sm-9">
-                                    <div class="filter-group">
-                                        <label style="text-transform: capitalize;">Tahun Pelajaran : {{ $selectperiode->name }} / {{ $selectperiode->semester }}</label>
-                                    </div>
-                                </div>
+                                <h4><b>{{ $selectperiode->name }} / {{ $selectperiode->semester }}</b></h4>
                             </div>
                         </div>
                     </div>
@@ -106,7 +89,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($jurnals as $key => $jurnal)
+                                    @forelse ($jurnals as $key => $jurnal)
                                         <tr>
                                             <td>{{ $jurnal->jadwal->hari }} - {{ $jurnal->jadwal->jampels->jam_ke }} -
                                                 {{ $jurnal->jadwal->kelas->name }} - {{ $jurnal->jadwal->mapels->name }}
@@ -120,18 +103,29 @@
                                             <td>{{ $jurnal->izin ?? 'input' }}</td>
                                             <td>{{ $jurnal->alpha ?? 'input' }}</td>
                                             <!-- <td>
-                                                            <img class="border-gray" width="100" height="50"
-                                                                src="{{ asset($jurnal->foto) }}" alt="...">
-                                                        </td> -->
+                                                                    <img class="border-gray" width="100" height="50"
+                                                                        src="{{ asset($jurnal->foto) }}" alt="...">
+                                                                </td> -->
                                             <td>
-                                                Tuntas
+                                                @if ($jurnal->is_validation == null && empty($jurnal->is_validation))
+                                                    tidak ada data
+                                                @elseif ($jurnal->is_validation == "invalid")
+                                                    Tidak Tuntas
+                                                @else
+                                                    Tuntas
+                                                @endif
                                             </td>
                                             <td>
                                                 {{ $jurnal->catatan ?? "input"}}
                                             </td>
 
                                         </tr>
-                                    @endforeach
+
+                                    @empty
+                                        <tr>
+                                            <td colspan="10" style="text-align: center;">Tidak Ada Data Jurnal</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>

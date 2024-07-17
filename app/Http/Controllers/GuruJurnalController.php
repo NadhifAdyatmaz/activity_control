@@ -23,7 +23,7 @@ class GuruJurnalController extends Controller
         foreach ($periodes as $p) {
             $id = $p->id;
         }
-        $jurnals = Jurnal::whereHas('jadwal', function ($query) use ($user,$id) {
+        $jurnals = Jurnal::whereHas('jadwal', function ($query) use ($user, $id) {
             $query->where('user_id', $user->id)->where('periode_id', $id);
         })->get();
         $infos = Information::all();
@@ -79,6 +79,10 @@ class GuruJurnalController extends Controller
         if ($request->ajax()) {
             $field = $request->name;
             $value = $request->value;
+
+            if ($value === null || $value === '') {
+                return response()->json(['success' => false, 'error' => 'Field tidak boleh kosong.']);
+            }
 
             $jurnal->find($request->pk)->update([$field => $value]);
             return response()->json(['success' => true]);

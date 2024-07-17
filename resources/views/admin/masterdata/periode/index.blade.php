@@ -211,7 +211,7 @@
                                         <td scope="row">{{ $key + 1 }}</td>
                                         <!-- <td contenteditable='true' id="col{{ $key }}" onmousedown="panggil()">{{ $item->name }}</td> -->
                                         <!-- <td><a class="editable" data-type="text" data-name="name" data-pk="{{ $item->id }}" data-title="Enter Name">{{ $item->name }}</a></td>
-                                                        <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
+                                                            <td style="text-transform: capitalize;">{{ $item->semester }}</td> -->
                                         <td><a class="editable" data-name="name" data-type="text" data-pk="{{ $item->id }}"
                                                 data-title="Enter Name">{{ $item->name }}</a></td>
                                         <td style="text-transform: capitalize;"><a class="editable" data-name="semester"
@@ -225,10 +225,10 @@
                                         </td>
                                         <td>
                                             <!-- <a href="#" class="view" title="View" data-toggle="modal"
-                                                                data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
+                                                                    data-target="#view-per"><i class=" material-icons">&#xE417;</i></a> -->
                                             <!-- <a href="#" class="edit" title="Edit" data-toggle="modal"
-                                                            data-target="#edit-per{{ $item->id }}"><i
-                                                                class=" material-icons">&#xE254;</i></a> -->
+                                                                data-target="#edit-per{{ $item->id }}"><i
+                                                                    class=" material-icons">&#xE254;</i></a> -->
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
                                                 data-target="#delete-per{{ $item->id }}"><i
                                                     class=" material-icons">&#xE872;</i></a>
@@ -274,7 +274,32 @@
         type: 'text',
         pk: 1,
         name: 'name',
-        title: 'Enter name'
+        title: 'Enter name',
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 
     $('.editable[data-name="semester"]').editable({
@@ -286,7 +311,32 @@
         source: [
             { value: '1', text: 'ganjil' },
             { value: '2', text: 'genap' }
-        ]
+        ],
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 
     $('.editable[data-name="status"]').editable({
@@ -298,7 +348,32 @@
         source: [
             { value: '1', text: 'active' },
             { value: '2', text: 'inactive' }
-        ]
+        ],
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 </script>
 

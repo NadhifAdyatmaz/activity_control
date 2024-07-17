@@ -8,6 +8,7 @@ use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JampelController;
 use App\Http\Controllers\JurnalController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\KepsekController;
 use App\Http\Controllers\MapelController;
 use App\Http\Controllers\MasterGuruController;
 use App\Http\Controllers\PDFController;
@@ -44,6 +45,21 @@ Route::get('/', function () {
 // });
 
 require __DIR__ . '/auth.php';
+
+Route::middleware(['auth', 'verified', 'role:kepsek'])->group(function () {
+  Route::get('/kepsek/dashboard', [KepsekController::class, 'kepsekDashboard'])->name('kepsek.dashboard');
+
+  Route::get('/kepsek/profile', [KepsekController::class, 'kepsekProfile'])->name('kepsek.profile');
+  Route::patch('/kepsek/profile', [KepsekController::class, 'updateProfile'])->name('kepsek.profile.update');
+
+  Route::get('/kepsek/jadwal', [KepsekController::class, 'jadwal'])->name('kepsek.jadwal');
+
+  Route::get('/kepsek/jurnal', [KepsekController::class, 'jurnal'])->name('kepsek.jurnal');
+
+  Route::get('/kepsek/jadwal/viewpdf', [PDFController::class, 'viewJadwaladm'])->name('kepsek.jadwal.viewpdf');
+  Route::get('/kepsek/jurnal/viewpdf', [PDFController::class, 'viewPdfadm'])->name('kepsek.jurnal.viewpdf');
+
+});
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
   Route::get('/admin/dashboard', [AdminController::class, 'AdminDashboard'])->name('admin.dashboard');
@@ -102,6 +118,8 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
   Route::post('/admin/master-kelas/edit', [KelasController::class, 'update'])->name('admin.masterdata.kelas.edit');
   Route::delete('/admin/master-kelas/{kelas}', [KelasController::class, 'destroy'])->name('admin.masterdata.kelas.delete');
 
+  Route::get('/admin/jadwal/viewpdf', [PDFController::class, 'viewJadwaladm'])->name('admin.jadwal.viewpdf');
+  
   Route::get('/admin/jurnal/viewpdf', [PDFController::class, 'viewPdfadm'])->name('admin.jurnal.viewpdf');
   Route::get('/admin/jurnal/exportpdf', [PDFController::class, 'exportPdfadm'])->name('admin.jurnal.exportpdf');
 
@@ -120,6 +138,9 @@ Route::middleware(['auth', 'verified', 'role:guru'])->group(function () {
   Route::get('/guru/jadwal', [GuruJadwalController::class, 'GuruJadwal'])->name('guru.jadwal');
   Route::post('/guru/jadwal/add', [GuruJadwalController::class, 'store'])->name('guru.jadwal.add');
   Route::post('/guru/jadwal/insert', [GuruJadwalController::class, 'insert'])->name('guru.jadwal.insert');
+
+  Route::get('/guru/jadwal/viewpdf', [PDFController::class, 'viewJadwalguru'])->name('guru.jadwal.viewpdf');
+  Route::get('/guru/jadwal/exportpdf', [PDFController::class, 'exporJadwalguru'])->name('guru.jadwal.exportpdf');
 
   Route::get('/guru/jurnal', [GuruJurnalController::class, 'Gurujurnal'])->name('guru.jurnal');
   // Route::post('/guru/jurnal', [GuruJurnalController::class, 'update'])->name('guru.jurnal.edit');

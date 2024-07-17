@@ -26,7 +26,7 @@ class JadwalController extends Controller
         $id = null;
         foreach ($periodes as $p) {
             $id = $p->id;
-        } 
+        }
         $jadwals = Jadwal::where('periode_id', $id)->get();
         // $jadwals = Jadwal::with('periodes','jampels', 'users', 'mapels', 'kelas')->get()->all();
         $jampels = Jampel::all();
@@ -143,11 +143,15 @@ class JadwalController extends Controller
                 'user_id' => $request->user_id ?? null
             ];
 
-            // Combine all field values into a single string for validation
-            $combinedValues = implode('', $fields);
-
-            // Check if a row with the same combined values exists in the database
-            $existingRow = Jadwal::whereRaw("CONCAT(hari, periode_id, kelas_id, jampel_id, mapel_id, user_id) = ?", [$combinedValues])->first();
+            // Check if a row with the same values exists in the database, excluding the current row being updated
+            $existingRow = Jadwal::where('hari', $fields['hari'])
+                ->where('periode_id', $fields['periode_id'])
+                ->where('kelas_id', $fields['kelas_id'])
+                ->where('jampel_id', $fields['jampel_id'])
+                ->where('mapel_id', $fields['mapel_id'])
+                ->where('user_id', $fields['user_id'])
+                ->where('id', '!=', $jadwal->id)
+                ->first();
 
             if ($existingRow) {
                 return response()->json(['error' => 'Data sudah ada dalam database.']);
@@ -161,6 +165,7 @@ class JadwalController extends Controller
             return response()->json(['success' => true]);
         }
     }
+
 
 
 

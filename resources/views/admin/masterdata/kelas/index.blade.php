@@ -272,7 +272,32 @@
         type: 'text',
         pk: 1,
         name: 'name',
-        title: 'Enter name'
+        title: 'Enter name',
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 
     $('.editable[data-name="jumlah_siswa"]').editable({
@@ -280,7 +305,32 @@
         type: 'text',
         pk: 1,
         name: 'jumlah_siswa',
-        title: 'Enter name'
+        title: 'Enter name',
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 
     $('.editable[data-name="status"]').editable({
@@ -292,7 +342,32 @@
         source: [
             { value: '1', text: 'active' },
             { value: '2', text: 'inactive' }
-        ]
+        ],
+        success: function (response, newValue) {
+            if (response.error) {
+                $.notify({
+                    icon: 'nc-icon nc-bell-55',
+                    message: response.error
+                }, {
+                    type: 'danger',
+                    timer: 3000
+                });
+                return false; // Mencegah pembaruan dilakukan
+            } else {
+                $.notify({
+                    icon: 'nc-icon nc-check-2',
+                    message: 'Data berhasil diupdate.'
+                }, {
+                    type: 'success',
+                    timer: 3000
+                });
+            }
+        },
+        validate: function (value) {
+            if ($.trim(value) == '') {
+                return 'Field tidak boleh kosong.';
+            }
+        }
     });
 </script>
 @endsection

@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function AdminDashboard(){
+    public function AdminDashboard()
+    {
         $periodes = Periode::where('status', 'active')->get();
         $selectperiode = $periodes->first();
         $id = null;
@@ -20,18 +21,32 @@ class AdminController extends Controller
         }
         $jadwal_count = Jadwal::where('periode_id', $id)->count();
         $jurnal_count = Jurnal::whereHas('jadwal', function ($query) use ($id) {
-            $query->where('periode_id', $id);})->count();
-        $guru_count = User::where('role','guru')->count();
+            $query->where('periode_id', $id);
+        })->whereNotNull('materi')
+            ->whereNotNull('sakit')
+            ->whereNotNull('izin')
+            ->whereNotNull('alpha')
+            ->whereNotNull('foto')
+            ->whereNotNull('is_validation')
+            ->whereNotNull('ttd')->count();
+        $guru_count = User::where('role', 'guru')->count();
         $approval = Jurnal::whereHas('jadwal', function ($query) use ($id) {
-            $query->where('periode_id', $id)->where('is_validation','invalid');
-        })->count();
+            $query->where('periode_id', $id)->where('is_validation', 'invalid');
+        })->whereNotNull('materi')
+            ->whereNotNull('sakit')
+            ->whereNotNull('izin')
+            ->whereNotNull('alpha')
+            ->whereNotNull('foto')
+            ->whereNotNull('is_validation')
+            ->whereNotNull('ttd')->count();
         $infos = Information::all();
 
-        return view('admin.index', compact('guru_count','jadwal_count','jurnal_count','approval','infos'));
+        return view('admin.index', compact('guru_count', 'jadwal_count', 'jurnal_count', 'approval', 'infos'));
 
     }
 
-    public function AdminProfile(){
+    public function AdminProfile()
+    {
 
         $infos = Information::all();
 

@@ -271,8 +271,8 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <a href="{{ route('guru.jurnal.viewpdf') }}" class="btn btn-primary" target="_blank">View PDF</a>
-                    <a href="{{ route('guru.jurnal.exportpdf') }}" class="btn btn-danger" target="_blank">export PDF</a>
+                    <a href="#" title="ViewPdf" data-toggle="modal" data-target="#view-pdf"
+                        class="btn btn-danger">Lihat / Unduh PDF</a>
                     <div class="table-responsive">
                         <table id="myDataTable" class="table table-striped table-hover table-bordered">
                             <thead>
@@ -288,7 +288,7 @@
                                     <th>Catatan</th>
                                     <th>Status</th>
                                     <th>TTD</th>
-                                    <th>Aksi</th>
+                                    <!-- <th>Aksi</th> -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -356,11 +356,11 @@
                                                         data-target="#foto{{$item->id}}"><i
                                                             class=" material-icons">add_a_photo</i></a>
 
-                                                @endif                                          
+                                                @endif  
                                             @else
-                                                    <img class="border-gray" width="100" height="50"
-                                                        src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
-                                                        alt="...">
+                                                <img class="border-gray" width="100" height="50"
+                                                    src="{{ $item->foto ? asset($item->foto) : asset('assets/img/noimg.png') }}"
+                                                    alt="...">
                                             @endif
 
                                         </td>
@@ -404,13 +404,13 @@
                                             @endif
 
                                         </td>
-                                        <td style="text-align: center;">
+                                        {{-- <td style="text-align: center;">
                                             <!-- <a href="#" class="view" title="View" data-toggle="modal"
-                                                                    data-target="#view-jur"><i class=" material-icons">&#xE417;</i></a> -->
+                                                                                    data-target="#view-jur"><i class=" material-icons">&#xE417;</i></a> -->
                                             <a href="#" class="delete" title="Delete" data-toggle="modal"
                                                 data-target="#delete-jur{{ $item->id }}"><i
                                                     class=" material-icons">&#xE872;</i></a>
-                                        </td>
+                                        </td> --}}
                                         @include('guru.jurnal.delete')
                                         @include('guru.jurnal.foto')
                                         @include('guru.jurnal.ttd')
@@ -426,6 +426,61 @@
     </div>
 </div>
 
+<div id="view-pdf" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Lihat PDF</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <form action="{{ route('guru.jurnal.viewpdf') }}" method="get" id="view-pdf-form">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="filter">Filter</label>
+                        <select id="filter" name="filter" class="form-control">
+                            <option value="today">Hari Ini</option>
+                            <option value="this_week">Minggu Ini</option>
+                            <option value="this_month">Bulan Ini</option>
+                            <option value="custom">Pilih Tanggal</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="custom-date-group" style="display: none;">
+                        <label for="start_date">Tanggal Mulai</label>
+                        <input type="date" id="start_date" name="start_date" class="form-control">
+                        <label for="end_date">Tanggal Selesai</label>
+                        <input type="date" id="end_date" name="end_date" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Batal">
+                    <button type="submit" name="action" value="view" class="btn btn-primary" id="view-pdf-btn">Lihat PDF</button>
+                    <button type="submit" name="action" value="download" class="btn btn-danger">Unduh PDF</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const filter = document.getElementById('filter');
+        const customDateGroup = document.getElementById('custom-date-group');
+        const viewPdfForm = document.getElementById('view-pdf-form');
+        const viewPdfBtn = document.getElementById('view-pdf-btn');
+
+        filter.addEventListener('change', function() {
+            if (this.value === 'custom') {
+                customDateGroup.style.display = 'block';
+            } else {
+                customDateGroup.style.display = 'none';
+            }
+        });
+
+        viewPdfBtn.addEventListener('click', function() {
+            viewPdfForm.setAttribute('target', '_blank');
+        });
+    });
+</script>
 
 <script>
     $(document).ready(function () {
@@ -463,6 +518,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -489,6 +545,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -516,6 +573,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -543,6 +601,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -570,6 +629,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -597,6 +657,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',

@@ -26,13 +26,25 @@ class GuruController extends Controller
         $jurnal_count = Jurnal::whereHas('jadwal', function($query) use ($user,$id) {
             $query->where('user_id', $user->id)
             ->where('periode_id', $id);
-        })->count();
+        })->whereNotNull('materi')
+        ->whereNotNull('sakit')
+        ->whereNotNull('izin')
+        ->whereNotNull('alpha')
+        ->whereNotNull('foto')
+        ->whereNotNull('is_validation')
+        ->whereNotNull('ttd')->count();
         $guru_count = User::where('role','guru')->count();
         $approval = Jurnal::whereHas('jadwal', function($query) use ($user,$id) {
             $query->where('user_id', $user->id)
             ->where('is_validation','invalid')
             ->where('periode_id', $id);
-        })->count();
+        })->whereNotNull('materi')
+        ->whereNotNull('sakit')
+        ->whereNotNull('izin')
+        ->whereNotNull('alpha')
+        ->whereNotNull('foto')
+        ->whereNotNull('is_validation')
+        ->whereNotNull('ttd')->count();
         $infos = Information::all();
 
         return view('guru.guru_dashboard',compact('guru_count','jadwal_count','jurnal_count','approval','infos'));

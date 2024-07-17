@@ -38,17 +38,33 @@ class GuruJadwalController extends Controller
         return view('guru.jadwal.guru_jadwal', compact('jadwals', 'periodes', 'selectperiode', 'jampels', 'mapels', 'kelas', 'users', 'infos'));
     }
 
-    function insert(Request $request)
+    public function insert(Request $request)
     {
         if ($request->ajax()) {
+            // Check if jadwal_id already exists in Jurnal
             $existingJurnal = Jurnal::where('jadwal_id', $request->jadwal_id)->first();
-
             if ($existingJurnal) {
                 return response()->json([
-                    'error' => 'Jadwal ID sudah ada dalam database.'
-                ], 422); 
+                    'error' => 'Jurnal sudah ditambahkan'
+                ], 422);
             }
-            
+
+            // Retrieve the Jadwal entry
+            $jadwal = Jadwal::find($request->jadwal_id);
+            if (!$jadwal) {
+                return response()->json([
+                    'error' => 'Jadwal tidak ditemukan.'
+                ], 404);
+            }
+
+            // Check if today matches the day in the jadwal
+            $today = Carbon::now()->locale('id_ID')->dayName; // Get the day name in Indonesian
+            if (strtolower($today) !== strtolower($jadwal->hari)) {
+                return response()->json([
+                    'error' => 'Anda tidak dapat menambahkan jurnal.'
+                ], 422);
+            }
+
             $info = Information::first();
             $pertemuan = $info->pertemuan;
 
@@ -70,7 +86,7 @@ class GuruJadwalController extends Controller
                     'catatan' => $request->catatan ?? null,
                     'is_validation' => $request->is_validation ?? null,
                     'updated_at' => now()
-                ];// Insert data ke database
+                ];
                 Jurnal::create($data);
             }
 
@@ -79,6 +95,7 @@ class GuruJadwalController extends Controller
             ]);
         }
     }
+
 
     public function store(Request $request)
     {
