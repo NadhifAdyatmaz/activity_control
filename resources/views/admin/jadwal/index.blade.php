@@ -286,8 +286,8 @@
                                         <th>Tahun Ajaran</th>
                                         <th>Hari</th>
                                         <th style="text-align: center;">Jam Ke</th>
-                                        <th>Guru</th>
                                         <th>Kelas</th>
+                                        <th>Guru</th>
                                         <th>Mapel</th>
                                         <th style="text-align: center">
                                             <!-- <a href="#" class="addRow">
@@ -329,18 +329,6 @@
                                                 </a>
                                             </td>
                                             <td>
-                                                <a class="editable" data-name="user_id" data-type="select"
-                                                    data-pk="{{ $item->id }}" data-title="Pilih Guru"
-                                                    data-source='[
-                                                                                                                                                @foreach ($users as $user)
-                                                                                                                                                    {"value": "{{ $user->id }}", "text": "{{ $user->name }}"}{{ !$loop->last ? ',' : '' }}
-
-                                                                                                                                                @endforeach
-                                                                                                                                                ]'>
-                                                    {{ $item->users->name ?? "pilih guru"}}
-                                                </a>
-                                            </td>
-                                            <td>
                                                 <a class="editable" data-name="kelas_id" data-type="select"
                                                 data-pk="{{ $item->id }}" data-title="Pilih Kelas"
                                                 data-source='[
@@ -350,6 +338,18 @@
                                                     @endforeach
                                                     ]'>
                                                     {{ $item->kelas->name ?? "pilih kelas"}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a class="editable" data-name="user_id" data-type="select"
+                                                    data-pk="{{ $item->id }}" data-title="Pilih Guru"
+                                                    data-source='[
+                                                                                                                                                @foreach ($users as $user)
+                                                                                                                                                    {"value": "{{ $user->id }}", "text": "{{ $user->name }}"}{{ !$loop->last ? ',' : '' }}
+
+                                                                                                                                                @endforeach
+                                                                                                                                                ]'>
+                                                    {{ $item->users->name ?? "pilih guru"}}
                                                 </a>
                                             </td>
                                             <td>
@@ -549,6 +549,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -582,6 +583,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -615,6 +617,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -648,6 +651,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',
@@ -681,6 +685,7 @@
                     type: 'danger',
                     timer: 3000
                 });
+                return false;
             } else {
                 $.notify({
                     icon: 'nc-icon nc-check-2',

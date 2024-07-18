@@ -250,10 +250,10 @@
                             <thead>
                                 <tr>
                                     <th>Tahun Ajaran</th>
-                                    <th>Guru</th>
                                     <th>Hari</th>
                                     <th style="text-align: center;">Jam Ke</th>
                                     <th>Kelas</th>
+                                    <th>Guru</th>
                                     <th>Mapel</th>
                                 </tr>
                             </thead>
@@ -263,10 +263,10 @@
                                         <td>{{ $item->periodes->name ?? "-"}}
                                             {{ $item->periodes->semester ?? "tidak ada data"}}
                                         </td>
-                                        <td>{{ $item->users->name ?? "tidak ada data"}}</td>
                                         <td>{{ $item->hari ?? "tidak ada data"}}</td>
                                         <td style="text-align: center;">{{ $item->jampels->jam_ke ?? "tidak ada data"}}</td>
                                         <td>{{ $item->kelas->name ?? "tidak ada data"}}</td>
+                                        <td>{{ $item->users->name ?? "tidak ada data"}}</td>
                                         <td>{{ $item->mapels->name ?? "tidak ada data"}}</td>
 
                                     </tr>

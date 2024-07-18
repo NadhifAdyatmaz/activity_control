@@ -133,38 +133,39 @@ class JadwalController extends Controller
     public function update(Request $request, Jadwal $jadwal)
     {
         if ($request->ajax()) {
-            // Collect all field values from request
-            $fields = [
-                'hari' => $request->hari ?? null,
-                'periode_id' => $request->periode_id ?? null,
-                'kelas_id' => $request->kelas_id ?? null,
-                'jampel_id' => $request->jampel_id ?? null,
-                'mapel_id' => $request->mapel_id ?? null,
-                'user_id' => $request->user_id ?? null
-            ];
-
-            // Check if a row with the same values exists in the database, excluding the current row being updated
-            $existingRow = Jadwal::where('hari', $fields['hari'])
-                ->where('periode_id', $fields['periode_id'])
-                ->where('kelas_id', $fields['kelas_id'])
-                ->where('jampel_id', $fields['jampel_id'])
-                ->where('mapel_id', $fields['mapel_id'])
-                ->where('user_id', $fields['user_id'])
-                ->where('id', '!=', $jadwal->id)
-                ->first();
-
-            if ($existingRow) {
-                return response()->json(['error' => 'Data sudah ada dalam database.']);
-            }
-
-            // Update data in the database
+            // Ensure the value is not null or empty
             $field = $request->name;
             $value = $request->value;
 
-            $jadwal->find($request->pk)->update([$field => $value]);
+            if ($value === null || $value === '') {
+                return response()->json(['success' => false, 'error' => 'Field tidak boleh kosong.']);
+            }
+
+            // Fetch the current row being updated
+            $currentJadwal = $jadwal->find($request->pk);
+
+            // Temporarily update the field with the new value
+            $currentJadwal->$field = $value;
+
+            // Check if the combination already exists
+            $existingJadwal = Jadwal::where('periode_id', $currentJadwal->periode_id)
+                ->where('hari', $currentJadwal->hari)
+                ->where('jampel_id', $currentJadwal->jampel_id)
+                ->where('kelas_id', $currentJadwal->kelas_id)
+                ->where('id', '!=', $currentJadwal->id) // Exclude the current row
+                ->first();
+
+            if ($existingJadwal) {
+                return response()->json(['success' => false, 'error' => 'Jadwal sudah tersedia']);
+            }
+
+            // Update the actual field in the database
+            $currentJadwal->update([$field => $value]);
+
             return response()->json(['success' => true]);
         }
     }
+
 
 
 
