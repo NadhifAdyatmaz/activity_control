@@ -43,7 +43,17 @@
         font-size: 13px
     }
 
-    .text-truncate {
+    .text-truncate-name {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 200px;
+        /* Adjust the max-width as per your requirement */
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .text-truncate-email {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -86,32 +96,80 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row mb-0">
+                    <!-- <div class="row mb-0">
                         <div class="col-sm-12 text-center">
-                            <h2><b>Master -</b> Guru</h2>
+                            <h2><b>Daftar -</b> User</h2>
+                        </div>
+                    </div> -->
+                    <div class="row mb-0 text-center">
+                        <div class="col-sm-2">
+                            <a href="#add-guru" class="btn btn-secondary" data-toggle="modal"><i
+                                    class="bi bi-plus"></i><span>Tambah Data</span></a>
+                        </div>
+                        <div class="col-sm-0">
+                            <a href="#import-guru" class="btn btn-success" data-toggle="modal"><i
+                                    class="bi bi-plus"></i><span>Import Data</span></a>
                         </div>
                     </div>
                 </div>
-                <div class="container mt-5 mb-5">
+                <hr>
+                <div class="container mt-1 mb-1">
+                    <div class="row mb-0 justify-content-center">
+                        <div class="col-sm-12 text-center">
+                            <h2>Kepala Sekolah</h2>
+                        </div>
+                    </div>
+                    <div class="row g-2 justify-content-center">
+                        @foreach($gurus as $guru)
+                            @if ($guru->role == 'kepsek')
+                                <div class="col-md-3">
+                                    <div class="card p-3 mb-4 text-center">
+                                        <div class="img mb-2">
+                                            <img src="{{ $guru->photo ? asset($guru->photo) : asset('assets/img/default-avatar.png') }}"
+                                                width="70" class="rounded-circle">
+                                        </div>
+                                        <h5 class="text-truncate-name">{{ $guru->name }}</h5>
+                                        <p class="text-muted">{{ $guru->jabatan ?? "Guru" }}</p>
+                                        <div class="mt-4 apointment">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#detail-guru{{ $guru->id }}">Detail</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
+                <hr>
+                <div class="container mt-1 mb-5">
+                    <div class="row mb-0">
+                        <div class="col-sm-12 text-center">
+                            <h2>Guru</h2>
+                        </div>
+                    </div>
                     <div class="row g-2">
                         @foreach($gurus as $guru)
-                            <div class="col-md-3">
-                                <div class="card p-3 mb-4 text-center">
-                                    <div class="img mb-2">
-                                        <img src="{{ $guru->photo ? asset($guru->photo) : asset('assets/img/default-avatar.png') }}"
-                                            width="70" class="rounded-circle">
+                            @if ($guru->role == 'guru')
+                                <div class="col-md-3">
+                                    <div class="card p-3 mb-4 text-center">
+                                        <div class="img mb-2">
+                                            <img src="{{ $guru->photo ? asset($guru->photo) : asset('assets/img/default-avatar.png') }}"
+                                                width="70" class="rounded-circle">
+                                        </div>
+                                        <h5 class="text-truncate-name">{{ $guru->name }}</h5>
+                                        <!-- <p class="text-muted">{{ $guru->username ?? "username"}} <span>| </span><span><a
+                                                            class="text-pink text-truncate-email">{{ $guru->email }}</a></span></p> -->
+                                        <p class="text-muted">{{ $guru->jabatan ?? "Guru"}}</p>
+                                        <div class="mt-4 apointment">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                data-target="#detail-guru{{ $guru->id }}">Detail</button>
+                                        </div>
+                                        @include('admin.masterdata.guru.detailguru')
+                                        @include('admin.masterdata.guru.add')
+                                        @include('admin.masterdata.guru.import')
                                     </div>
-                                    <h5>{{ $guru->name }}</h5>
-                                    <p class="text-muted">{{ $guru->username ?? "username"}} <span>| </span><span><a
-                                                class="text-pink text-truncate">{{ $guru->email }}</a></span></p>
-                                    <!-- <p class="jabatan bg-yellow-300">{{ $guru->jabatan }}</p> -->
-                                    <div class="mt-4 apointment">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            data-target="#detail-guru{{ $guru->id }}">Detail</button>
-                                    </div>
-                                    @include('admin.masterdata.guru.detailguru')
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>

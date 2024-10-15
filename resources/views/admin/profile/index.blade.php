@@ -41,12 +41,13 @@
               <!-- Profile Update Fields -->
               <div class="row justify-content-center mt-3">
                 <div class="col-md-6">
-                  @foreach ($infos as $item )
-                  <div class="form-group">
-                    <label>Sekolah (disabled)</label>
-                    <input type="text" class="form-control" disabled placeholder="Sekolah" value="{{$item->sekolah ?? "Nama Sekolah"}}">
-                  </div>
-                  @endforeach
+                  @foreach ($infos as $item)
+            <div class="form-group">
+            <label>Sekolah (disabled)</label>
+            <input type="text" class="form-control" disabled placeholder="Sekolah"
+              value="{{$item->sekolah ?? "Nama Sekolah"}}">
+            </div>
+          @endforeach
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
@@ -55,9 +56,9 @@
                       :value="old('email', Auth::user()->email)" placeholder="Email" required autocomplete="username" />
                     <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     @if (
-                        Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&
-                        !Auth::user()->hasVerifiedEmail()
-                      )
+              Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail &&
+              !Auth::user()->hasVerifiedEmail()
+            )
                       <div>
                         <p class="text-sm mt-2 text-gray-800">
                         {{ __('Email anda belum terverifikasi') }}
@@ -67,12 +68,12 @@
                         </button>
                         </p>
                         @if (session('status') === 'verification-link-sent')
-                          <p class="mt-2 font-medium text-sm text-green-600">
-                          {{ __('A new verification link has been sent to your email address.') }}
-                          </p>
-                        @endif
-                                  </div>
-                      @endif
+              <p class="mt-2 font-medium text-sm text-green-600">
+              {{ __('A new verification link has been sent to your email address.') }}
+              </p>
+            @endif
+                      </div>
+          @endif
                   </div>
                 </div>
               </div>
@@ -82,7 +83,7 @@
                   <div class="form-group">
                     <label for="username">{{ __('Username') }}</label>
                     <x-text-input id="username" name="username" type="text" class="mt-1 block w-full form-control"
-                       :value="old('username', Auth::user()->username)" placeholder="Username" required />
+                      :value="old('username', Auth::user()->username)" placeholder="Username" required />
                     <x-input-error class="mt-2" :messages="$errors->get('username')" />
                   </div>
                 </div>
@@ -90,7 +91,8 @@
                   <div class="form-group">
                     <label for="name">{{ __('Name') }}</label>
                     <x-text-input id="name" name="name" type="text" class="mt-1 block w-full form-control"
-                      :value="old('name', Auth::user()->name)" placeholder="Nama" required autofocus autocomplete="name" />
+                      :value="old('name', Auth::user()->name)" placeholder="Nama" required autofocus
+                      autocomplete="name" />
                     <x-input-error class="mt-2" :messages="$errors->get('name')" />
                   </div>
                 </div>
@@ -114,17 +116,62 @@
                   </div>
                 </div>
               </div>
-
               <div class="card-footer">
-                <div class="row">
-                  <div class="update ml-auto mr-auto">
-                    <x-primary-button class="btn btn-primary btn-round">{{ __('Update Profile') }}</x-primary-button>
-                  </div>
+                <div class="d-flex justify-content-center">
+                  <x-primary-button class="btn btn-primary btn-round">{{ __('Update Profile') }}</x-primary-button>
                 </div>
               </div>
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card card-user">
+        <div class="card-header" style="margin-bottom: 20px;">
+          <h5 class="title">{{ __('Ubah Password') }}</h5>
+        </div>
+        <div class="card-body">
+          <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
+            @csrf
+            @method('put')
+
+            <div class="form-group">
+              <x-input-label for="update_password_current_password" :value="__('Current Password')" />
+              <x-text-input id="update_password_current_password" name="current_password" type="password"
+                class="form-control mt-1 block w-full" autocomplete="current-password" />
+              <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+            </div>
+
+            <div class="form-group">
+              <x-input-label for="update_password_password" :value="__('New Password')" />
+              <x-text-input id="update_password_password" name="password" type="password"
+                class="form-control mt-1 block w-full" autocomplete="new-password" />
+              <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+            </div>
+
+            <div class="form-group">
+              <x-input-label for="update_password_password_confirmation" :value="__('Confirm Password')" />
+              <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password"
+                class="form-control mt-1 block w-full" autocomplete="new-password" />
+              <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+            </div>
+
+            <div class="card-footer">
+              <div class="d-flex justify-content-end">
+                <x-primary-button class="btn btn-primary btn-round">{{ __('Save') }}</x-primary-button>
+
+                <!-- @if (session('status') === 'password-updated')
+          <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
+            class="text-sm text-gray-600">{{ __('Saved.') }}</p>
+        @endif -->
+              </div>
+            </div>
+          </form>
+        </div>
+
       </div>
     </div>
   </div>
@@ -172,6 +219,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // Notifikasi untuk update profil
     @if (session('status') === 'profile-updated')
     $.notify({
       icon: 'nc-icon nc-check-2',
@@ -180,15 +228,35 @@
       type: 'success',
       timer: 3000
     });
-  @elseif (session('status') === 'profile-update-failed')
-  $.notify({
-    icon: 'nc-icon nc-check-2',
-    message: 'Data gagal diupdate.'
-  }, {
-    type: 'success',
-    timer: 3000
-  });
-@endif
+    @elseif (session('status') === 'profile-update-failed')
+    $.notify({
+      icon: 'nc-icon nc-simple-remove',
+      message: 'Data gagal diupdate.'
+    }, {
+      type: 'danger',
+      timer: 3000
+    });
+    @endif
+
+    // Notifikasi untuk update password
+    @if (session('status') === 'password-updated')
+    $.notify({
+      icon: 'nc-icon nc-check-2',
+      message: 'Password berhasil diubah.'
+    }, {
+      type: 'success',
+      timer: 3000
+    });
+    @elseif (session('status') === 'password-update-failed')
+    $.notify({
+      icon: 'nc-icon nc-simple-remove',
+      message: 'Password gagal diubah. Periksa input Anda.'
+    }, {
+      type: 'danger',
+      timer: 3000
+    });
+    @endif
   });
 </script>
+
 @endsection

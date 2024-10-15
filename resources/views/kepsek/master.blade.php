@@ -92,7 +92,7 @@
               <span class="copyright">
                 ©
                 <script>document.write(new Date().getFullYear())</script>, made with <i class="fa fa-heart heart"></i>
-                by Nadhif Adyatmaz - Supported by Politeknik Negeri Malang
+                by Nadhif Adyatmaz & Abd. Ghafur - Supported by Politeknik Negeri Malang
               </span>
             </div>
           </div>
